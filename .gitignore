@@ -1,0 +1,51 @@
+# Environment variables (MUST be ignored to keep secrets safe!)
+.env
+.env.local
+.env.*.local
+
+# Local SQLite databases (contain developer or test data)
+db.sqlite3
+*.sqlite3
+
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+*.egg-info/
+.eggs/
+.pytest_cache/
+
+# Frontend builds and dependencies
+node_modules/
+dist/
+dist-ssr/
+build/
+.eslintcache
+.parcel-cache
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Static & Media uploads (should be managed by volume mounts / S3)
+backend/staticfiles/
+backend/media/
+
+# System / Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.log

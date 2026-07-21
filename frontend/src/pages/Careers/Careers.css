@@ -1,0 +1,111 @@
+.culture-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) { .culture-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .culture-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.culture-card {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.culture-card__icon { font-size: 1.75rem; }
+.culture-card__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gray-100);
+}
+.culture-card__desc {
+  font-size: 0.875rem;
+  color: var(--gray-400);
+  line-height: 1.65;
+}
+
+.careers-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.careers-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.careers-filter {
+  padding: 0.375rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--gray-400);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+.careers-filter:hover { color: var(--yellow-500); border-color: rgba(255,199,44,0.3); }
+.careers-filter--active {
+  background: rgba(255,199,44,0.12);
+  color: var(--yellow-500);
+  border-color: rgba(255,199,44,0.3);
+}
+
+.openings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.job-card { padding: 1.5rem; }
+
+.job-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.job-card__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--gray-100);
+  margin-bottom: 0.75rem;
+}
+
+.job-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  align-items: center;
+}
+
+.job-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8125rem;
+  color: var(--gray-400);
+}
+
+.job-card__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.job-card__posted {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}

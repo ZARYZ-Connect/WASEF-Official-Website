@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WASEF — Cosmic Mandala</title>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .mandala-wrap {
+    position: relative;
+    width: min(520px, 96vw);
+    aspect-ratio: 1 / 1.05;
+  }
+
+  /* Base logo image */
+  .logo-base {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+  }
+
+  /* Per-element spinning canvas overlay */
+  .el-canvas {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 5;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    transform-origin: center center;
+  }
+
+  /* Each medallion rotates at its own speed */
+  #c-akash   {
+    left: 50%; top: 10%;
+    translate: -50% -50%;
+    animation: spin-cw 12s linear infinite;
+  }
+  #c-vayu    {
+    left: 13%; top: 36%;
+    translate: -50% -50%;
+    animation: spin-ccw 9s linear infinite;
+  }
+  #c-agni    {
+    left: 87%; top: 36%;
+    translate: -50% -50%;
+    animation: spin-cw 7s linear infinite;
+  }
+  #c-jal     {
+    left: 13%; top: 63%;
+    translate: -50% -50%;
+    animation: spin-ccw 11s linear infinite;
+  }
+  #c-prithvi {
+    left: 87%; top: 63%;
+    translate: -50% -50%;
+    animation: spin-cw 14s linear infinite;
+  }
+
+  @keyframes spin-cw  { from { rotate: 0deg; }   to { rotate: 360deg; } }
+  @keyframes spin-ccw { from { rotate: 0deg; }   to { rotate: -360deg; } }
+
+  /* Spinning ring borders */
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 6;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    border: 2px solid transparent;
+  }
+  .ring-cw  { animation: spin-cw  3s linear infinite; }
+  .ring-ccw { animation: spin-ccw 2s linear infinite; }
+  @keyframes spin-cw  { to { transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes spin-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+
+  /* Glow behind each medallion */
+  .medallion-glow {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: med-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes med-pulse {
+    0%,100% { opacity:0.25; transform:translate(-50%,-50%) scale(1); }
+    50%      { opacity:0.7;  transform:translate(-50%,-50%) scale(1.18); }
+  }
+
+  /* Globe expanding rings */
+  .globe-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.2);
+    top: 48%; left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 3;
+    pointer-events: none;
+    animation: globe-expand 4s ease-out infinite;
+  }
+  .globe-ring:nth-child(2) { animation-delay: 1.3s; }
+  .globe-ring:nth-child(3) { animation-delay: 2.6s; }
+  @keyframes globe-expand {
+    0%   { width:22%; height:22%; opacity:0.6; }
+    100% { width:80%; height:80%; opacity:0; }
+  }
+
+  /* Particle canvas */
+  #overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 7;
+    pointer-events: none;
+  }
+
+  /* Text sheen */
+  .text-sheen {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 22%;
+    z-index: 8;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .text-sheen::after {
+    content:'';
+    position: absolute;
+    top:0; left:-100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent 0%,
+      rgba(255,215,0,0.18) 40%, rgba(255,255,255,0.28) 50%,
+      rgba(255,215,0,0.18) 60%, transparent 100%);
+    animation: sheen-sweep 4s ease-in-out 1s infinite;
+    transform: skewX(-15deg);
+  }
+  @keyframes sheen-sweep {
+    0%  { left:-100%; opacity:0; }
+    10% { opacity:1; }
+    60% { left:140%; }
+    100%{ left:140%; opacity:0; }
+  }
+
+  /* Outer ambient glow */
+  .outer-glow {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(212,175,55,0.07) 0%, transparent 70%);
+    z-index: 0;
+    animation: outer-pulse 5s ease-in-out infinite;
+  }
+  @keyframes outer-pulse {
+    0%,100% { opacity:0.5; }
+    50%     { opacity:1; }
+  }
+
+  .no-img-notice {
+    position:absolute; inset:0; z-index:20;
+    display:none; align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.88); color:#D4AF37;
+    font-family:Georgia,serif; font-size:1rem;
+    text-align:center; padding:2rem; border-radius: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="mandala-wrap" id="wrap">
+
+  <div class="outer-glow"></div>
+  <div class="globe-ring"></div>
+  <div class="globe-ring"></div>
+  <div class="globe-ring"></div>
+
+  <!-- BASE IMAGE -->
+  <img class="logo-base" id="logoImg" src="/wasef-logo.png" alt="WASEF"
+    onerror="document.getElementById('noImg').style.display='flex'"/>
+
+  <!-- MEDALLION GLOWS (z-index 1, below image) -->
+  <div class="medallion-glow" id="g-akash"
+    style="left:50%;top:10%;width:19%;height:18%;background:radial-gradient(circle,rgba(80,120,255,0.5) 0%,transparent 70%);animation-delay:0s"></div>
+  <div class="medallion-glow" id="g-vayu"
+    style="left:13%;top:36%;width:19%;height:18%;background:radial-gradient(circle,rgba(100,220,100,0.45) 0%,transparent 70%);animation-delay:-0.5s"></div>
+  <div class="medallion-glow" id="g-agni"
+    style="left:87%;top:36%;width:19%;height:18%;background:radial-gradient(circle,rgba(255,100,10,0.55) 0%,transparent 70%);animation-delay:-1s"></div>
+  <div class="medallion-glow" id="g-jal"
+    style="left:13%;top:63%;width:19%;height:18%;background:radial-gradient(circle,rgba(20,100,255,0.5) 0%,transparent 70%);animation-delay:-1.5s"></div>
+  <div class="medallion-glow" id="g-prithvi"
+    style="left:87%;top:63%;width:19%;height:18%;background:radial-gradient(circle,rgba(60,180,40,0.45) 0%,transparent 70%);animation-delay:-2s"></div>
+
+  <!-- ELEMENT CANVASES (z-index 5, above image, mix-blend-mode: screen) -->
+  <canvas class="el-canvas" id="c-akash"></canvas>
+  <canvas class="el-canvas" id="c-vayu"></canvas>
+  <canvas class="el-canvas" id="c-agni"></canvas>
+  <canvas class="el-canvas" id="c-jal"></canvas>
+  <canvas class="el-canvas" id="c-prithvi"></canvas>
+
+  <!-- SPINNING RINGS (z-index 6, above element canvases) -->
+  <!-- AKASH -->
+  <div class="ring ring-cw"  style="left:50%;top:10%;width:19%;height:18%;border-top-color:rgba(100,150,255,0.9);border-right-color:rgba(100,150,255,0.3);animation-delay:0s"></div>
+  <div class="ring ring-ccw" style="left:50%;top:10%;width:14%;height:13%;border-bottom-color:rgba(180,200,255,0.7);border-left-color:rgba(180,200,255,0.2);animation-delay:0s"></div>
+  <!-- VAYU -->
+  <div class="ring ring-cw"  style="left:13%;top:36%;width:19%;height:18%;border-top-color:rgba(100,220,100,0.9);border-right-color:rgba(100,220,100,0.3);animation-delay:-0.6s"></div>
+  <div class="ring ring-ccw" style="left:13%;top:36%;width:14%;height:13%;border-bottom-color:rgba(180,255,180,0.7);border-left-color:rgba(180,255,180,0.2);animation-delay:-0.6s"></div>
+  <!-- AGNI -->
+  <div class="ring ring-cw"  style="left:87%;top:36%;width:19%;height:18%;border-top-color:rgba(255,120,20,0.9);border-right-color:rgba(255,120,20,0.3);animation-delay:-1.2s"></div>
+  <div class="ring ring-ccw" style="left:87%;top:36%;width:14%;height:13%;border-bottom-color:rgba(255,200,50,0.7);border-left-color:rgba(255,200,50,0.2);animation-delay:-1.2s"></div>
+  <!-- JAL -->
+  <div class="ring ring-cw"  style="left:13%;top:63%;width:19%;height:18%;border-top-color:rgba(30,120,255,0.9);border-right-color:rgba(30,120,255,0.3);animation-delay:-1.8s"></div>
+  <div class="ring ring-ccw" style="left:13%;top:63%;width:14%;height:13%;border-bottom-color:rgba(100,200,255,0.7);border-left-color:rgba(100,200,255,0.2);animation-delay:-1.8s"></div>
+  <!-- PRITHVI -->
+  <div class="ring ring-cw"  style="left:87%;top:63%;width:19%;height:18%;border-top-color:rgba(60,200,40,0.9);border-right-color:rgba(60,200,40,0.3);animation-delay:-2.4s"></div>
+  <div class="ring ring-ccw" style="left:87%;top:63%;width:14%;height:13%;border-bottom-color:rgba(150,255,100,0.7);border-left-color:rgba(150,255,100,0.2);animation-delay:-2.4s"></div>
+
+  <!-- PARTICLE + ORBIT canvas -->
+  <canvas id="overlay"></canvas>
+
+  <!-- TEXT SHEEN -->
+  <div class="text-sheen"></div>
+
+  <!-- NO IMAGE FALLBACK -->
+  <div class="no-img-notice" id="noImg">
+    <div>
+      <p style="font-size:2rem;margin-bottom:1rem">⚠️</p>
+      <p>Save your WASEF logo image as<br/><strong>/public/wasef-logo.png</strong><br/>then rebuild.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const wrap = document.getElementById('wrap');
+
+// ── Resize element canvases to match medallion size ───────────────
+const EL_CONFIGS = [
+  { id:'c-akash',   type:'space', lx:0.50, ly:0.10 },
+  { id:'c-vayu',    type:'air',   lx:0.13, ly:0.36 },
+  { id:'c-agni',    type:'fire',  lx:0.87, ly:0.36 },
+  { id:'c-jal',     type:'water', lx:0.13, ly:0.63 },
+  { id:'c-prithvi', type:'earth', lx:0.87, ly:0.63 },
+];
+
+const elCtxs = {};
+const elState = {};
+
+function sizeElCanvases() {
+  const W = wrap.offsetWidth;
+  const medallionPx = Math.round(W * 0.16); // approx diameter
+  EL_CONFIGS.forEach(cfg => {
+    const c = document.getElementById(cfg.id);
+    c.width  = medallionPx;
+    c.height = medallionPx;
+    c.style.width  = medallionPx + 'px';
+    c.style.height = medallionPx + 'px';
+    elCtxs[cfg.type] = c.getContext('2d');
+    if (!elState[cfg.type]) elState[cfg.type] = { t: Math.random()*100 };
+  });
+}
+sizeElCanvases();
+window.addEventListener('resize', sizeElCanvases);
+
+// ── Element draw functions ────────────────────────────────────────
+const TAU = Math.PI * 2;
+
+function drawSpace(ctx, s, sz) {
+  const c = sz/2;
+  s.t += 0.008;
+  ctx.clearRect(0,0,sz,sz);
+  // Clip to circle
+  ctx.save();
+  ctx.beginPath(); ctx.arc(c,c,c-1,0,TAU); ctx.clip();
+  // Dark bg
+  const bg = ctx.createRadialGradient(c,c,0,c,c,c);
+  bg.addColorStop(0,'rgba(10,5,30,0.85)'); bg.addColorStop(1,'rgba(0,0,10,0.9)');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,sz,sz);
+  // Spiral stars
+  for (let i=0;i<200;i++){
+    const angle = i*0.16 + s.t;
+    const dist  = i*0.22;
+    const x=c+Math.cos(angle)*dist, y=c+Math.sin(angle)*dist*0.55;
+    if(x<0||x>sz||y<0||y>sz) continue;
+    const br=1-i/200;
+    ctx.beginPath(); ctx.arc(x,y,br*1.5+0.3,0,TAU);
+    ctx.fillStyle=`rgba(${150+Math.floor(br*105)},${100+Math.floor(br*80)},255,${br*0.85})`;
+    ctx.fill();
+  }
+  // Gold core
+  const gc=ctx.createRadialGradient(c,c,0,c,c,sz*0.18);
+  gc.addColorStop(0,'rgba(212,175,55,0.9)'); gc.addColorStop(1,'rgba(212,175,55,0)');
+  ctx.fillStyle=gc; ctx.beginPath(); ctx.arc(c,c,sz*0.18,0,TAU); ctx.fill();
+  ctx.restore();
+}
+
+function drawAir(ctx, s, sz) {
+  const c=sz/2; s.t+=0.014;
+  ctx.clearRect(0,0,sz,sz);
+  ctx.save(); ctx.beginPath(); ctx.arc(c,c,c-1,0,TAU); ctx.clip();
+  const bg=ctx.createRadialGradient(c,c,0,c,c,c);
+  bg.addColorStop(0,'rgba(5,20,5,0.8)'); bg.addColorStop(1,'rgba(0,5,0,0.9)');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,sz,sz);
+  // Swirling vortex
+  for(let i=0;i<10;i++){
+    const angle=(i/10)*TAU + s.t*(1-i*0.03);
+    const r=sz*0.08+i*sz*0.04;
+    const x=c+Math.cos(angle)*r, y=c+Math.sin(angle)*r*0.7;
+    const g=ctx.createRadialGradient(x,y,0,x,y,sz*0.12);
+    g.addColorStop(0,`rgba(120,220,80,${0.5-i*0.03})`);
+    g.addColorStop(1,'rgba(120,220,80,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,sz*0.12,0,TAU); ctx.fill();
+  }
+  // Rotating radial lines
+  ctx.save(); ctx.translate(c,c); ctx.rotate(s.t*0.5);
+  for(let i=0;i<8;i++){
+    ctx.rotate(TAU/8);
+    ctx.strokeStyle=`rgba(180,255,150,0.08)`;
+    ctx.lineWidth=1; ctx.beginPath();
+    ctx.moveTo(0,0); ctx.lineTo(0,c*0.9); ctx.stroke();
+  }
+  ctx.restore();
+  ctx.restore();
+}
+
+function drawFire(ctx, s, sz) {
+  const c=sz/2; s.t+=0.025;
+  ctx.clearRect(0,0,sz,sz);
+  ctx.save(); ctx.beginPath(); ctx.arc(c,c,c-1,0,TAU); ctx.clip();
+  const bg=ctx.createRadialGradient(c,c,0,c,c,c);
+  bg.addColorStop(0,'rgba(30,5,0,0.85)'); bg.addColorStop(1,'rgba(5,0,0,0.95)');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,sz,sz);
+  // Flame particles rising
+  for(let i=0;i<25;i++){
+    const prog=((s.t*0.9+i*0.4)%1);
+    const x=c+Math.sin(i*1.9+s.t)*sz*0.22*prog;
+    const y=c+sz*0.25 - prog*sz*0.6;
+    const r=(1-prog)*sz*0.1+1;
+    const g=ctx.createRadialGradient(x,y,0,x,y,r);
+    const heat=Math.floor(200-prog*180);
+    g.addColorStop(0,`rgba(255,${heat},0,${1-prog})`);
+    g.addColorStop(1,'rgba(200,30,0,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,TAU); ctx.fill();
+  }
+  // Core ember
+  const fc=ctx.createRadialGradient(c,c+sz*0.15,0,c,c+sz*0.15,sz*0.2);
+  fc.addColorStop(0,'rgba(255,220,30,0.9)'); fc.addColorStop(1,'rgba(255,80,0,0)');
+  ctx.fillStyle=fc; ctx.beginPath(); ctx.arc(c,c+sz*0.15,sz*0.2,0,TAU); ctx.fill();
+  ctx.restore();
+}
+
+function drawWater(ctx, s, sz) {
+  const c=sz/2; s.t+=0.018;
+  ctx.clearRect(0,0,sz,sz);
+  ctx.save(); ctx.beginPath(); ctx.arc(c,c,c-1,0,TAU); ctx.clip();
+  const bg=ctx.createRadialGradient(c,c,0,c,c,c);
+  bg.addColorStop(0,'rgba(0,15,40,0.85)'); bg.addColorStop(1,'rgba(0,3,15,0.95)');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,sz,sz);
+  // Wave layers
+  for(let w=0;w<6;w++){
+    ctx.beginPath();
+    const yBase=sz*(0.25+w*0.12);
+    for(let x=0;x<=sz;x+=2){
+      const y=yBase+Math.sin((x/sz)*Math.PI*3+s.t+w*0.9)*sz*0.07;
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.lineTo(sz,sz); ctx.lineTo(0,sz); ctx.closePath();
+    ctx.fillStyle=`rgba(20,80,200,${0.15-w*0.015})`;
+    ctx.fill();
+    ctx.beginPath();
+    for(let x=0;x<=sz;x+=2){
+      const y=yBase+Math.sin((x/sz)*Math.PI*3+s.t+w*0.9)*sz*0.07;
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle=`rgba(80,160,255,${0.5-w*0.06})`; ctx.lineWidth=1.2; ctx.stroke();
+  }
+  // Shimmer
+  const sc=ctx.createRadialGradient(c,c*0.6,0,c,c*0.6,sz*0.4);
+  sc.addColorStop(0,'rgba(150,220,255,0.12)'); sc.addColorStop(1,'rgba(0,50,150,0)');
+  ctx.fillStyle=sc; ctx.fillRect(0,0,sz,sz);
+  ctx.restore();
+}
+
+function drawEarth(ctx, s, sz) {
+  const c=sz/2; s.t+=0.01;
+  ctx.clearRect(0,0,sz,sz);
+  ctx.save(); ctx.beginPath(); ctx.arc(c,c,c-1,0,TAU); ctx.clip();
+  const bg=ctx.createRadialGradient(c,c,0,c,c,c);
+  bg.addColorStop(0,'rgba(5,20,0,0.85)'); bg.addColorStop(1,'rgba(0,5,0,0.95)');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,sz,sz);
+  // Spinning earth rings
+  ctx.save(); ctx.translate(c,c); ctx.rotate(s.t*0.3);
+  for(let r=1;r<=4;r++){
+    ctx.beginPath(); ctx.arc(0,0,sz*r*0.15,0,TAU);
+    ctx.strokeStyle=`rgba(60,${140+r*15},30,${0.3-r*0.04})`; ctx.lineWidth=1; ctx.stroke();
+  }
+  ctx.restore();
+  // Tree trunk
+  ctx.fillStyle='rgba(120,70,20,0.7)';
+  ctx.fillRect(c-2,c-sz*0.05,4,sz*0.3);
+  // Leaf clusters rotating
+  for(let b=0;b<14;b++){
+    const ang=(b/14)*TAU+s.t*0.4;
+    const r=sz*0.12+b*sz*0.015;
+    const x=c+Math.cos(ang)*r*0.9, y=(c-sz*0.05)+Math.sin(ang)*r*0.6;
+    ctx.beginPath(); ctx.arc(x,y,sz*0.055,0,TAU);
+    ctx.fillStyle=`rgba(40,${130+b*5},20,0.65)`; ctx.fill();
+  }
+  // Ground glow
+  const gc=ctx.createLinearGradient(0,c+sz*0.15,0,sz);
+  gc.addColorStop(0,'rgba(60,40,5,0.3)'); gc.addColorStop(1,'rgba(20,10,0,0)');
+  ctx.fillStyle=gc; ctx.fillRect(0,c+sz*0.15,sz,sz);
+  ctx.restore();
+}
+
+const DRAW_FNS = { space:drawSpace, air:drawAir, fire:drawFire, water:drawWater, earth:drawEarth };
+
+// ── Particle overlay canvas ───────────────────────────────────────
+const overlay = document.getElementById('overlay');
+const octx    = overlay.getContext('2d');
+
+function resizeOverlay() {
+  overlay.width  = wrap.offsetWidth;
+  overlay.height = wrap.offsetHeight;
+}
+resizeOverlay();
+window.addEventListener('resize', () => { resizeOverlay(); sizeElCanvases(); });
+
+const medallions=[
+  {fx:0.50,fy:0.10},{fx:0.13,fy:0.36},{fx:0.87,fy:0.36},
+  {fx:0.13,fy:0.63},{fx:0.87,fy:0.63},{fx:0.50,fy:0.47},
+];
+const particles=[];
+for(let i=0;i<80;i++){
+  const m=medallions[Math.floor(Math.random()*medallions.length)];
+  const ang=Math.random()*TAU, sp=Math.random()*0.4+0.1;
+  particles.push({fx:m.fx,fy:m.fy,x:0,y:0,vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp,
+    life:Math.random(),maxLife:Math.random()*0.6+0.4,size:Math.random()*2.5+0.5,gold:Math.random()<0.7});
+}
+particles.forEach(p=>{ p.x=p.fx*wrap.offsetWidth+(Math.random()-.5)*30; p.y=p.fy*wrap.offsetHeight+(Math.random()-.5)*30; });
+
+let orbitAngle=0;
+
+// ── Main animation loop ───────────────────────────────────────────
+function loop(){
+  // Draw each element canvas
+  const sz = Math.round(wrap.offsetWidth * 0.16);
+  EL_CONFIGS.forEach(cfg=>{
+    const ctx=elCtxs[cfg.type];
+    if(ctx) DRAW_FNS[cfg.type](ctx, elState[cfg.type], sz);
+  });
+
+  // Particle overlay
+  const OW=overlay.width, OH=overlay.height;
+  octx.clearRect(0,0,OW,OH);
+
+  // Orbit ring
+  orbitAngle+=0.008;
+  const cx=OW*0.5, cy=OH*0.47, orbitR=OW*0.38;
+  octx.beginPath(); octx.arc(cx,cy,orbitR,0,TAU);
+  octx.strokeStyle='rgba(212,175,55,0.07)'; octx.lineWidth=1; octx.stroke();
+  const dotX=cx+Math.cos(orbitAngle)*orbitR;
+  const dotY=cy+Math.sin(orbitAngle)*orbitR*0.68;
+  const dg=octx.createRadialGradient(dotX,dotY,0,dotX,dotY,7);
+  dg.addColorStop(0,'rgba(255,215,0,1)'); dg.addColorStop(1,'rgba(255,215,0,0)');
+  octx.fillStyle=dg; octx.beginPath(); octx.arc(dotX,dotY,7,0,TAU); octx.fill();
+
+  // Particles
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy; p.life+=0.004;
+    if(p.life>p.maxLife){
+      const m=medallions[Math.floor(Math.random()*medallions.length)];
+      const ang=Math.random()*TAU, sp=Math.random()*0.4+0.1;
+      p.fx=m.fx; p.fy=m.fy;
+      p.x=m.fx*OW+(Math.random()-.5)*30; p.y=m.fy*OH+(Math.random()-.5)*30;
+      p.vx=Math.cos(ang)*sp; p.vy=Math.sin(ang)*sp;
+      p.life=0; p.maxLife=Math.random()*0.6+0.4; p.size=Math.random()*2.5+0.5; return;
+    }
+    const prog=p.life/p.maxLife;
+    const alpha=prog<0.2?prog/0.2:1-(prog-0.2)/0.8;
+    octx.beginPath(); octx.arc(p.x,p.y,p.size,0,TAU);
+    octx.fillStyle=p.gold?`rgba(212,175,55,${alpha*0.85})`:`rgba(255,255,255,${alpha*0.4})`;
+    octx.fill();
+  });
+
+  // Shiva glow
+  const t=Date.now()/1000;
+  const ga=0.07+Math.sin(t*0.8)*0.035;
+  const sg=octx.createRadialGradient(cx,cy,0,cx,cy,OW*0.2);
+  sg.addColorStop(0,`rgba(212,175,55,${ga})`); sg.addColorStop(1,'rgba(212,175,55,0)');
+  octx.fillStyle=sg; octx.fillRect(0,0,OW,OH);
+
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>

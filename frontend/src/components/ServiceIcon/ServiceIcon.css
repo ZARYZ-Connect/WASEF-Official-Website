@@ -1,0 +1,133 @@
+/* ── Global Service Icon Styles ── */
+.service-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: color var(--duration-normal);
+}
+
+/* ── 1. Laser Cutting Animation ── */
+.service-icon--laser-cutting {
+  overflow: visible;
+}
+.icon-laser-head {
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+.icon-laser-beam {
+  opacity: 0;
+  stroke-dasharray: 4 2;
+  transition: opacity var(--duration-fast);
+}
+.icon-laser-sparks {
+  opacity: 0;
+  transform-origin: 12px 18px;
+  transition: opacity var(--duration-fast);
+}
+
+/* Hover effects */
+.service-card:hover .icon-laser-head,
+.svc-row:hover .icon-laser-head {
+  animation: laserCutHead 2s infinite ease-in-out;
+}
+.service-card:hover .icon-laser-beam,
+.svc-row:hover .icon-laser-beam {
+  opacity: 1;
+  animation: laserBeamFlicker 0.15s infinite;
+}
+.service-card:hover .icon-laser-sparks,
+.svc-row:hover .icon-laser-sparks {
+  animation: laserSparksFlash 0.3s infinite alternate;
+}
+
+@keyframes laserCutHead {
+  0%, 100% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+}
+@keyframes laserBeamFlicker {
+  0%, 100% { stroke-width: 2.5px; opacity: 0.85; }
+  50% { stroke-width: 3.5px; opacity: 1; }
+}
+@keyframes laserSparksFlash {
+  0% { opacity: 0.3; transform: scale(0.8) rotate(-5deg); }
+  100% { opacity: 1; transform: scale(1.25) rotate(5deg); }
+}
+
+
+/* ── 2. CNC Bending Animation ── */
+.icon-bend-punch {
+  transition: transform var(--duration-normal) var(--ease-spring);
+  transform-origin: 12px 3px;
+}
+.icon-bend-sheet {
+  transition: d var(--duration-normal) var(--ease-out);
+}
+
+/* Hover effects */
+.service-card:hover .icon-bend-punch,
+.svc-row:hover .icon-bend-punch {
+  transform: translateY(4.5px);
+}
+.service-card:hover .icon-bend-sheet,
+.svc-row:hover .icon-bend-sheet {
+  d: path("M 2,11 L 12,17.5 L 22,11");
+}
+
+
+/* ── 3. Fabrication & Assembly Animation ── */
+.icon-weld-torch {
+  transition: transform var(--duration-normal) var(--ease-out);
+  transform-origin: 20px 4px;
+}
+.icon-weld-sparks {
+  opacity: 0;
+  transform-origin: 12px 12px;
+  transition: opacity var(--duration-fast);
+}
+
+/* Hover effects */
+.service-card:hover .icon-weld-torch,
+.svc-row:hover .icon-weld-torch {
+  animation: weldVibrate 0.1s infinite alternate;
+}
+.service-card:hover .icon-weld-sparks,
+.svc-row:hover .icon-weld-sparks {
+  animation: weldSparksFlash 0.2s infinite;
+}
+
+@keyframes weldVibrate {
+  0% { transform: translate(0, 0) scale(1.02); }
+  100% { transform: translate(-0.75px, 0.75px) scale(0.98); }
+}
+@keyframes weldSparksFlash {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+
+/* ── 4. Precision Sheet Metal Animation ── */
+.icon-caliper-jaw {
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+
+/* Hover effects */
+.service-card:hover .icon-caliper-jaw,
+.svc-row:hover .icon-caliper-jaw {
+  transform: translateX(-4px);
+}
+
+
+/* ── 5. Custom Metal Fabrication Animation ── */
+.icon-crane-lift {
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+/* Hover effects */
+.service-card:hover .icon-crane-lift,
+.svc-row:hover .icon-crane-lift {
+  animation: craneHoisting 2.5s infinite ease-in-out;
+}
+
+@keyframes craneHoisting {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
