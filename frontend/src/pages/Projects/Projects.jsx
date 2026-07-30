@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
@@ -177,15 +177,242 @@ const PROJECTS = [
 ];
 
 const MACHINES = [
-  { id: 1, name: 'Amada F3015NT Laser Machine', type: 'Laser Cutting', specs: '4kW Laser Power - High precision cutting system', qty: '1 Unit', image: '/images/amada-laser.jpg' },
-  { id: 2, name: 'Bodor LASER Cutting Machine', type: 'Laser Cutting', specs: '3kW Laser Power - Speed & productivity sheet cutting', qty: '1 Unit', image: '/images/bodor-laser.jpg' },
-  { id: 3, name: 'SMS Bending Machine', type: 'CNC Bending & Forming', specs: '160 Ton capacity, folds sheets up to 3000mm length', qty: '1 Unit', image: '/images/sms-bending.jpg' },
-  { id: 4, name: 'Amada Bending Machine', type: 'CNC Bending & Forming', specs: '80 Ton capacity, folds sheets up to 2500mm length', qty: '1 Unit', image: '/images/amada-bending.jpg' },
-  { id: 5, name: 'Bandsaw Metal Cutting Machine', type: 'Sawing', specs: 'Automated bandsaw for heavy industrial sections and pipes', qty: '1 Unit', image: '/images/bandsaw.jpg' },
-  { id: 6, name: 'EOT Crane', type: 'Material Handling', specs: '3 Ton capacity heavy duty overhead crane system', qty: '1 Unit', image: '/images/eot-crane.webp' },
-  { id: 7, name: 'MIG Welding Machines', type: 'Welding & Assembly', specs: 'High-strength structural gas metal arc welding units', qty: '6 Units', image: '/images/mig-welding.jpg' },
-  { id: 8, name: 'TIG Welding Machines', type: 'Welding & Assembly', specs: 'Precision tungsten inert gas welding stations', qty: '2 Units', image: '/images/tig-welding.jpg' },
-  { id: 9, name: 'Fly Press', type: 'Bending & Pressing', specs: 'Hand-operated mechanical press for secondary operations', qty: '1 Unit', image: '/images/fly-press.jpg' },
+  {
+    id: 1,
+    name: 'Amada F3015NT Laser Machine',
+    type: 'Laser Cutting',
+    specs: '4kW Laser Power - High precision cutting system',
+    qty: '1 Unit',
+    image: '/images/amada-laser.jpg',
+    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum'],
+    features: [
+      '4kW Laser Power source',
+      'High-precision cutting system with automatic nesting',
+      'Integrated AMNC-F CNC Control interface',
+      'Automatic nozzle changer and head calibration'
+    ]
+  },
+  {
+    id: 2,
+    name: 'Bodor LASER Cutting Machine',
+    type: 'Laser Cutting',
+    specs: 'Type: CNC Fiber Laser Cutting Machine | Laser Power: 3 kW (3000 W) | Laser Type: Fiber Laser | Positioning Accuracy: ±0.03 mm | Repeat Positioning Accuracy: ±0.02 mm | Electrical Supply: 380–415 V AC, 3 Phase, 50/60 Hz | Cooling: Industrial Water Chiller (Closed-loop) | Gas Requirements: Oxygen (O₂), Nitrogen (N₂), Compressed Air | Application: Precision metal sheet cutting',
+    qty: '1 Unit',
+    image: '/images/BODOR LASER CUTTING MACHINE.jpg',
+    materials: [
+      'Mild Steel (Carbon Steel)',
+      'Stainless Steel',
+      'Aluminum',
+      'Galvanized Steel',
+      'Brass (depends on configuration)',
+      'Copper (depends on laser source and settings)'
+    ],
+    features: [
+      'CNC-controlled cutting system',
+      'Automatic laser cutting head',
+      'High-speed precision cutting',
+      'Automatic height control',
+      'Industrial water cooling system',
+      'Servo motor drive system',
+      'Precision linear guide rails',
+      'Rack and pinion transmission',
+      'Automatic lubrication system',
+      'Safety enclosure (model dependent)'
+    ],
+    applications: [
+      'Industrial fabrication',
+      'Steel furniture manufacturing',
+      'Electrical panels',
+      'Agricultural equipment',
+      'Machine parts',
+      'Architectural metalwork',
+      'Automotive components',
+      'Sheet metal fabrication'
+    ],
+    advantages: [
+      'High cutting speed',
+      'Smooth cutting edges',
+      'High precision',
+      'Low operating cost',
+      'Minimal material waste',
+      'Suitable for mass production'
+    ],
+    factorySpecsNote: [
+      'Bodor model number (for example: C3, P3, A3, i5, BCL, etc.)',
+      'Machine serial number',
+      'Laser source brand (IPG, Raycus, MAX, nLIGHT, etc.)',
+      'A photo of the machine nameplate'
+    ]
+  },
+  {
+    id: 3,
+    name: 'SMS Bending Machine',
+    type: 'CNC Bending & Forming',
+    specs: '160 Ton capacity, folds sheets up to 3000mm length',
+    qty: '1 Unit',
+    image: '/images/sms-bending.jpg',
+    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum', 'Galvanized Sheet'],
+    features: [
+      '160 Ton maximum bending capacity',
+      'Folds sheets up to 3000mm length (3.0 meters)',
+      'Multi-axis CNC backgauge system for complex profiles',
+      'High repeatability precision hydraulic cylinders'
+    ]
+  },
+  {
+    id: 4,
+    name: 'Amada Bending Machine',
+    type: 'CNC Bending & Forming',
+    specs: '80 Ton capacity, folds sheets up to 2500mm length',
+    qty: '1 Unit',
+    image: '/images/amada-bending.jpg',
+    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum', 'Galvanized Sheet'],
+    features: [
+      '80 Ton bending capacity',
+      'Folds sheets up to 2500mm length (2.5 meters)',
+      'High-accuracy CNC backgauge control',
+      'Amada precision segmented tooling'
+    ]
+  },
+  {
+    id: 5,
+    name: 'Bandsaw Metal Cutting Machine',
+    type: 'Sawing',
+    specs: 'Automated bandsaw for heavy industrial sections and pipes',
+    qty: '1 Unit',
+    image: '/images/bandsaw.jpg',
+    materials: ['Mild Steel sections & beams', 'Stainless Steel pipes & solid bars', 'Structural Steel channels', 'Aluminum profiles'],
+    features: [
+      'Automated hydraulic blade feed control',
+      'Heavy-duty quick-action clamping vise',
+      'Precision carbide guide rollers for straight cuts',
+      'Integrated coolant pump & chip filtration system'
+    ]
+  },
+  {
+    id: 6,
+    name: 'EOT Crane',
+    type: 'Material Handling',
+    specs: '3 Ton capacity heavy duty overhead crane system',
+    qty: '1 Unit',
+    image: '/images/eot-crane.webp',
+    materials: ['Heavy metal plates', 'Industrial machinery structures', 'Raw material stock', 'Welded fabrication sub-assemblies'],
+    features: [
+      '3 Ton lifting capacity',
+      'Overhead traveling bridge structure',
+      'Dual-speed hoisting & cross-travel control',
+      'Pendant remote and integrated safety limit switches'
+    ]
+  },
+  {
+    id: 7,
+    name: 'MIG Welding Machines',
+    type: 'Welding & Assembly',
+    specs: 'High-strength structural gas metal arc welding units',
+    qty: '6 Units',
+    image: '/images/mig-welding.jpg',
+    materials: ['Mild Steel', 'Stainless Steel', 'Structural Carbon Steel'],
+    features: [
+      'Gas Metal Arc Welding (GMAW / MIG) technology',
+      'Stable electronic wire feed mechanism',
+      'Ideal for heavy-duty structural welding applications',
+      'Multiple independent units for parallel line assembly'
+    ]
+  },
+  {
+    id: 8,
+    name: 'TIG Welding Machines',
+    type: 'Welding & Assembly',
+    specs: 'Precision tungsten inert gas welding stations',
+    qty: '2 Units',
+    image: '/images/tig-welding.jpg',
+    materials: ['Stainless Steel', 'Aluminum', 'Thin sheet metals', 'Specialized alloys'],
+    features: [
+      'Tungsten Inert Gas Welding (GTAW / TIG) technology',
+      'High-frequency arc ignition for precise start',
+      'Excellent weld quality and aesthetic appearance',
+      'Fine current control for thin sheet sheet-metal joining'
+    ]
+  },
+  {
+    id: 9,
+    name: 'Fly Press',
+    type: 'Bending & Pressing',
+    specs: 'Hand-operated mechanical press for secondary operations',
+    qty: '1 Unit',
+    image: '/images/fly-press.jpg',
+    materials: ['Thin sheet metal parts', 'Steel bars & brackets', 'Copper shims'],
+    features: [
+      'Manual screw-driven mechanical press design',
+      'Used for secondary forming, punch, and assembly operations',
+      'Quick tool swap mounting system for versatility'
+    ]
+  },
+  {
+    id: 10,
+    name: 'JFY Make Press Brake',
+    type: 'CNC Bending & Forming',
+    specs: 'Model: TPR8 160/3000 | Capacity: 160 Tonnes | Bending Length: 3000 mm (3.0 meters)',
+    qty: '1 Unit',
+    image: '/images/JFY Make Press Brake.jpg',
+    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum', 'Brass & Copper'],
+    features: [
+      'Model: TPR8 160/3000',
+      'Bending Force: 160 Tonnes',
+      'Bending Length: 3000 mm (3.0 meters)',
+      'CNC multi-axis programmable backgauge',
+      'Graphical CNC control interface for easy job setup',
+      'High-precision hydraulic system for high repeatability'
+    ]
+  },
+  {
+    id: 11,
+    name: 'Bodor E-Series Fiber Laser Cutting Machine',
+    type: 'Laser Cutting',
+    specs: 'Laser Power: 6 kW (6000 W) | Bed Size: 4000 × 1500 mm | Laser Type: Fiber Laser | Maximum Positioning Speed: 120 m/min | Maximum Acceleration: 1.5 G | Positioning Accuracy: ±0.03 mm | Repeat Positioning Accuracy: ±0.02 mm | Control System: CNC Intelligent Control | Drive System: AC Servo Motors | Transmission: Helical Rack & Pinion | Guide Rails: Precision Linear Guide Rails | Cooling System: Industrial Water Chiller | Automatic Lubrication: Yes | Electrical Supply: 380–415 V AC, 3 Phase, 50/60 Hz | Assist Gases: Oxygen (O₂), Nitrogen (N₂), Compressed Air',
+    qty: '1 Unit',
+    image: '/images/BODOR LASER CUTTING MACHINE E-SERIES.jpg',
+    materials: [
+      'Mild Steel (up to 25 mm)',
+      'Stainless Steel (up to 20 mm)',
+      'Aluminum (up to 16 mm)',
+      'Brass (up to 10 mm)',
+      'Copper (up to 8 mm)',
+      'Galvanized Steel (up to 12 mm)',
+      'Carbon Steel'
+    ],
+    features: [
+      'Auto Focus Laser Cutting Head',
+      'Automatic Nozzle Calibration',
+      'Intelligent Nesting Software',
+      'Collision Protection System',
+      'Automatic Height Control',
+      'Fast Piercing Technology',
+      'High-Speed Edge Cutting',
+      'Real-Time Process Monitoring',
+      'Emergency Safety System'
+    ],
+    applications: [
+      'Sheet Metal Fabrication',
+      'Steel Furniture',
+      'Electrical Panels',
+      'Agricultural Equipment',
+      'Automotive Components',
+      'Industrial Machinery',
+      'Kitchen Equipment',
+      'Architectural Metalwork',
+      'Signage Manufacturing'
+    ],
+    advantages: [
+      'High cutting speed',
+      'Excellent edge quality',
+      'High precision',
+      'Low maintenance',
+      'Energy-efficient fiber laser',
+      'Minimal material waste',
+      'Suitable for continuous industrial production'
+    ]
+  }
 ];
 
 function ProjectSchematic({ title }) {
@@ -577,11 +804,11 @@ function ProjectCard({ proj }) {
   );
 }
 
-function MachineryCard({ mach }) {
+function MachineryCard({ mach, onClick }) {
   const [imgErr, setImgErr] = useState(false);
 
   return (
-    <div className="machinery-card card">
+    <div className="machinery-card card clickable-card" onClick={onClick}>
       <div className="machinery-card__img-container">
         {!imgErr ? (
           <img 
@@ -593,23 +820,54 @@ function MachineryCard({ mach }) {
         ) : (
           <MachinerySchematic name={mach.name} />
         )}
+        <div className="machinery-card__overlay">
+          <span className="machinery-card__overlay-btn">View Specifications →</span>
+        </div>
       </div>
       <div className="machinery-card__body">
-        <span className="badge badge-yellow" style={{ alignSelf: 'flex-start' }}>{mach.type}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+          <span className="badge badge-yellow">{mach.type}</span>
+          <span className="machinery-card__qty">{mach.qty}</span>
+        </div>
         <h3 className="machinery-card__title">{mach.name}</h3>
-        <p className="machinery-card__specs">{mach.specs}</p>
-        <span className="machinery-card__qty">{mach.qty}</span>
+        <p className="machinery-card__specs-preview">
+          {mach.specs.length > 90 ? mach.specs.substring(0, 87) + '...' : mach.specs}
+        </p>
+        <span className="machinery-card__more-link">Technical Details & Materials →</span>
       </div>
     </div>
   );
 }
 
 export default function Projects() {
+  const [selectedMachine, setSelectedMachine] = useState(null);
+
+  useEffect(() => {
+    if (selectedMachine) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedMachine]);
+
+  const getParsedSpecs = (specsStr) => {
+    return specsStr.split('|').map(s => {
+      const parts = s.split(':');
+      if (parts.length > 1) {
+        return { label: parts[0].trim(), value: parts.slice(1).join(':').trim() };
+      }
+      return { label: 'Specification', value: s.trim() };
+    });
+  };
+
   return (
     <>
       <Helmet>
-        <title>Case Studies & Projects — WASEF Manufacturing</title>
-        <meta name="description" content="Explore precision laser manufacturing case studies from WASEF — aerospace, defence, medical, automotive, and industrial applications." />
+        <title>Case Studies &amp; Projects — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
+        <meta name="description" content="Explore precision laser manufacturing case studies from WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — aerospace, defence, medical, automotive, and industrial applications." />
       </Helmet>
 
       <section className="page-hero">
@@ -662,12 +920,173 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}>
-                <MachineryCard mach={mach} />
+                <MachineryCard mach={mach} onClick={() => setSelectedMachine(mach)} />
               </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {selectedMachine && (
+          <motion.div 
+            className="machine-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedMachine(null)}
+          >
+            <motion.div 
+              className="machine-modal-content"
+              initial={{ y: 55, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 55, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                className="machine-modal-close" 
+                onClick={() => setSelectedMachine(null)}
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+
+              <div className="machine-modal-grid">
+                <div className="machine-modal-left">
+                  <div className="machine-modal-img-wrapper">
+                    <img 
+                      src={selectedMachine.image} 
+                      alt={selectedMachine.name}
+                      className="machine-modal-img"
+                    />
+                  </div>
+                  
+                  <div className="machine-modal-specs">
+                    <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      Technical Specifications
+                    </h4>
+                    {getParsedSpecs(selectedMachine.specs).map((spec, i) => (
+                      <div key={i} className="machine-modal-spec-item">
+                        <span className="machine-modal-spec-label">{spec.label}</span>
+                        <span className="machine-modal-spec-value">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="machine-modal-right">
+                  <span className="badge badge-yellow" style={{ marginBottom: '0.5rem' }}>{selectedMachine.type}</span>
+                  <h2 className="heading-display" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', margin: '0 0 1rem 0', color: '#0f172a', lineHeight: '1.2' }}>
+                    {selectedMachine.name}
+                  </h2>
+                  
+                  {selectedMachine.materials && selectedMachine.materials.length > 0 && (
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <h4 className="machine-modal-list-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Compatible Materials
+                      </h4>
+                      <ul className="machine-modal-list">
+                        {selectedMachine.materials.map((mat, i) => (
+                          <li key={i} className="machine-modal-list-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                            {mat}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {selectedMachine.features && selectedMachine.features.length > 0 && (
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <h4 className="machine-modal-list-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                        Key Features & Capabilities
+                      </h4>
+                      <ul className="machine-modal-list" style={{ gridTemplateColumns: '1fr' }}>
+                        {selectedMachine.features.map((feat, i) => (
+                          <li key={i} className="machine-modal-list-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3" style={{ marginTop: '0.25rem' }}><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {selectedMachine.applications && selectedMachine.applications.length > 0 && (
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <h4 className="machine-modal-list-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        Typical Applications
+                      </h4>
+                      <ul className="machine-modal-list">
+                        {selectedMachine.applications.map((app, i) => (
+                          <li key={i} className="machine-modal-list-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{app}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {selectedMachine.advantages && selectedMachine.advantages.length > 0 && (
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <h4 className="machine-modal-list-title">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        Key Advantages
+                      </h4>
+                      <ul className="machine-modal-list">
+                        {selectedMachine.advantages.map((adv, i) => (
+                          <li key={i} className="machine-modal-list-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>{adv}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {selectedMachine.factorySpecsNote && selectedMachine.factorySpecsNote.length > 0 && (
+                    <div style={{ marginBottom: '1.5rem', padding: '1.25rem', background: '#fffbeb', border: '1px solid #fef3c7', borderRadius: 'var(--radius-lg)' }}>
+                      <h5 style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', fontWeight: '700', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        Information Needed for Factory Specifications
+                      </h5>
+                      <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.75rem', color: '#78350f', lineHeight: '1.5' }}>
+                        To request exact factory specifications (e.g., dimensions, acceleration details, chiller models), please share the following details:
+                      </p>
+                      <ul style={{ margin: '0', paddingLeft: '1.25rem', fontSize: '0.75rem', color: '#78350f', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        {selectedMachine.factorySpecsNote.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  
+                  <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '1rem' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#475569' }}>
+                      In-House Availability: <strong style={{ color: '#d97706' }}>{selectedMachine.qty}</strong>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="machine-modal-actions">
+                <Link 
+                  to={`/contact?type=quote&machine=${encodeURIComponent(selectedMachine.name)}`}
+                  className="btn btn-primary"
+                  onClick={() => setSelectedMachine(null)}
+                >
+                  Inquire About Capabilities →
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <section className="cta-strip">
         <div className="container cta-strip__inner">
@@ -721,6 +1140,233 @@ export default function Projects() {
         .machinery-card__title { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--gray-100); margin: 0; }
         .machinery-card__specs { font-size: 0.875rem; color: var(--gray-400); line-height: 1.5; margin: 0; flex: 1; }
         .machinery-card__qty { font-size: 0.8125rem; font-weight: 700; color: var(--yellow-600); background: rgba(255, 184, 0, 0.08); padding: 0.25rem 0.625rem; border-radius: var(--radius-sm); align-self: flex-start; }
+
+        /* Machinery Modal Styles */
+        .machine-modal-backdrop {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(4, 7, 13, 0.85);
+          backdrop-filter: blur(10px);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+        }
+
+        .machine-modal-content {
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+          border-radius: var(--radius-xl);
+          width: 100%;
+          max-width: 900px;
+          max-height: 90vh;
+          overflow-y: auto;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .machine-modal-close {
+          position: absolute;
+          top: 1.25rem;
+          right: 1.25rem;
+          background: rgba(0, 0, 0, 0.04);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          color: #475569;
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          z-index: 10;
+          font-size: 1rem;
+        }
+        .machine-modal-close:hover {
+          background: var(--yellow-500);
+          color: #000000;
+          transform: rotate(90deg);
+        }
+
+        .machine-modal-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+          padding: 2.5rem;
+        }
+        @media (min-width: 768px) {
+          .machine-modal-grid {
+            grid-template-columns: 1fr 1.2fr;
+          }
+        }
+
+        .machine-modal-img-wrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4/3;
+          background: rgba(0, 0, 0, 0.02);
+          border: 1px solid rgba(0, 0, 0, 0.06);
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+        }
+        .machine-modal-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .machine-modal-specs {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          background: #f8fafc;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          padding: 1.25rem;
+          border-radius: var(--radius-md);
+          margin-top: 1.25rem;
+        }
+        .machine-modal-spec-item {
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+          padding-bottom: 0.5rem;
+          font-size: 0.8125rem;
+        }
+        .machine-modal-spec-item:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+        .machine-modal-spec-label {
+          color: #64748b;
+          font-weight: 500;
+        }
+        .machine-modal-spec-value {
+          color: #0f172a;
+          font-weight: 600;
+          text-align: right;
+        }
+
+        .machine-modal-list-title {
+          font-family: var(--font-heading);
+          font-size: 0.95rem;
+          font-weight: 700;
+          color: #d97706;
+          margin: 1.5rem 0 0.75rem 0;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+        }
+        .machine-modal-list {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0.5rem 1rem;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        @media (min-width: 480px) {
+          .machine-modal-list {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        .machine-modal-list-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.5rem;
+          font-size: 0.8125rem;
+          color: #334155;
+          line-height: 1.4;
+        }
+        .machine-modal-list-item svg {
+          flex-shrink: 0;
+          margin-top: 0.125rem;
+        }
+
+        .machine-modal-actions {
+          display: flex;
+          justify-content: flex-end;
+          padding: 1.25rem 2.5rem;
+          background: #f8fafc;
+          border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .clickable-card {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+        }
+        .clickable-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(0, 210, 255, 0.3);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .machinery-card__img-container {
+          position: relative;
+        }
+        .machinery-card__overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(12, 19, 34, 0.75);
+          backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+        .clickable-card:hover .machinery-card__overlay {
+          opacity: 1;
+        }
+        .machinery-card__overlay-btn {
+          background: var(--yellow-500);
+          color: var(--gray-900);
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: 0.625rem 1.25rem;
+          border-radius: var(--radius-md);
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+        }
+        .clickable-card:hover .machinery-card__overlay-btn {
+          transform: translateY(0);
+        }
+        .machinery-card__specs-preview {
+          font-size: 0.8125rem;
+          color: var(--gray-400);
+          line-height: 1.5;
+          margin: 0;
+          flex: 1;
+        }
+        .machinery-card__more-link {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--yellow-500);
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+        .machinery-card__more-link::after {
+          content: '→';
+          transition: transform 0.2s ease;
+        }
+        .clickable-card:hover .machinery-card__more-link::after {
+          transform: translateX(3px);
+        }
+
       `}</style>
     </>
   );

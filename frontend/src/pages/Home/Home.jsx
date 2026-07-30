@@ -376,21 +376,33 @@ const MEDIA_SLIDES = [
   },
   {
     type: 'image',
-    src: '/videos/image1.webp',
-    headline: 'High-Precision\nLaser Welding.',
-    sub: 'Advanced welding technology for reliable, high-strength industrial components.',
+    src: '/images/BODOR LASER CUTTING MACHINE.jpg',
+    headline: '6kW Fiber Laser\nCutting System.',
+    sub: 'Advanced Bodor CNC Fiber Laser cutting machine with automatic autofocus head and positioning accuracy of ±0.03 mm.',
   },
   {
     type: 'image',
-    src: '/videos/image2.webp',
-    headline: '7 Facilities.\n120+ Machines.',
-    sub: 'Scale, speed, and quality that global supply chains demand.',
+    src: '/images/JFY Make Press Brake.jpg',
+    headline: 'JFY Make CNC\nBending & Folding.',
+    sub: '160-tonne capacity CNC press brake for high-repeatability sheet metal forming up to 3000mm.',
   },
   {
     type: 'image',
-    src: '/videos/image3.webp',
-    headline: 'Engineering Excellence\nSince 1999.',
-    sub: 'From prototype to high-volume production — single-source precision manufacturing.',
+    src: '/images/amada-laser.jpg',
+    headline: 'Amada F3015NT\nLaser Precision.',
+    sub: '4kW high-precision laser cutting with automatic nesting and AMNC-F CNC control interface.',
+  },
+  {
+    type: 'image',
+    src: '/images/sms-bending.jpg',
+    headline: 'SMS CNC Bending\n& Plate Forming.',
+    sub: '160 Ton capacity hydraulic press brake for multi-axis bending of complex steel profiles.',
+  },
+  {
+    type: 'image',
+    src: '/images/tig-welding.jpg',
+    headline: 'Precision MIG & TIG\nWelding Stations.',
+    sub: 'High-strength structural gas metal arc welding and cleanroom-rated alloy joining.',
   },
 ];
 
@@ -504,7 +516,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="laser-line" />
-            <span className="text-upper text-yellow">Est. 1999 · Bangalore, India</span>
+            <span className="text-upper text-yellow">Est. 2019 · Bangalore, India</span>
           </motion.div>
 
           {/* Headline — re-animates on slide change */}
@@ -698,9 +710,9 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>WASEF Manufacturing — Precision Laser Manufacturing in India</title>
-        <meta name="description" content="India's premier precision laser manufacturing company. AS9100D & NADCAP certified. Laser cutting, welding, cladding, 3D printing across 7 facilities." />
-        <meta property="og:title" content="WASEF Manufacturing — Precision Laser Manufacturing" />
+        <title>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — Precision Laser Manufacturing in India</title>
+        <meta name="description" content="India's premier precision laser manufacturing concern located in Bommasandra, Bangalore. Specializing in high quality laser cutting, welding, cladding, CNC bending, and fabrication." />
+        <meta property="og:title" content="WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — Precision Laser Manufacturing" />
         <meta property="og:type" content="website" />
       </Helmet>
 
@@ -721,7 +733,7 @@ export default function Home() {
                   <span className="text-yellow">Since 2019.</span>
                 </h2>
                 <p style={{ color: 'var(--gray-400)', lineHeight: 1.8, marginBottom: '1.5rem', maxWidth: '520px' }}>
-                  <strong>WASEF and KS INDUSTRIES</strong> is a leading proprietorship concern located in Bommasandra, Bangalore, executed by <strong>Mr. G. Sridhar</strong>. With rich experience in machined and fabricated components, we deliver high-quality, precise industrial solutions.
+                  <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> is a leading proprietorship concern located in Bommasandra, Bangalore, executed by <strong>Mr. G. Sridhar</strong>. With rich experience in machined and fabricated components, we deliver high-quality, precise industrial solutions.
                 </p>
                 <p style={{ color: 'var(--gray-400)', lineHeight: 1.8, marginBottom: '2rem', maxWidth: '520px' }}>
                   Our competent design, engineering team, and full-fledged manufacturing facilities allow us to execute complex projects that match the highest standards in the industry.

@@ -22,8 +22,8 @@ export default function Downloads() {
   return (
     <>
       <Helmet>
-        <title>Downloads & Resources — WASEF Manufacturing</title>
-        <meta name="description" content="Download WASEF Manufacturing brochures, capability datasheets, and case studies." />
+        <title>Downloads &amp; Resources — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
+        <meta name="description" content="Download WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) brochures, capability datasheets, and case studies." />
       </Helmet>
 
       <section className="page-hero">

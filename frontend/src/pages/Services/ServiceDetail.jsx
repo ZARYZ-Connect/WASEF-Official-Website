@@ -64,7 +64,7 @@ export default function ServiceDetail() {
   return (
     <>
       <Helmet>
-        <title>{service.title} — WASEF Manufacturing</title>
+        <title>{service.title} — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
         <meta name="description" content={service.description.slice(0, 155)} />
       </Helmet>
 

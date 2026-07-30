@@ -22,7 +22,7 @@ export default function Services() {
   return (
     <>
       <Helmet>
-        <title>Our Services — WASEF Manufacturing</title>
+        <title>Our Services — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
         <meta name="description" content="Precision laser cutting, welding, cladding, drilling, fabrication, 3D printing, and hardening. Custom laser manufacturing services." />
       </Helmet>
 

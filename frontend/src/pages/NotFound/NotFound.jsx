@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <>
       <Helmet>
-        <title>Page Not Found — WASEF Manufacturing</title>
+        <title>Page Not Found — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
       </Helmet>
       <div style={{
         display: 'flex', flexDirection: 'column', alignItems: 'center',

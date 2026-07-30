@@ -50,15 +50,15 @@ export default function Navbar() {
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''} ${!isHome && !scrolled ? 'navbar--dark' : ''}`} role="navigation" aria-label="Main navigation">
+      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="navigation" aria-label="Main navigation">
         <div className="navbar__container container">
 
           {/* Logo */}
-          <Link to="/" className="navbar__logo" aria-label="WASIF and KS INDUSTRIES home">
-            <img src="/Wasef logo.png" alt="WASIF and KS Logo" className="navbar__logo-img" />
+          <Link to="/" className="navbar__logo" aria-label="WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) home">
+            <img src="/Wasef logo.png" alt="WASEF and KS Logo" className="navbar__logo-img" />
             <div className="navbar__logo-text">
-              <span className="navbar__logo-brand">WASIF &amp; KS</span>
-              <span className="navbar__logo-sub">INDUSTRIES</span>
+              <span className="navbar__logo-brand" style={{ fontSize: '0.85rem' }}>WASEF PVT LTD &amp; KS</span>
+              <span className="navbar__logo-sub">INDUSTRIES (SLE LASER CUTTING)</span>
             </div>
           </Link>
 
@@ -177,39 +177,51 @@ export default function Navbar() {
                     <div key={link.label}>
                       {link.hasMega ? (
                         <>
-                          <button
-                            type="button"
-                            className="navbar__drawer-link"
-                            onClick={() => setMobileServicesOpen(prev => !prev)}
-                            style={{
-                              width: '100%',
-                              textAlign: 'left',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
-                              background: 'none',
-                              border: 'none',
-                              padding: '0.875rem 0.5rem',
-                              borderBottom: '1px solid rgba(0, 0, 0, 0.06)'
-                            }}
-                          >
-                            <span>{link.label}</span>
-                            <svg
-                              width="14"
-                              height="14"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2.5"
+                          <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
+                            {/* Navigates to /services page */}
+                            <NavLink
+                              to={link.href}
+                              className={({ isActive }) =>
+                                `navbar__drawer-link ${isActive ? 'navbar__drawer-link--active' : ''}`
+                              }
+                              end
+                              onClick={() => setMenuOpen(false)}
+                              style={{ flex: 1, borderBottom: 'none', paddingRight: '0.25rem' }}
+                            >
+                              {link.label}
+                            </NavLink>
+
+                            {/* Toggles the sub-links dropdown */}
+                            <button
+                              type="button"
+                              onClick={() => setMobileServicesOpen(prev => !prev)}
+                              aria-label="Toggle services menu"
                               style={{
-                                transition: 'transform 0.2s ease',
-                                transform: mobileServicesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                                color: 'var(--gray-400)'
+                                background: 'none',
+                                border: 'none',
+                                padding: '0.875rem 0.75rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
                               }}
                             >
-                              <path d="M6 9l6 6 6-6" />
-                            </svg>
-                          </button>
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                                style={{
+                                  transition: 'transform 0.2s ease',
+                                  transform: mobileServicesOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                                  color: 'var(--gray-400)'
+                                }}
+                              >
+                                <path d="M6 9l6 6 6-6" />
+                              </svg>
+                            </button>
+                          </div>
                           <AnimatePresence>
                             {mobileServicesOpen && (
                               <motion.div

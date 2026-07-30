@@ -10,8 +10,11 @@ const SERVICES_LINKS = [
 ];
 
 const COMPANY_LINKS = [
+  { label: 'Home',           href: '/' },
   { label: 'About Us',       href: '/about' },
-  { label: 'Contact',        href: '/contact' },
+  { label: 'Services',       href: '/services' },
+  { label: 'Projects',       href: '/projects' },
+  { label: 'Contact Us',     href: '/contact' },
 ];
 
 export default function Footer() {
@@ -26,10 +29,10 @@ export default function Footer() {
             {/* Brand column */}
             <div className="footer__brand">
               <Link to="/" className="footer__logo">
-                <img src="/Wasef logo.png" alt="WASIF and KS Logo" className="footer__logo-img" />
+                <img src="/Wasef logo.png" alt="WASEF and KS Logo" className="footer__logo-img" />
                 <div>
-                  <span className="footer__logo-brand">WASIF &amp; KS</span>
-                  <span className="footer__logo-sub">INDUSTRIES</span>
+                  <span className="footer__logo-brand" style={{ fontSize: '0.85rem' }}>WASEF PVT LTD &amp; KS</span>
+                  <span className="footer__logo-sub">INDUSTRIES (SLE LASER CUTTING)</span>
                 </div>
               </Link>
               <p className="footer__tagline">
@@ -105,7 +108,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="footer__bottom">
         <div className="container footer__bottom-inner">
-          <p className="footer__copy">© {year} WASIF &amp; KS INDUSTRIES Pvt. Ltd. All rights reserved.</p>
+          <p className="footer__copy">© {year} WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING). All rights reserved.</p>
 
           <div className="footer__legal">
             <Link to="/privacy" className="footer__legal-link">Privacy Policy</Link>

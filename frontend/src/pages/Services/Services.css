@@ -3,17 +3,33 @@
   background-image: linear-gradient(rgba(13, 13, 13, 0.72), rgba(13, 13, 13, 0.85)), url("/ServiceFirst.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
-  padding: 100px 0 50px !important; /* Compact mobile padding */
+  padding: 100px 0 50px !important;
 }
 
-/* Ensure the heading elements inside the dark image hero are crisp white */
-.page-hero--services h1.heading-display {
+/* Force ALL text inside this dark hero to be visible */
+.page-hero--services h1,
+.page-hero--services h2,
+.page-hero--services h3 {
   color: #ffffff !important;
+}
+
+.page-hero--services p {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* Yellow accent stays yellow, not overridden to white */
+.page-hero--services .text-yellow {
+  color: var(--yellow-400) !important;
+}
+
+/* Section label text */
+.page-hero--services .text-upper.text-yellow {
+  color: var(--yellow-400) !important;
 }
 
 @media (min-width: 768px) {
   .page-hero--services {
-    padding: 160px 0 100px !important; /* Desktop spacing */
+    padding: 160px 0 100px !important;
   }
 }
 
@@ -23,6 +39,7 @@
     line-height: 1.15 !important;
   }
 }
+
 
 /* Services list */
 .services-list {

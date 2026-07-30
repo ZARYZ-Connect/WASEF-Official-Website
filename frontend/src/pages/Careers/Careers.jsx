@@ -23,8 +23,8 @@ export default function Careers() {
   return (
     <>
       <Helmet>
-        <title>Careers — WASEF Manufacturing</title>
-        <meta name="description" content="Join WASEF Manufacturing. Open positions in engineering, quality, R&D, and operations at India's leading precision laser manufacturing company." />
+        <title>Careers — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
+        <meta name="description" content="Join WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING). Open positions in engineering, quality, R&D, and operations at India's leading precision laser manufacturing company." />
       </Helmet>
 
       <section className="page-hero">
@@ -39,7 +39,7 @@ export default function Careers() {
               Engineer the<br /><span className="text-yellow">Future of Precision.</span>
             </h1>
             <p style={{ color: 'var(--gray-400)', maxWidth: '520px', marginTop: '1rem', lineHeight: 1.75 }}>
-              At WASEF, you'll work on the most advanced laser manufacturing systems in India,
+              At WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING), you'll work on the most advanced laser manufacturing systems in India,
               alongside engineers who take pride in micron-level accuracy and industrial-grade quality.
             </p>
           </motion.div>

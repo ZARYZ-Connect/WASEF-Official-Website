@@ -137,8 +137,8 @@ export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact Us — WASIF Manufacturing</title>
-        <meta name="description" content="Get a quote or talk to our engineers. WASIF Manufacturing — precision laser manufacturing partner for aerospace, defence, and industrial applications." />
+        <title>Contact Us — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
+        <meta name="description" content="Get a quote or talk to our engineers. WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — precision laser manufacturing partner for aerospace, defence, and industrial applications." />
       </Helmet>
 
       {/* Header */}

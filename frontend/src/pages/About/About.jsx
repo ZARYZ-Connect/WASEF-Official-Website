@@ -44,7 +44,7 @@ function TimelineItem({ item, index }) {
 }
 
 const TIMELINE = [
-  { year: '2019', title: 'Founding & Operations', desc: 'WASEF and KS INDUSTRIES established operations in Bommasandra, Bangalore, focusing on machined and fabricated components.' },
+  { year: '2019', title: 'Founding & Operations', desc: 'WASEF PVT LTD & KS INDUSTRIES (SLE LASER CUTTING) established operations in Bommasandra, Bangalore, focusing on machined and fabricated components.' },
   { year: '2021', title: 'Facility Expansion', desc: 'Installed advanced machinery and expanded production capacity to meet growing customer demands.' },
   { year: '2023', title: 'Project Management Cell', desc: 'Established a dedicated cell to handle end-to-end integration and deliver complex manufacturing projects.' },
   { year: '2026', title: 'Industry Leadership', desc: 'Recognized for top-tier design, engineering competence, and high-fidelity project execution.' },
@@ -227,8 +227,8 @@ export default function About() {
   return (
     <>
       <Helmet>
-        <title>About Us — WASEF and KS INDUSTRIES</title>
-        <meta name="description" content="Learn about WASEF and KS INDUSTRIES, a leading manufacturing concern in Bommasandra, Bangalore specializing in precision machined and fabricated components." />
+        <title>About Us — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
+        <meta name="description" content="Learn about WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING), a leading manufacturing concern in Bommasandra, Bangalore specializing in precision machined and fabricated components." />
       </Helmet>
 
       {/* Page header (with ABOUT.png background) */}
@@ -237,7 +237,7 @@ export default function About() {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="section-label">
               <span className="laser-line" />
-              <span className="text-upper text-yellow">About WASEF and KS INDUSTRIES</span>
+              <span className="text-upper text-yellow">About WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</span>
             </div>
             <h1 className="heading-display heading-h1">
               Precision Machining &<br /><span className="text-yellow">Fabrication Excellence.</span>
@@ -261,10 +261,10 @@ export default function About() {
                   <span className="text-yellow">Delivering Quality.</span>
                 </h2>
                 <p style={{ color: 'var(--gray-200)', fontSize: '1.125rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>
-                  <strong>WASEF and KS INDUSTRIES</strong> is a proprietorship concern located in Bommasandra, Bangalore, executed by <strong>Mr. G. Sridhar</strong>. He is a well established business promoter, having rich experiences in this field of business over 5 years. He is having technical support and practically well versed in the field of manufacturing of machined and fabricated components.
+                  <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> is a proprietorship concern located in Bommasandra, Bangalore, executed by <strong>Mr. G. Sridhar</strong>. He is a well established business promoter, having rich experiences in this field of business over 5 years. He is having technical support and practically well versed in the field of manufacturing of machined and fabricated components.
                 </p>
                 <p style={{ color: 'var(--gray-300)', lineHeight: 1.8, marginBottom: '2rem' }}>
-                  <strong>WASEF and KS INDUSTRIES</strong> began its operations in the year 2019. It is well equipped to meet customer aspirations through a competent design and engineering team, full fledged manufacturing facilities and project management cell who can piece together the tasks to deliver any manufacturing project that can match the best in the industry.
+                  <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> began its operations in the year 2019. It is well equipped to meet customer aspirations through a competent design and engineering team, full fledged manufacturing facilities and project management cell who can piece together the tasks to deliver any manufacturing project that can match the best in the industry.
                 </p>
               </FadeUp>
             </div>
@@ -469,7 +469,7 @@ export default function About() {
         <div className="container cta-strip__inner">
           <FadeUp>
             <h2 className="heading-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)' }}>
-              Partner with WASEF and KS INDUSTRIES — <span className="text-yellow">Request a Quote Today.</span>
+              Partner with WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — <span className="text-yellow">Request a Quote Today.</span>
             </h2>
           </FadeUp>
           <Link to="/contact?type=quote" className="btn btn-primary btn-lg">Get a Quote →</Link>

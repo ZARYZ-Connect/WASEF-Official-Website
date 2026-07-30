@@ -43,8 +43,8 @@ export default function RD() {
   return (
     <>
       <Helmet>
-        <title>R&D Capabilities — WASEF Manufacturing</title>
-        <meta name="description" content="WASEF Manufacturing's Research & Development division — laser process innovation, robotics, simulation, and advanced materials for next-generation precision manufacturing." />
+        <title>R&D Capabilities — WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</title>
+        <meta name="description" content="WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)'s Research & Development division — laser process innovation, robotics, simulation, and advanced materials for next-generation precision manufacturing." />
       </Helmet>
 
       <section className="page-hero">

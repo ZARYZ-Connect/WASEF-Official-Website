@@ -4,28 +4,18 @@
   left: 0;
   right: 0;
   z-index: var(--z-nav);
-  transition: background var(--duration-normal), box-shadow var(--duration-normal);
+  transition: background var(--duration-normal), box-shadow var(--duration-normal), padding var(--duration-normal);
   padding: 1rem 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 .navbar--scrolled {
   background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(24px) saturate(1.8);
-  -webkit-backdrop-filter: blur(24px) saturate(1.8);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 24px rgba(0, 0, 0, 0.06);
   padding: 0.65rem 0;
-}
-
-/* Dark navbar for non-home pages at top of scroll */
-.navbar--dark {
-  background: rgba(13, 13, 13, 0.96);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-/* On dark bg, scrolled state goes back to white */
-.navbar--dark.navbar--scrolled {
-  background: rgba(255, 255, 255, 0.92);
 }
 
 .navbar__container {
@@ -257,7 +247,7 @@
 
 /* Ensure hamburger icon is dark/highly visible when drawer is open (against light drawer bg) */
 .navbar__toggle--open span {
-  background: var(--charcoal-900) !important;
+  background: var(--gray-100) !important;
 }
 
 /* Backdrop Overlay */
@@ -323,25 +313,4 @@
 }
 .navbar__drawer-sub-link:hover { color: var(--yellow-500); }
 
-/* Colors when navbar is NOT scrolled (sitting on top of dark hero background) */
-.navbar:not(.navbar--scrolled) .navbar__logo-brand {
-  color: #FFFFFF !important;
-}
-.navbar:not(.navbar--scrolled) .navbar__logo-sub {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-.navbar:not(.navbar--scrolled) .navbar__link,
-.navbar:not(.navbar--scrolled) .navbar__link--btn {
-  color: rgba(255, 255, 255, 0.9) !important;
-}
-.navbar:not(.navbar--scrolled) .navbar__toggle span {
-  background: #FFFFFF !important;
-}
-.navbar:not(.navbar--scrolled) .navbar__link:hover,
-.navbar:not(.navbar--scrolled) .navbar__link--btn:hover {
-  color: var(--yellow-500) !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-}
-.navbar:not(.navbar--scrolled) .navbar__link--active {
-  color: var(--yellow-500) !important;
-}
+/* Cleaned up top-scroll overrides — navbar remains white */

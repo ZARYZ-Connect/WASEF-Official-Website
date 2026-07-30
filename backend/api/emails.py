@@ -21,7 +21,7 @@ def get_sender_confirmation_html(inquiry):
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inquiry Confirmation — WASIF & KS INDUSTRIES</title>
+    <title>Inquiry Confirmation — WASEF & KS INDUSTRIES</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; color: #1e293b;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f1f5f9; padding: 30px 10px;">
@@ -36,7 +36,7 @@ def get_sender_confirmation_html(inquiry):
                                 <tr>
                                     <td>
                                         <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 800; tracking-spacing: 1px;">
-                                            WASIF &amp; KS <span style="color: #f5a623;">INDUSTRIES</span>
+                                            WASEF &amp; KS <span style="color: #f5a623;">INDUSTRIES</span>
                                         </h1>
                                         <p style="color: #94a3b8; margin: 4px 0 0 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px;">Precision Engineering & Laser Cut Systems</p>
                                     </td>
@@ -96,7 +96,7 @@ def get_sender_confirmation_html(inquiry):
                             <p style="font-size: 14px; color: #64748b; margin-top: 30px; margin-bottom: 0;">
                                 Best regards,<br>
                                 <strong style="color: #0b1329;">The Engineering Team</strong><br>
-                                WASIF &amp; KS INDUSTRIES Pvt. Ltd.
+                                WASEF &amp; KS INDUSTRIES Pvt. Ltd.
                             </p>
                         </td>
                     </tr>
@@ -104,7 +104,7 @@ def get_sender_confirmation_html(inquiry):
                     <!-- Footer -->
                     <tr>
                         <td style="background-color: #f8fafc; padding: 20px 40px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; line-height: 1.5;">
-                            <p style="margin: 0;">WASIF &amp; KS INDUSTRIES Pvt. Ltd. • Industrial Area, Phase II, Bangalore, KA 560058, India</p>
+                            <p style="margin: 0;">WASEF &amp; KS INDUSTRIES Pvt. Ltd. • Industrial Area, Phase II, Bangalore, KA 560058, India</p>
                             <p style="margin: 4px 0 0 0;">This is an automated confirmation of your inquiry submission.</p>
                         </td>
                     </tr>
@@ -125,7 +125,7 @@ def get_receiver_notification_html(inquiry):
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Website Inquiry — WASIF & KS INDUSTRIES</title>
+    <title>New Website Inquiry — WASEF & KS INDUSTRIES</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; color: #1e293b;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f1f5f9; padding: 30px 10px;">
@@ -192,7 +192,7 @@ def get_receiver_notification_html(inquiry):
 
                             <!-- Reply CTA -->
                             <div style="text-align: center; margin-top: 28px; margin-bottom: 12px;">
-                                <a href="mailto:{inquiry.email}?subject=Re:%20WASIF%20and%20KS%20INDUSTRIES%20Inquiry%20-{inquiry_type_label}" 
+                                <a href="mailto:{inquiry.email}?subject=Re:%20WASEF%20and%20KS%20INDUSTRIES%20Inquiry%20-{inquiry_type_label}" 
                                    style="background-color: #f5a623; color: #0b1329; text-decoration: none; padding: 12px 28px; border-radius: 6px; font-weight: 700; font-size: 14px; display: inline-block; box-shadow: 0 4px 10px rgba(245,166,35,0.3);">
                                     Reply to Customer ({inquiry.email}) →
                                 </a>
@@ -203,7 +203,7 @@ def get_receiver_notification_html(inquiry):
                     <!-- Footer -->
                     <tr>
                         <td style="background-color: #f8fafc; padding: 16px 32px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8;">
-                            WASIF &amp; KS INDUSTRIES Web Portal Notification System
+                            WASEF &amp; KS INDUSTRIES Web Portal Notification System
                         </td>
                     </tr>
                 </table>
@@ -244,8 +244,8 @@ def send_inquiry_emails(inquiry):
         logger.error(f"Failed to send company notification email: {e}")
 
     # 2. Sender / Customer Confirmation Email
-    sender_subject = f"We have received your inquiry — WASIF & KS INDUSTRIES"
-    sender_text = f"Hello {inquiry.name},\n\nThank you for reaching out to WASIF & KS INDUSTRIES. We have received your {inquiry_type_label} request.\n\nOur engineering team will review your specifications and get back to you within 24 business hours.\n\nBest regards,\nWASIF & KS INDUSTRIES Team"
+    sender_subject = f"We have received your inquiry — WASEF & KS INDUSTRIES"
+    sender_text = f"Hello {inquiry.name},\n\nThank you for reaching out to WASEF & KS INDUSTRIES. We have received your {inquiry_type_label} request.\n\nOur engineering team will review your specifications and get back to you within 24 business hours.\n\nBest regards,\nWASEF & KS INDUSTRIES Team"
     sender_html = get_sender_confirmation_html(inquiry)
 
     try:
