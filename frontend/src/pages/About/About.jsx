@@ -44,7 +44,7 @@ function TimelineItem({ item, index }) {
 }
 
 const TIMELINE = [
-  { year: '2019', title: 'Founding & Operations', desc: 'WASEF PVT LTD & KS INDUSTRIES (SLE LASER CUTTING) established operations in Bommasandra, Bangalore, focusing on machined and fabricated components.' },
+  { year: '2007', title: 'Founding & Operations', desc: 'WASEF PVT LTD & KS INDUSTRIES (SLE LASER CUTTING) established operations in Bommasandra, Bangalore, focusing on machined and fabricated components.' },
   { year: '2021', title: 'Facility Expansion', desc: 'Installed advanced machinery and expanded production capacity to meet growing customer demands.' },
   { year: '2023', title: 'Project Management Cell', desc: 'Established a dedicated cell to handle end-to-end integration and deliver complex manufacturing projects.' },
   { year: '2026', title: 'Industry Leadership', desc: 'Recognized for top-tier design, engineering competence, and high-fidelity project execution.' },
@@ -264,7 +264,7 @@ export default function About() {
                   <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> is a proprietorship concern located in Bommasandra, Bangalore, executed by <strong>Mr. G. Sridhar</strong>. He is a well established business promoter, having rich experiences in this field of business over 5 years. He is having technical support and practically well versed in the field of manufacturing of machined and fabricated components.
                 </p>
                 <p style={{ color: 'var(--gray-300)', lineHeight: 1.8, marginBottom: '2rem' }}>
-                  <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> began its operations in the year 2019. It is well equipped to meet customer aspirations through a competent design and engineering team, full fledged manufacturing facilities and project management cell who can piece together the tasks to deliver any manufacturing project that can match the best in the industry.
+                  <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> began its operations in the year 2007. It is well equipped to meet customer aspirations through a competent design and engineering team, full fledged manufacturing facilities and project management cell who can piece together the tasks to deliver any manufacturing project that can match the best in the industry.
                 </p>
               </FadeUp>
             </div>
@@ -273,7 +273,7 @@ export default function About() {
             <div className="about-preview__stats">
               <FadeUp delay={0.1}>
                 <div className="stat-card" style={{ padding: '2.5rem', borderLeft: '4px solid var(--yellow-500)' }}>
-                  <span className="stat-card__number stat-number" style={{ fontSize: '3.5rem' }}>2019</span>
+                  <span className="stat-card__number stat-number" style={{ fontSize: '3.5rem' }}>2007</span>
                   <span className="stat-card__label" style={{ fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Year of Establishment</span>
                 </div>
               </FadeUp>
@@ -304,6 +304,7 @@ export default function About() {
           <div className="core-business-grid" style={{ marginTop: '2rem' }}>
             <FadeUp delay={0.05}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-aerospace.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <AerospaceIcon />
                 </div>
@@ -313,6 +314,7 @@ export default function About() {
             </FadeUp>
             <FadeUp delay={0.1}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-control-panels.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <ControlPanelsIcon />
                 </div>
@@ -322,6 +324,7 @@ export default function About() {
             </FadeUp>
             <FadeUp delay={0.15}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-medical.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <MedicalIcon />
                 </div>
@@ -331,6 +334,7 @@ export default function About() {
             </FadeUp>
             <FadeUp delay={0.2}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-conveyor.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <ConveyorIcon />
                 </div>
@@ -340,6 +344,7 @@ export default function About() {
             </FadeUp>
             <FadeUp delay={0.25}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-automation.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <AutomationIcon />
                 </div>
@@ -349,6 +354,7 @@ export default function About() {
             </FadeUp>
             <FadeUp delay={0.3}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-automotive.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <AutomotiveIcon />
                 </div>
@@ -358,6 +364,7 @@ export default function About() {
             </FadeUp>
             <FadeUp delay={0.35}>
               <div className="vertical-card">
+                <div className="vertical-card__bg" style={{ backgroundImage: 'url("/images/vertical-structural.png?v=2")' }} />
                 <div className="vertical-card__icon">
                   <HeavyStructuralIcon />
                 </div>

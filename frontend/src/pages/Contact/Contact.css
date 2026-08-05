@@ -1,3 +1,27 @@
+/* Contact page custom hero (image background) */
+section.page-hero.page-hero--contact {
+  background: linear-gradient(rgba(13, 13, 13, 0.72), rgba(13, 13, 13, 0.85)), url("/CONTACT.png") no-repeat center center / cover !important;
+  padding: 100px 0 50px !important; /* Compact mobile padding */
+}
+
+/* Ensure the heading elements inside the dark image hero are crisp white */
+section.page-hero.page-hero--contact h1.heading-display {
+  color: #ffffff !important;
+}
+
+@media (min-width: 768px) {
+  section.page-hero.page-hero--contact {
+    padding: 160px 0 100px !important; /* Desktop spacing */
+  }
+}
+
+@media (max-width: 576px) {
+  section.page-hero.page-hero--contact h1.heading-display {
+    font-size: 2.15rem !important;
+    line-height: 1.15 !important;
+  }
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr;

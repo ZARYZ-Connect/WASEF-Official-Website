@@ -55,15 +55,20 @@ export default function Careers() {
               { icon: '🔬', title: 'Continuous Learning', desc: 'R&D budget, certification sponsorship, and access to the latest laser technology.' },
               { icon: '🌱', title: 'Grow with Us', desc: 'Structured career progression, leadership programs, and exposure to global supply chains.' },
               { icon: '⚡', title: 'Fast-Paced', desc: 'From prototype to production in weeks. You will see the direct impact of your work.' },
-            ].map((c, i) => (
-              <motion.div key={c.title} className="culture-card card"
-                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}>
-                <span className="culture-card__icon">{c.icon}</span>
-                <h3 className="culture-card__title">{c.title}</h3>
-                <p className="culture-card__desc">{c.desc}</p>
-              </motion.div>
-            ))}
+            ].map((c, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <motion.div key={c.title} className="culture-card card"
+                  initial={{ opacity: 0, x: isLeft ? -50 : 50, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}>
+                  <span className="culture-card__icon">{c.icon}</span>
+                  <h3 className="culture-card__title">{c.title}</h3>
+                  <p className="culture-card__desc">{c.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -93,11 +98,14 @@ export default function Careers() {
           </div>
 
           <div className="openings-list">
-            {filtered.map((job, i) => (
-              <motion.div key={job.id} className="job-card card"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}>
+            {filtered.map((job, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <motion.div key={job.id} className="job-card card"
+                  initial={{ opacity: 0, x: isLeft ? -40 : 40, y: 15 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}>
                 <div className="job-card__header">
                   <div>
                     <h3 className="job-card__title">{job.title}</h3>
@@ -122,7 +130,8 @@ export default function Careers() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            );
+            })}
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '2rem', padding: '2rem', background: 'var(--charcoal-700)', borderRadius: 'var(--radius-lg)', border: '1px solid rgba(255,255,255,0.06)' }}>

@@ -185,7 +185,7 @@
 /* ── Slide dots ── */
 .hero__dots {
   position: absolute;
-  bottom: 2.25rem;
+  bottom: 3.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -238,11 +238,27 @@
 /* ── Scroll cue ── */
 .hero__scroll-cue {
   position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-left: 80px;   /* offset from dots */
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
   z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  pointer-events: none;
+}
+.hero__scroll-text {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: var(--font-heading);
+  white-space: nowrap;
 }
 
 /* ── About preview ─────────────────────────────────────────────── */
@@ -573,13 +589,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   padding: 1.5rem 1rem;
   background: var(--charcoal-700);
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid var(--charcoal-600);
   border-radius: var(--radius-lg);
   text-align: center;
-  transition: all var(--duration-normal);
+  transition: all var(--duration-normal) var(--ease-out);
   cursor: default;
   /* GPU Layer promotion & paint stabilization during scroll animations */
   will-change: transform, opacity;
@@ -588,34 +604,42 @@
   -webkit-backface-visibility: hidden;
 }
 .industry-card:hover {
-  border-color: rgba(245, 197, 24, 0.4);
-  transform: translateY(-4px) translateZ(0);
+  border-color: var(--theme-border-hover);
+  transform: translateY(-5px) translateZ(0);
   background: var(--charcoal-800);
+  box-shadow: var(--theme-shadow-hover, 0 10px 20px rgba(0, 0, 0, 0.04));
 }
 
 .industry-card__icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
-  background: rgba(245, 197, 24, 0.07);
-  color: #F5C518;
-  transition: transform var(--duration-normal), background var(--duration-normal);
+  background: var(--theme-bg);
+  color: var(--theme-color);
+  transition: transform var(--duration-normal) var(--ease-out), background var(--duration-normal) var(--ease-out);
   margin-bottom: 0.25rem;
 }
 
 .industry-card:hover .industry-card__icon-wrapper {
   transform: scale(1.12) rotate(4deg);
-  background: rgba(245, 197, 24, 0.14);
+  background: var(--theme-bg-hover);
 }
 
 .industry-card__name {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--gray-300);
-  letter-spacing: 0.03em;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--gray-100);
+  letter-spacing: 0.01em;
+}
+
+.industry-card__subtitle {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--gray-400);
+  line-height: 1.3;
 }
 
 /* ── Clients marquee ────────────────────────────────────────────── */
@@ -965,18 +989,7 @@
     margin-right: 0.35rem !important;
   }
 
-  /* Stack and format bottom CTA banner buttons on mobile */
-  .cta-banner__btns {
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 0.75rem !important;
-  }
-  
-  .cta-banner__btns .btn {
-    width: 100% !important;
-    justify-content: center !important;
-    padding-block: 0.875rem !important;
-  }
+  /* Mobile CTA banner buttons inherit side-by-side btn-group-responsive configuration */
 }
 
 /* Header navigation layout */

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
@@ -19,6 +20,7 @@ const COMPANY_LINKS = [
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const [servicesExpanded, setServicesExpanded] = useState(false);
 
   return (
     <footer className="footer" role="contentinfo">
@@ -29,9 +31,9 @@ export default function Footer() {
             {/* Brand column */}
             <div className="footer__brand">
               <Link to="/" className="footer__logo">
-                <img src="/Wasef logo.png" alt="WASEF and KS Logo" className="footer__logo-img" />
-                <div>
-                  <span className="footer__logo-brand" style={{ fontSize: '0.85rem' }}>WASEF PVT LTD &amp; KS</span>
+                <img src="/wasef-logo.png" alt="WASEF and KS Logo" className="footer__logo-img" />
+                <div className="footer__logo-text">
+                  <span className="footer__logo-brand">WASEF PVT LTD &amp; KS</span>
                   <span className="footer__logo-sub">INDUSTRIES (SLE LASER CUTTING)</span>
                 </div>
               </Link>
@@ -54,7 +56,7 @@ export default function Footer() {
             </div>
 
             {/* Services */}
-            <div className="footer__col">
+            <div className="footer__col footer__col--desktop-only">
               <h3 className="footer__col-title">Services</h3>
               <ul className="footer__links">
                 {SERVICES_LINKS.map(l => (
@@ -67,9 +69,57 @@ export default function Footer() {
             <div className="footer__col">
               <h3 className="footer__col-title">Company</h3>
               <ul className="footer__links">
-                {COMPANY_LINKS.map(l => (
-                  <li key={l.href}><Link to={l.href} className="footer__link">{l.label}</Link></li>
-                ))}
+                {COMPANY_LINKS.map(l => {
+                  if (l.label === 'Services') {
+                    return (
+                      <li key={l.href} className="footer__link-item--services">
+                        <Link to={l.href} className="footer__link footer__link--desktop-only">{l.label}</Link>
+                        
+                        <div className="footer__services-toggle-row footer__link--mobile-only">
+                          <Link to={l.href} className="footer__link">Services</Link>
+                          <button 
+                            type="button" 
+                            className="footer__services-chevron-btn"
+                            onClick={() => setServicesExpanded(!servicesExpanded)}
+                            aria-expanded={servicesExpanded}
+                            aria-label="Toggle services list"
+                          >
+                            <svg 
+                              width="12" 
+                              height="12" 
+                              viewBox="0 0 24 24" 
+                              fill="none" 
+                              stroke="currentColor" 
+                              strokeWidth="3" 
+                              style={{ 
+                                transform: servicesExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                                transition: 'transform 0.2s ease',
+                                color: 'var(--yellow-500)'
+                              }}
+                            >
+                              <path d="M6 9l6 6 6-6" />
+                            </svg>
+                          </button>
+                        </div>
+                        
+                        <div className={`footer__services-submenu footer__link--mobile-only ${servicesExpanded ? 'footer__services-submenu--open' : ''}`}>
+                          <ul className="footer__services-sublinks">
+                            {SERVICES_LINKS.map(sub => (
+                              <li key={sub.href}>
+                                <Link to={sub.href} className="footer__sublink">{sub.label}</Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </li>
+                    );
+                  }
+                  return (
+                    <li key={l.href}>
+                      <Link to={l.href} className="footer__link">{l.label}</Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -90,15 +140,6 @@ export default function Footer() {
                   <a href="mailto:info@wasefmanufacturing.com" className="footer__link">info@wasefmanufacturing.com</a>
                 </div>
               </address>
-
-              {/* Newsletter */}
-              <div className="footer__newsletter">
-                <p className="footer__newsletter-label">Industry Insights Newsletter</p>
-                <form className="footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                  <input type="email" placeholder="your@company.com" className="footer__newsletter-input" aria-label="Email address" />
-                  <button type="submit" className="btn btn-primary btn-sm">Subscribe</button>
-                </form>
-              </div>
             </div>
 
           </div>

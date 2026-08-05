@@ -6,13 +6,13 @@ import { SERVICES_DATA } from '../../data/staticData';
 import ServiceIcon from '../../components/ServiceIcon/ServiceIcon';
 import './Services.css';
 
-function FadeUp({ children, delay = 0 }) {
+function FadeUp({ children, delay = 0, isLeft = true }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
   return (
     <motion.div ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, x: isLeft ? -50 : 50, y: 20 }}
+      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
     >{children}</motion.div>
   );
@@ -50,7 +50,7 @@ export default function Services() {
         <div className="container">
           <div className="services-list">
             {SERVICES_DATA.map((svc, i) => (
-              <FadeUp key={svc.id} delay={i * 0.07}>
+              <FadeUp key={svc.id} delay={i * 0.07} isLeft={i % 2 === 0}>
                 <Link
                   to={`/services/${svc.slug}`}
                   className="svc-row"

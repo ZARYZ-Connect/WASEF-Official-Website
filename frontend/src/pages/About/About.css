@@ -159,6 +159,8 @@
 
 /* ── Manufacturing Vertical Cards ── */
 .vertical-card {
+  position: relative;
+  overflow: hidden;
   background: #ffffff !important;
   border: 1px solid rgba(0, 0, 0, 0.05) !important;
   border-radius: var(--radius-xl);
@@ -172,7 +174,20 @@
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.vertical-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .vertical-card__icon {
+  position: relative;
+  z-index: 1;
   font-size: 1.75rem;
   width: 56px;
   height: 56px;
@@ -188,17 +203,21 @@
 }
 
 .vertical-card__title {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--charcoal-900) !important;
+  color: var(--gray-100) !important;
   margin: 0;
   transition: color 0.3s ease;
 }
 
 .vertical-card__body {
+  position: relative;
+  z-index: 1;
   font-size: 0.875rem;
-  color: var(--gray-600) !important;
+  color: var(--gray-300) !important;
   line-height: 1.65;
   margin: 0;
 }
@@ -212,7 +231,7 @@
 
 .vertical-card:hover .vertical-card__icon {
   background: var(--yellow-500);
-  color: var(--charcoal-900);
+  color: #000000;
   border-color: var(--yellow-500);
   box-shadow: 0 4px 15px rgba(245, 197, 24, 0.35);
 }
@@ -326,18 +345,18 @@
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 2.25rem;
-  color: var(--charcoal-900);
+  color: var(--gray-200);
   line-height: 1;
   position: relative;
-  background: linear-gradient(135deg, var(--charcoal-900), var(--charcoal-700));
+  background: linear-gradient(135deg, var(--gray-100), var(--gray-400));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  opacity: 0.25;
+  opacity: 0.45;
   transition: all 0.4s ease;
 }
 
 .timeline-item:hover .timeline-item__year {
-  opacity: 0.95;
+  opacity: 1.0;
   transform: scale(1.05);
   background: linear-gradient(135deg, var(--yellow-600), var(--yellow-500));
   -webkit-background-clip: text;
@@ -431,18 +450,18 @@
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--charcoal-900);
+  color: var(--gray-100) !important;
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 }
 
 .timeline-item:hover .timeline-item__title {
-  color: var(--yellow-600);
+  color: var(--yellow-600) !important;
 }
 
 .timeline-item__desc {
   font-size: 0.9rem;
-  color: var(--gray-600);
+  color: var(--gray-300) !important;
   line-height: 1.7;
 }
 

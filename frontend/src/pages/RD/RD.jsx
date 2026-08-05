@@ -78,22 +78,25 @@ export default function RD() {
             Innovation<br /><span className="text-yellow">in Every Beam.</span>
           </h2>
           <div className="grid-2">
-            {CAPABILITIES.map((cap, i) => (
-              <motion.div key={cap.title} className="rd-cap-card card"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}>
-                <span className="rd-cap-card__icon">{cap.icon}</span>
-                <h3 className="rd-cap-card__title">{cap.title}</h3>
-                <p className="rd-cap-card__desc">{cap.desc}</p>
-                <div className="rd-cap-card__tags">
-                  {cap.tags.map(t => (
-                    <span key={t} className="badge badge-gray">{t}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+            {CAPABILITIES.map((cap, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <motion.div key={cap.title} className="rd-cap-card card"
+                  initial={{ opacity: 0, x: isLeft ? -50 : 50, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}>
+                  <span className="rd-cap-card__icon">{cap.icon}</span>
+                  <h3 className="rd-cap-card__title">{cap.title}</h3>
+                  <p className="rd-cap-card__desc">{cap.desc}</p>
+                  <div className="rd-cap-card__tags">
+                    {cap.tags.map(t => (
+                      <span key={t} className="badge badge-gray">{t}</span>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

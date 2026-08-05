@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/Wasef logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/wasef-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#FFC72C" />
     <title>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — Precision Laser Manufacturing in India</title>
     <meta name="description" content="India's premier precision laser manufacturing company. High quality laser cutting, welding, cladding, 3D printing." />
@@ -49,7 +49,7 @@
 
       body {
         margin: 0;
-        background: #000;
+        background: #ececec;
       }
 
       /* â”€â”€ Video preloader â”€â”€ */
@@ -57,7 +57,7 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        background: #000;
+        background: #ececec;
         overflow: hidden;
         opacity: 1;
         transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -75,6 +75,11 @@
         height: 100%;
         object-fit: cover;
       }
+      @media (max-width: 767px) {
+        #video-preloader video {
+          object-fit: contain;
+        }
+      }
 
       /* Skip button */
       #video-preloader .vp-skip {
@@ -82,9 +87,9 @@
         bottom: 2rem;
         right: 2rem;
         z-index: 10;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid rgba(255,255,255,0.22);
-        color: rgba(255,255,255,0.85);
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        color: #1e293b;
         font-family: 'Outfit', 'Inter', sans-serif;
         font-size: 0.78rem;
         font-weight: 600;
@@ -100,20 +105,20 @@
         transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
       }
       #video-preloader .vp-skip:hover {
-        background: rgba(255,199,44,0.18);
-        border-color: rgba(255,199,44,0.5);
-        color: #ffc72c;
+        background: rgba(0, 0, 0, 0.1);
+        border-color: rgba(0, 0, 0, 0.3);
+        color: #000000;
         transform: translateY(-1px);
       }
       @keyframes vp-skip-in { to { opacity: 1; } }
     </style>
   </head>
-  <body style="background: #000; overflow: hidden;">
+  <body style="background: #ececec; overflow: hidden;">
     <!-- Video intro preloader -->
     <div id="video-preloader">
       <video
         id="vp-video"
-        src="/loading video.mp4"
+        src="/loading-video.mp4"
         muted
         playsinline
         preload="auto"
@@ -136,6 +141,7 @@
           var el = document.getElementById('video-preloader');
           if (el) {
             el.classList.add('fade-out');
+            document.body.style.background = '';
             document.body.style.overflow = '';
             setTimeout(function () { el.remove(); }, 850);
           }

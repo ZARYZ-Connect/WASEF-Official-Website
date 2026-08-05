@@ -376,9 +376,9 @@ const MEDIA_SLIDES = [
   },
   {
     type: 'image',
-    src: '/images/BODOR LASER CUTTING MACHINE.jpg',
-    headline: '6kW Fiber Laser\nCutting System.',
-    sub: 'Advanced Bodor CNC Fiber Laser cutting machine with automatic autofocus head and positioning accuracy of ±0.03 mm.',
+    src: '/images/BODOR LASER CUTTING MACHINE E-SERIES.jpg',
+    headline: '6kW Bodor E-Series\nFiber Laser System.',
+    sub: 'Advanced 6kW CNC fiber laser cutting machine with automatic autofocus head and positioning accuracy of ±0.03 mm.',
   },
   {
     type: 'image',
@@ -388,14 +388,14 @@ const MEDIA_SLIDES = [
   },
   {
     type: 'image',
-    src: '/images/amada-laser.jpg',
-    headline: 'Amada F3015NT\nLaser Precision.',
-    sub: '4kW high-precision laser cutting with automatic nesting and AMNC-F CNC control interface.',
+    src: '/images/Bodor K.png',
+    headline: 'Bodor K230\nTube Laser Cutting.',
+    sub: 'Advanced CNC fiber laser tube cutting machine supporting up to Ø230 mm round pipes, 6.5 m standard lengths, and 300 kg max weight.',
   },
   {
     type: 'image',
-    src: '/images/sms-bending.jpg',
-    headline: 'SMS CNC Bending\n& Plate Forming.',
+    src: '/images/sms-bending.png',
+    headline: 'SMS CNC Press Brake\nBending & Forming.',
     sub: '160 Ton capacity hydraulic press brake for multi-axis bending of complex steel profiles.',
   },
   {
@@ -516,7 +516,7 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="laser-line" />
-            <span className="text-upper text-yellow">Est. 2019 · Bangalore, India</span>
+            <span className="text-upper text-yellow">Est. 2007 · Bangalore, India</span>
           </motion.div>
 
           {/* Headline — re-animates on slide change */}
@@ -607,50 +607,54 @@ function Hero() {
         transition={{ repeat: Infinity, duration: 1.8 }}
         aria-hidden="true"
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        <span className="hero__scroll-text">Scroll Down</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="1.5">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
       </motion.div>
     </section>
   );
 }
 
 /* ── Industry consistent line icons ─── */
-function IndustryIcon({ industryKey }) {
+function IndustryIcon({ industryKey, color }) {
+  const strokeColor = color || '#F5C518';
   switch (industryKey) {
     case 'aerospace':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M17.8 14H2c-.6 0-1-.4-1-1v-2c0-.6.4-1 1-1h15.8l-3.5-5.5c-.3-.4-.2-1 .2-1.3l1.5-1.1c.4-.3 1-.2 1.3.2l5.4 7.2c.4.5.4 1.2 0 1.7l-5.4 7.2c-.3.4-.9.5-1.3.2l-1.5-1.1c-.4-.3-.5-.9-.2-1.3l3.5-5.5z" />
         </svg>
       );
     case 'control-panels':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M4 10h4M4 14h4M12 10h8M12 14h8M16 6v8M8 10v8M12 4v6" />
         </svg>
       );
     case 'medical-devices':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
         </svg>
       );
     case 'material-handling':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <rect x="4" y="4" width="16" height="16" rx="2" />
           <path d="M9 9h6M9 13h6M9 17h6" />
         </svg>
       );
     case 'industrial-automation':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="3" />
           <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
         </svg>
       );
     case 'automotive':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11.1 2 11.5 2 12v4c0 .6.4 1 1 1h2" />
           <circle cx="7" cy="17" r="2.5" />
           <circle cx="17" cy="17" r="2.5" />
@@ -658,7 +662,7 @@ function IndustryIcon({ industryKey }) {
       );
     case 'heavy-infrastructure':
       return (
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F5C518" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={strokeColor} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M3 21h18M5 21V7l7-4 7 4v14M5 12h14M12 3v18" />
         </svg>
       );
@@ -730,7 +734,7 @@ export default function Home() {
                 </div>
                 <h2 className="heading-display heading-h2" style={{ marginBottom: '1.25rem' }}>
                   Engineering Excellence<br />
-                  <span className="text-yellow">Since 2019.</span>
+                  <span className="text-yellow">Since 2007.</span>
                 </h2>
                 <p style={{ color: 'var(--gray-400)', lineHeight: 1.8, marginBottom: '1.5rem', maxWidth: '520px' }}>
                   <strong>WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING)</strong> is a leading proprietorship concern located in Bommasandra, Bangalore, executed by <strong>Mr. G. Sridhar</strong>. With rich experience in machined and fabricated components, we deliver high-quality, precise industrial solutions.
@@ -845,11 +849,19 @@ export default function Home() {
                   whileInView={inViewProps}
                   viewport={{ once: true, margin: '-40px' }}
                   transition={{ duration: 0.6, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    '--theme-color': ind.color,
+                    '--theme-bg': `rgba(${ind.colorRgb}, 0.07)`,
+                    '--theme-bg-hover': `rgba(${ind.colorRgb}, 0.14)`,
+                    '--theme-border-hover': `rgba(${ind.colorRgb}, 0.4)`,
+                    '--theme-shadow-hover': `0 12px 24px -10px rgba(${ind.colorRgb}, 0.25)`,
+                  }}
                 >
                   <div className="industry-card__icon-wrapper">
-                    <IndustryIcon industryKey={ind.key} />
+                    <IndustryIcon industryKey={ind.key} color={ind.color} />
                   </div>
                   <span className="industry-card__name">{ind.name}</span>
+                  <span className="industry-card__subtitle">{ind.subtitle}</span>
                 </motion.div>
               );
             })}
@@ -872,26 +884,32 @@ export default function Home() {
           </FadeUp>
 
           <div className="why-choose-us-grid">
-            {WHY_CHOOSE_US.map((item, i) => (
-              <motion.div
-                key={item.title}
-                className="why-choose-us-card"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <div 
-                  className="why-choose-us-card__icon-badge"
-                  style={{ '--badge-color': item.color, '--badge-bg': item.bgColor }}
+            {WHY_CHOOSE_US.map((item, i) => {
+              const isLeft = i % 2 === 0;
+              const initialProps = isMobile 
+                ? { opacity: 0, x: isLeft ? -45 : 45, y: 15 } 
+                : { opacity: 0, y: 24, x: 0 };
+              return (
+                <motion.div
+                  key={item.title}
+                  className="why-choose-us-card"
+                  initial={initialProps}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <div className="why-choose-us-card__pulse-ring"></div>
-                  <CapabilityIcon iconKey={item.iconKey} />
-                </div>
-                <h3 className="why-choose-us-card__title">{item.title}</h3>
-                <p className="why-choose-us-card__desc">{item.desc}</p>
-              </motion.div>
-            ))}
+                  <div 
+                    className="why-choose-us-card__icon-badge"
+                    style={{ '--badge-color': item.color, '--badge-bg': item.bgColor }}
+                  >
+                    <div className="why-choose-us-card__pulse-ring"></div>
+                    <CapabilityIcon iconKey={item.iconKey} />
+                  </div>
+                  <h3 className="why-choose-us-card__title">{item.title}</h3>
+                  <p className="why-choose-us-card__desc">{item.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -173,27 +174,22 @@ const PROJECTS = [
     client: 'WASEF Industry', 
     desc: 'Precision-welded mechanical press assembly and fixture designed for high-load production automation systems.',
     image: '/images/press-assembly.png'
+  },
+  {
+    id: 18,
+    title: '13.5 M Bus Chassis Fabrication',
+    industry: 'Automotive & Heavy Transit',
+    service: 'Heavy Structural Fabrication',
+    year: 2024,
+    client: 'Ashok Leyland',
+    desc: 'Complete heavy structural fabrication, alignment, and full-penetration welding of 13.5-meter passenger coach bus chassis frameworks.',
+    image: '/images/bus-chassis-fabrication.png'
   }
 ];
 
 const MACHINES = [
   {
     id: 1,
-    name: 'Amada F3015NT Laser Machine',
-    type: 'Laser Cutting',
-    specs: '4kW Laser Power - High precision cutting system',
-    qty: '1 Unit',
-    image: '/images/amada-laser.jpg',
-    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum'],
-    features: [
-      '4kW Laser Power source',
-      'High-precision cutting system with automatic nesting',
-      'Integrated AMNC-F CNC Control interface',
-      'Automatic nozzle changer and head calibration'
-    ]
-  },
-  {
-    id: 2,
     name: 'Bodor LASER Cutting Machine',
     type: 'Laser Cutting',
     specs: 'Type: CNC Fiber Laser Cutting Machine | Laser Power: 3 kW (3000 W) | Laser Type: Fiber Laser | Positioning Accuracy: ±0.03 mm | Repeat Positioning Accuracy: ±0.02 mm | Electrical Supply: 380–415 V AC, 3 Phase, 50/60 Hz | Cooling: Industrial Water Chiller (Closed-loop) | Gas Requirements: Oxygen (O₂), Nitrogen (N₂), Compressed Air | Application: Precision metal sheet cutting',
@@ -245,33 +241,110 @@ const MACHINES = [
     ]
   },
   {
-    id: 3,
-    name: 'SMS Bending Machine',
-    type: 'CNC Bending & Forming',
-    specs: '160 Ton capacity, folds sheets up to 3000mm length',
+    id: 2,
+    name: 'Bodor K230 CNC Fiber Laser Tube Cutting Machine',
+    type: 'Laser Cutting',
+    specs: 'Model: Bodor K230 | Round Tube Capacity: Ø20–Ø230 mm | Square Tube Capacity: 20 × 20 mm to 230 × 230 mm | Rectangular Tube Capacity: Up to 230 mm side length | Tube Length Capacity: 6.5 m standard (9.2 m optional) | Maximum Tube Weight: Up to 300 kg | Laser Power Options: 1.5 kW, 3 kW, or 6 kW | Max Chuck Rotation Speed: Up to 90–150 rpm | Laser Type: Fiber Laser | Chuck Clamping Time: Under 2.0 s | Tailing Length: Ultra-short (Down to 45 mm) | Control System: BodorThinker CNC Control with BodorGenius T Auto-focus Laser Head | Cooling: Closed-Loop Industrial Water Chiller | Gas Requirements: Oxygen (O₂), Nitrogen (N₂), Compressed Air | Application: Precision metal tube and profile cutting',
     qty: '1 Unit',
-    image: '/images/sms-bending.jpg',
-    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum', 'Galvanized Sheet'],
+    image: '/images/Bodor K.png',
+    materials: [
+      'Mild Steel (MS)',
+      'Stainless Steel (SS)',
+      'Aluminium',
+      'Brass',
+      'Copper',
+      'Channel Steel & Angle Bars'
+    ],
     features: [
-      '160 Ton maximum bending capacity',
-      'Folds sheets up to 3000mm length (3.0 meters)',
-      'Multi-axis CNC backgauge system for complex profiles',
-      'High repeatability precision hydraulic cylinders'
+      'Bodor Genius T needle-nose auto-focusing laser head for processing angle steel and I-beams',
+      'Dual high-speed pneumatic chuck system (clamping in under 2 seconds)',
+      'BodorThinker CNC system with BodorNest Tube intelligent nesting software',
+      'Automatic edge collision prevention and corner rotation optimization',
+      'One-click cutting start with automated tube dimension graphics mapping',
+      'Ultra-short tailings design to minimize raw material remnant waste',
+      'Integrated closed-loop industrial water cooling and automatic lubrication system'
+    ],
+    applications: [
+      'Structural framework and hollow-section fabrication',
+      'Steel furniture & racking systems',
+      'Agricultural machinery parts & chassis',
+      'Automotive structural tubing',
+      'Fitness Equipment & playground structures',
+      'Custom elliptical & multi-shaped profile cutting'
+    ],
+    advantages: [
+      'High-speed feeding up to 100 m/min for rapid processing cycle times',
+      'Automatic centering and clamping eliminates manual setup adjustments',
+      'High material yield with ultra-short scrap remnants',
+      'Smooth, burr-free cuts matching strict engineering drawings'
+    ],
+    factorySpecsNote: [
+      'Bodor K series specific model number (e.g., K1, K2, K3, K5)',
+      'Laser source manufacturer and configuration (IPG/Maxphotonics)',
+      'Automation loader attachments requested (K-Trans / K-Loader)',
+      'Specific profile drawing files (.dxf / .step / .igs)'
+    ],
+    importantNotice: 'If your requirement is 250 mm pipe cutting, the K230 is not suitable because its maximum round pipe diameter is 230 mm. For 250 mm pipes, you should consider a larger model such as the Bodor K350, which supports larger tube diameters.'
+  },
+  {
+    id: 3,
+    name: 'SMS CNC Press Brake',
+    type: 'CNC Bending & Forming',
+    specs: 'Manufacturer: SMS | Machine Type: CNC Hydraulic Press Brake | Bending Capacity: 160 Tons | Bending Length: 3000 mm (3.0 Meters) | Maximum Pressing Force: 160 Tons | Control System: CNC Controller | Application: Precision sheet metal bending',
+    qty: '1 Unit',
+    image: '/images/sms-bending.png',
+    materials: [
+      'Mild Steel (MS)',
+      'Stainless Steel (SS)',
+      'Aluminum (Al)',
+      'Copper (Cu)'
+    ],
+    features: [
+      'High-precision bending',
+      'Multi-angle bending capability',
+      'Repeatable accuracy',
+      'Suitable for heavy and medium-duty fabrication',
+      'Fast setup and efficient production'
+    ],
+    applications: [
+      'Precision sheet metal bending',
+      'Box fabrication',
+      'Panels & brackets',
+      'Enclosures & cabinets',
+      'Frames',
+      'Custom metal components'
     ]
   },
   {
     id: 4,
-    name: 'Amada Bending Machine',
+    name: 'Amada Press Brake (RG 80)',
     type: 'CNC Bending & Forming',
-    specs: '80 Ton capacity, folds sheets up to 2500mm length',
+    specs: 'Manufacturer: Amada | Model: RG 80 | Machine Type: Hydraulic Press Brake | Bending Capacity: 80 Tons | Bending Length: 2500 mm (2.5 Meters) | Maximum Pressing Force: 80 Tons | Control System: NC/CNC | Application: Precision sheet metal bending',
     qty: '1 Unit',
-    image: '/images/amada-bending.jpg',
-    materials: ['Mild Steel', 'Stainless Steel', 'Aluminum', 'Galvanized Sheet'],
+    image: '/images/amada-bending.png',
+    materials: [
+      'Mild Steel (MS)',
+      'Stainless Steel (SS)',
+      'Aluminum (Al)',
+      'Copper (Cu)'
+    ],
     features: [
-      '80 Ton bending capacity',
-      'Folds sheets up to 2500mm length (2.5 meters)',
-      'High-accuracy CNC backgauge control',
-      'Amada precision segmented tooling'
+      'High bending accuracy',
+      'Smooth hydraulic operation',
+      'Reliable and durable construction',
+      'Suitable for medium-duty fabrication',
+      'Easy tooling setup',
+      'Consistent repeatability',
+      'Supports various punch and die combinations'
+    ],
+    applications: [
+      'Precision sheet metal bending',
+      'Brackets',
+      'Cabinets',
+      'Electrical panels',
+      'Enclosures',
+      'Channels & frames',
+      'Custom fabrication'
     ]
   },
   {
@@ -280,7 +353,7 @@ const MACHINES = [
     type: 'Sawing',
     specs: 'Automated bandsaw for heavy industrial sections and pipes',
     qty: '1 Unit',
-    image: '/images/bandsaw.jpg',
+    image: '/images/bandsaw.png',
     materials: ['Mild Steel sections & beams', 'Stainless Steel pipes & solid bars', 'Structural Steel channels', 'Aluminum profiles'],
     features: [
       'Automated hydraulic blade feed control',
@@ -295,7 +368,7 @@ const MACHINES = [
     type: 'Material Handling',
     specs: '3 Ton capacity heavy duty overhead crane system',
     qty: '1 Unit',
-    image: '/images/eot-crane.webp',
+    image: '/images/eot-crane.png',
     materials: ['Heavy metal plates', 'Industrial machinery structures', 'Raw material stock', 'Welded fabrication sub-assemblies'],
     features: [
       '3 Ton lifting capacity',
@@ -340,7 +413,7 @@ const MACHINES = [
     type: 'Bending & Pressing',
     specs: 'Hand-operated mechanical press for secondary operations',
     qty: '1 Unit',
-    image: '/images/fly-press.jpg',
+    image: '/images/fly-press.png',
     materials: ['Thin sheet metal parts', 'Steel bars & brackets', 'Copper shims'],
     features: [
       'Manual screw-driven mechanical press design',
@@ -414,6 +487,219 @@ const MACHINES = [
     ]
   }
 ];
+
+const PROCESS_STEPS = [
+  {
+    num: '01',
+    name: 'Material Purchasing',
+    shortName: 'Material Purchasing',
+    subtitle: 'Sourcing & Sizing Verification',
+    desc: 'Raw materials are purchased and verified as per design specifications. Inventory is structured into sheets (Mild Steel, Stainless Steel, Aluminium) and structural tube/pipe sections.',
+    specs: 'Sheets (MS): 0.8 mm to 26 mm | Sheets (SS): 0.5 mm to 16 mm | Sheets (Aluminium): 1 mm to 6 mm | Tube & Pipe: Up to 230 Dia / Pipe | Tube Dimensions: 230 x 230 mm',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+        <line x1="12" y1="22.08" x2="12" y2="12" />
+      </svg>
+    ),
+    visual: 'material'
+  },
+  {
+    num: '02',
+    name: 'As per customer requirements make a Drawing',
+    shortName: 'Customer Drawing',
+    subtitle: 'Design Engineering',
+    desc: 'We model and engineer detailed CAD blueprints and technical schematics based on customer requirements.',
+    specs: 'Drafting: 2D Schematics & 3D CAD Modeling | Optimization: Structural limits check | Review: Customer design sign-off | Formats: .DXF, .DWG, .STEP, .IGS',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+        <path d="M12 20h9M3 20v-8a2 2 0 0 1 2-2h4l2 3h9a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <circle cx="12" cy="13" r="3" />
+      </svg>
+    ),
+    visual: 'cad'
+  },
+  {
+    num: '03',
+    name: 'As Per Drawing start the laser cutting thickness viz.',
+    shortName: 'Laser Cutting',
+    subtitle: 'CNC Laser Profiling',
+    desc: 'CNC fiber laser cutting of sheets and tube profiles matching the established drawing thickness specifications.',
+    specs: 'Laser Systems: 3 kW & 6 kW Fiber Lasers | Cutting Accuracy: ±0.03 mm | Features: Auto-Focus, Auto-Nesting | Process Control: High-speed edge profiling',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+      </svg>
+    ),
+    visual: 'laser'
+  },
+  {
+    num: '04',
+    name: 'Separate -> Bending -> Non-Bending -> Fabrication',
+    shortName: 'Separate Workflow',
+    subtitle: 'Routing & Processing',
+    desc: 'Sorting cut panels and parts into their respective processing lines: CNC bending, non-bending operations, and structural welding/fabrication.',
+    specs: 'Bending Route: CNC Hydraulic Bending | Non-Bending Route: Punching, Countersinking | Fabrication Route: Heavy MIG/TIG welding | Tolerance Range: Structural assembly jig-fit',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M9 17v-5a3 3 0 0 1 6 0v5" />
+      </svg>
+    ),
+    visual: 'routing'
+  },
+  {
+    num: '05',
+    name: 'Move to Plating And Powder Coating',
+    shortName: 'Plating & Coating',
+    subtitle: 'Surface Treatment',
+    desc: 'Directing components to surface coating lines for zinc plating (blue, yellow, or black) or applying customized powder coating finishes.',
+    specs: 'Plating Modes: Zinc Blue, Zinc Yellow, Zinc Black | Powder Coating: Electrostatic paint shield | Spec: As per customer requirement | Corrosion Finish: Heavy-duty protection',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+    ),
+    visual: 'coating'
+  },
+  {
+    num: '06',
+    name: 'Packing',
+    shortName: 'Packing',
+    subtitle: 'Dispatch Standards',
+    desc: 'Components are packed securely in compliance with the customer standard to prevent damage during transit.',
+    specs: 'Packaging Style: As per customer standard | Protection: Foam, film, cardboard layering | Quality Gate: 100% finished parts sign-off | Dispatch: Logistics logistics ready',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <line x1="2" y1="20" x2="22" y2="20" />
+        <line x1="12" y1="17" x2="12" y2="20" />
+      </svg>
+    ),
+    visual: 'packing'
+  }
+];
+
+function ProcessVisual({ type }) {
+  const imgSrc = (() => {
+    switch (type) {
+      case 'material': return '/images/process/material-purchasing.png';
+      case 'cad': return '/images/process/customer-drawing.png';
+      case 'laser': return '/images/process/laser-cutting.png';
+      case 'routing': return '/images/process/bending-fabrication.png';
+      case 'coating': return '/images/process/plating-coating.png';
+      case 'packing': return '/images/process/packing.png';
+      default: return '';
+    }
+  })();
+
+  if (imgSrc) {
+    return (
+      <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: '250px', background: '#090f1d', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <img 
+          src={imgSrc}
+          alt={type}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+      </div>
+    );
+  }
+
+  return null;
+}
+
+const getProjectDetails = (proj) => {
+  if (!proj) return { specs: '', materials: [], steps: [] };
+  if (proj.customDetails) return proj.customDetails;
+  
+  let specs = '';
+  let materials = [];
+  let steps = [];
+
+  const titleLower = proj.title.toLowerCase();
+
+  if (titleLower.includes('bus chassis') || titleLower.includes('13.5 m bus')) {
+    specs = 'Overall Length: 13,500 mm | Overall Width: 2,550 mm | Overall Height: 3,400 mm | Wheelbase: 6,600 mm (Approx.) | Front Overhang: 2,300 mm (Approx.) | Rear Overhang: 4,600 mm (Approx.) | Passenger Capacity: 49 - 57 Seater (Approx.)';
+    materials = ['High-Tensile Rectangular Hollow Sections (RHS)', 'Mild Steel Structural Channels', 'Reinforced Chassis Mounting Plates', 'Heavy-Duty Anti-Corrosive Enamel Paint'];
+    steps = [
+      { name: 'Material Loading', desc: 'Sourcing, sizing, and loading high-tensile hollow sections and steel channels.' },
+      { name: 'Cutting', desc: 'Precision CNC bandsaw and high-power laser profile cutting of frame tubes.' },
+      { name: 'Fitting', desc: 'Aligning main frame chassis beams, outriggers, and pillars using a heavy-duty alignment jig.' },
+      { name: 'Welding', desc: 'Fully qualified multi-pass CO₂/MIG structural welding of joints to engineering tolerances.' },
+      { name: 'Assembly', desc: 'Integrating engine brackets, suspension cross-members, axle hangers, and luggage compartments.' },
+      { name: 'Finishing', desc: 'Shot blasting, applying premium zinc-rich anti-corrosive primer, and topcoat safety paint.' }
+    ];
+  } else if (titleLower.includes('workstation') || titleLower.includes('desk') || titleLower.includes('bench')) {
+    specs = 'Overall Dimensions: 1800mm (L) x 900mm (W) x 1500mm (H) | Sheet Thickness: 1.2 mm - 2.5 mm | Drawer Capacity: 40 kg per drawer | Frame Load Limit: 350 kg | Coating: Anti-static ESD powder coat';
+    materials = ['Cold Rolled Mild Steel', 'Stainless Steel (SS304/SS316L)', 'Aluminum extrusion channels', 'ESD Laminate Sheet'];
+    steps = [
+      { name: 'Material Loading', desc: 'Loading premium cold-rolled steel and cleanroom-grade stainless steel sheets.' },
+      { name: 'Laser Cutting', desc: 'CNC fiber laser cutting of panels, sheet brackets, and drawer slides to ±0.05mm accuracy.' },
+      { name: 'CNC Bending', desc: 'Precision hydraulic press brake folding of drawers, frame uprights, and shelf channels.' },
+      { name: 'Fitting & Tacking', desc: 'Jig alignment and tack welding of L-frame supports and structural braces.' },
+      { name: 'Welding', desc: 'Seamless TIG welding of cleanroom joints, followed by surface grinding and polishing.' },
+      { name: 'Assembly & ESD Check', desc: 'Integrating drawers, electrical switch channels, overhead lights, and testing anti-static resistivity.' }
+    ];
+  } else if (titleLower.includes('tow tug') || titleLower.includes('chassis')) {
+    specs = 'Vehicle Traction Capacity: 250 Tons | Chassis Plate Thickness: 20 mm - 50 mm heavy plate | Overall Length: 4200 mm | Width: 1850 mm | Ground Clearance: 220 mm | Total Weight: Approx 4500 kg';
+    materials = ['High-Tensile Structural Carbon Steel (Grade E350)', 'Thick Mild Steel Plates', 'Forged Steel Coupling Pins', 'Polyurethane Industrial Wheels'];
+    steps = [
+      { name: 'Material Loading', desc: 'Sourcing and loading heavy 50mm structural plates and high-tensile steel members.' },
+      { name: 'Cutting', desc: 'Bevel and straight cutting of thick plates using 6kW high-power fiber laser machines.' },
+      { name: 'Fitting', desc: 'Aligning steering columns, drivetrain mounts, and suspension frames on a heavy-duty jig table.' },
+      { name: 'Structural Welding', desc: 'Multi-pass MIG welding of high-load joints, subject to ultrasonic and dye-penetrant testing.' },
+      { name: 'Assembly', desc: 'Mechanical integration of axle beams, heavy couplings, electrical drive systems, and body panel shields.' },
+      { name: 'Finishing & Testing', desc: 'Applying anti-corrosion primer and yellow/grey safety paint, followed by static load testing.' }
+    ];
+  } else if (titleLower.includes('enclosure') || titleLower.includes('panel') || titleLower.includes('cabinet')) {
+    specs = 'Protection Class: IP55 / IP66 rated | Cabinet Dimensions: 1200 x 800 x 400 mm | Sheet Metal Thickness: 1.5 mm | Door Angle: 120-degree opening with gas struts | Mounting: Rear plate & floor mount';
+    materials = ['Galvanized Iron (GI) Sheet', 'Stainless Steel (SS304)', 'Neoprene gasket seals', 'Powder coating pigments'];
+    steps = [
+      { name: 'Material Loading', desc: 'Loading rust-resistant galvanized steel sheets and hardware inserts.' },
+      { name: 'Laser Cutting', desc: 'Cutting ventilation slots, cable gland plates, and door hinges with fiber laser.' },
+      { name: 'CNC Bending', desc: 'Intricate multi-stage bending for double-return water channels and door seals.' },
+      { name: 'Fitting & PEM Press', desc: 'Pressing threaded studs and nuts (PEM fasteners) into chassis parts.' },
+      { name: 'Welding', desc: 'MIG welding of corners and seam sealing with high-performance industrial sealant.' },
+      { name: 'Assembly & Gasketing', desc: 'Powder coating, applying continuous polyurethane liquid gasket, and door latch assembly.' }
+    ];
+  } else if (titleLower.includes('welding') || titleLower.includes('pipe') || titleLower.includes('elbow') || titleLower.includes('frame')) {
+    specs = 'Pipe Diameter: Ø50 mm - Ø250 mm | Wall Thickness: 3 mm - 8 mm schedule pipe | Weld Spec: ASME Section IX qualified TIG/MIG | Dimension Tolerance: ±1.0 mm | Test Pressure: Up to 15 Bar';
+    materials = ['Stainless Steel Pipes (SS316L)', 'Carbon Steel Elbows', 'ANSI Slip-On Flanges', 'Welding Argon Gas (99.99%)'];
+    steps = [
+      { name: 'Material Loading', desc: 'Selecting certified pipes, raw fittings, and backing rings.' },
+      { name: 'Sawing & Beveling', desc: 'Automated bandsaw metal cutting and pipe end beveling to 37.5 degrees.' },
+      { name: 'Fitting & Alignment', desc: 'Aligning pipe sections and flanges with pipe-fitters jacks and leveling tools.' },
+      { name: 'TIG/MIG Welding', desc: 'High-purity root pass TIG welding with argon gas backing, followed by cap welding.' },
+      { name: 'Assembly', desc: 'Fitting secondary support lugs, pipe clamps, and pressure gauge sockets.' },
+      { name: 'Finishing & Inspection', desc: 'Passivation wash to prevent corrosion, and carrying out hydrostatic leak testing.' }
+    ];
+  } else if (titleLower.includes('agricultural') || titleLower.includes('bumper') || titleLower.includes('fabricated') || titleLower.includes('automation')) {
+    specs = 'Material Thickness: 2.0 mm - 10 mm | Overall Dimensions: Varying by drawing profiles | Surface Coating: Heavy-duty industrial paint / Hot-dip galvanized | Weld Joint: Full penetration MIG';
+    materials = ['Mild Steel Plates & Sections', 'Hot-Rolled Steel Bars', 'High-Tensile Fasteners', 'Anti-Rust Primers'];
+    steps = [
+      { name: 'Material Loading', desc: 'Loading hot-rolled steel bars, structural channels, and steel plates.' },
+      { name: 'Cutting', desc: 'CNC laser cutting of bracket profiles and bandsaw sawing of tube members.' },
+      { name: 'Fitting', desc: 'Assembling structural arms, bumper brackets, or cage frames in precision fixture jigs.' },
+      { name: 'Full Weld Out', desc: 'Heavy MIG welding with shielding gas to achieve maximum load-bearing strength.' },
+      { name: 'Assembly', desc: 'Integrating fasteners, linkage pins, and secondary rubber pads/bumpers.' },
+      { name: 'Finishing', desc: 'Shot blasting, zinc-rich primer spray coating, and glossy yellow/grey enamel topcoat.' }
+    ];
+  } else {
+    specs = 'Material Grade: MS / SS / Aluminum | Thickness Range: 1.0 mm - 6.0 mm | Dimensions: Built to custom drawing specifications | Inspection: 100% Vernier/CMM inspection';
+    materials = ['Mild Steel', 'Stainless Steel', 'Aluminum Alloys', 'Fastening Hardware'];
+    steps = [
+      { name: 'Material Loading', desc: 'Loading raw sheet metal plates and profiles into the production bay.' },
+      { name: 'Cutting', desc: 'CNC fiber laser cutting to translate drawing patterns onto raw sheets.' },
+      { name: 'Fitting', desc: 'Manual fit-up and clamping of sheet metal components using assembly jigs.' },
+      { name: 'Welding & Joining', desc: 'Precise welding (MIG/TIG) or riveting to join components securely.' },
+      { name: 'Assembly', desc: 'Integrating multiple sub-assemblies, hinges, brackets, and accessories.' },
+      { name: 'Finishing & Quality', desc: 'Grinding, powder coating or painting, and strict QA dimension check.' }
+    ];
+  }
+
+  return { specs, materials, steps };
+};
 
 function ProjectSchematic({ title }) {
   const accentColor = "var(--yellow-500)";
@@ -768,72 +1054,103 @@ function MachinerySchematic({ name }) {
   );
 }
 
-function ProjectCard({ proj }) {
+function ProjectCard({ proj, onClick }) {
   const [imgErr, setImgErr] = useState(false);
 
+  const handleClick = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    console.log("Project card clicked:", proj.title);
+    if (onClick) onClick();
+  };
+
   return (
-    <div className="proj-card card" style={{ overflow: 'hidden', padding: proj.image ? '0' : '1.75rem' }}>
+    <div className="proj-card card clickable-card" onClick={handleClick} style={{ overflow: 'hidden', padding: proj.image ? '0' : '1.75rem', cursor: 'pointer' }}>
       {proj.image ? (
-        <div className="proj-card__img-container">
+        <div className="proj-card__img-container" onClick={handleClick}>
           {!imgErr ? (
             <img 
               src={proj.image} 
               alt={proj.title} 
               className="proj-card__img" 
               onError={() => setImgErr(true)}
+              onClick={handleClick}
             />
           ) : (
-            <ProjectSchematic title={proj.title} />
+            <ProjectSchematic title={proj.title} onClick={handleClick} />
           )}
-        </div>
-      ) : null}
-      <div className="proj-card__body" style={{ padding: proj.image ? '1.5rem 1.75rem 1.75rem 1.75rem' : '0', display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}>
-        <div className="proj-card__header">
-          <div className="proj-card__meta">
-            <span className="badge badge-yellow">{proj.industry}</span>
+          <div className="machinery-card__overlay" onClick={handleClick}>
+            <button className="btn btn-primary machinery-card__overlay-btn" onClick={handleClick}>
+              View Project Details
+            </button>
           </div>
         </div>
-        <h3 className="proj-card__title">{proj.title}</h3>
-        <div className="proj-card__service">
+      ) : null}
+      <div 
+        className="proj-card__body" 
+        style={{ padding: proj.image ? '1.5rem 1.75rem 1.75rem 1.75rem' : '0', display: 'flex', flexDirection: 'column', gap: '0.75rem', flex: 1 }}
+        onClick={handleClick}
+      >
+        <div className="proj-card__header" onClick={handleClick}>
+          <div className="proj-card__meta" onClick={handleClick}>
+            <span className="badge badge-yellow" onClick={handleClick}>{proj.industry}</span>
+          </div>
+        </div>
+        <h3 className="proj-card__title" onClick={handleClick}>{proj.title}</h3>
+        <div className="proj-card__service" onClick={handleClick}>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-500)" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           {proj.service}
         </div>
-        <p className="proj-card__desc">{proj.desc}</p>
+        <p className="proj-card__desc" onClick={handleClick}>{proj.desc}</p>
+        <span className="machinery-card__more-link" style={{ marginTop: 'auto', paddingTop: '0.5rem' }} onClick={handleClick}>
+          Technical Details & Materials
+        </span>
       </div>
     </div>
   );
 }
-
 function MachineryCard({ mach, onClick }) {
   const [imgErr, setImgErr] = useState(false);
 
+  const handleClick = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    console.log("Machinery card clicked:", mach.name);
+    if (onClick) onClick();
+  };
+
   return (
-    <div className="machinery-card card clickable-card" onClick={onClick}>
-      <div className="machinery-card__img-container">
+    <div className="machinery-card card clickable-card" onClick={handleClick} style={{ cursor: 'pointer' }}>
+      <div className="machinery-card__img-container" onClick={handleClick}>
         {!imgErr ? (
           <img 
             src={mach.image} 
             alt={mach.name} 
             className="machinery-card__img" 
             onError={() => setImgErr(true)}
+            onClick={handleClick}
           />
         ) : (
-          <MachinerySchematic name={mach.name} />
+          <MachinerySchematic name={mach.name} onClick={handleClick} />
         )}
-        <div className="machinery-card__overlay">
-          <span className="machinery-card__overlay-btn">View Specifications →</span>
+        <div className="machinery-card__overlay" onClick={handleClick}>
+          <span className="machinery-card__overlay-btn" onClick={handleClick}>View Specifications →</span>
         </div>
       </div>
-      <div className="machinery-card__body">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-          <span className="badge badge-yellow">{mach.type}</span>
-          <span className="machinery-card__qty">{mach.qty}</span>
+      <div className="machinery-card__body" onClick={handleClick}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }} onClick={handleClick}>
+          <span className="badge badge-yellow" onClick={handleClick}>{mach.type}</span>
+          <span className="machinery-card__qty" onClick={handleClick}>{mach.qty}</span>
         </div>
-        <h3 className="machinery-card__title">{mach.name}</h3>
-        <p className="machinery-card__specs-preview">
+        <h3 className="machinery-card__title" onClick={handleClick}>{mach.name}</h3>
+        <p className="machinery-card__specs-preview" onClick={handleClick}>
           {mach.specs.length > 90 ? mach.specs.substring(0, 87) + '...' : mach.specs}
         </p>
-        <span className="machinery-card__more-link">Technical Details & Materials →</span>
+        <span className="machinery-card__more-link" onClick={handleClick}>Technical Details & Materials</span>
       </div>
     </div>
   );
@@ -841,17 +1158,78 @@ function MachineryCard({ mach, onClick }) {
 
 export default function Projects() {
   const [selectedMachine, setSelectedMachine] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [canCloseMachine, setCanCloseMachine] = useState(false);
+  const [canCloseProject, setCanCloseProject] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  const handlePrev = () => {
+    setActiveStep((prev) => (prev - 1 + PROCESS_STEPS.length) % PROCESS_STEPS.length);
+  };
+
+  const handleNext = () => {
+    setActiveStep((prev) => (prev + 1) % PROCESS_STEPS.length);
+  };
+
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    if (isLeftSwipe) handleNext();
+    if (isRightSwipe) handlePrev();
+    setTouchStart(0);
+    setTouchEnd(0);
+  };
 
   useEffect(() => {
-    if (selectedMachine) {
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % PROCESS_STEPS.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeStep]);
+
+  useEffect(() => {
+    if (selectedMachine || selectedProject) {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
     } else {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
     }
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.classList.remove('modal-open');
     };
+  }, [selectedMachine, selectedProject]);
+
+  useEffect(() => {
+    if (selectedMachine) {
+      const timer = setTimeout(() => setCanCloseMachine(true), 400);
+      return () => clearTimeout(timer);
+    } else {
+      setCanCloseMachine(false);
+    }
   }, [selectedMachine]);
+
+  useEffect(() => {
+    if (selectedProject) {
+      const timer = setTimeout(() => setCanCloseProject(true), 400);
+      return () => clearTimeout(timer);
+    } else {
+      setCanCloseProject(false);
+    }
+  }, [selectedProject]);
 
   const getParsedSpecs = (specsStr) => {
     return specsStr.split('|').map(s => {
@@ -870,8 +1248,7 @@ export default function Projects() {
         <meta name="description" content="Explore precision laser manufacturing case studies from WASEF PVT LTD &amp; KS INDUSTRIES (SLE LASER CUTTING) — aerospace, defence, medical, automotive, and industrial applications." />
       </Helmet>
 
-      <section className="page-hero">
-        <div className="page-hero__bg" />
+      <section className="page-hero page-hero--projects">
         <div className="container page-hero__inner">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="section-label">
@@ -889,15 +1266,212 @@ export default function Projects() {
       <section className="section section-mid">
         <div className="container">
           <div className="projects-grid">
-            {PROJECTS.map((proj, i) => (
-              <motion.div key={proj.id}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}>
-                <ProjectCard proj={proj} />
-              </motion.div>
-            ))}
+            {PROJECTS.map((proj, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <motion.div key={proj.id}
+                  initial={{ opacity: 0, x: isLeft ? -50 : 50, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={() => setSelectedProject(proj)}
+                  style={{ cursor: 'pointer' }}>
+                  <ProjectCard proj={proj} onClick={() => setSelectedProject(proj)} />
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Manufacturing Process Pipeline Section */}
+      <section className="section section-dark" style={{ background: '#0b111e', borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '5rem 0' }}>
+        <div className="container">
+          <div className="section-label">
+            <span className="laser-line" />
+            <span className="text-upper text-yellow">Core Workflow</span>
+          </div>
+          <h2 className="heading-display heading-h2" style={{ marginBottom: '1rem' }}>
+            Our Manufacturing <span className="text-yellow">Process.</span>
+          </h2>
+          <p style={{ color: 'var(--gray-400)', maxWidth: '620px', lineHeight: '1.7', fontSize: '0.9rem', marginBottom: '3rem' }}>
+            We follow a structured 6-step manufacturing workflow to translate raw metal stock into high-precision engineering assemblies, conforming to international quality certifications.
+          </p>
+
+          {/* Compact Slider Card with Swipability */}
+          <div 
+            className="process-slider-card"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            {/* Mobile Segmented Progress Tracker */}
+            <div className="process-mobile-tracker">
+              {PROCESS_STEPS.map((_, idx) => {
+                const isActive = activeStep === idx;
+                const isCompleted = idx < activeStep;
+                return (
+                  <div 
+                    key={idx}
+                    onClick={() => setActiveStep(idx)}
+                    className={`process-tracker-segment ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Navigation Strip */}
+            <div className="process-nav-strip">
+              {/* Stepper Dots/Numbers */}
+              <div className="process-stepper">
+                {PROCESS_STEPS.map((step, idx) => {
+                  const isActive = activeStep === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveStep(idx)}
+                      className={`process-step-btn ${isActive ? 'active' : ''}`}
+                      title={step.name}
+                    >
+                      <span style={{ 
+                        width: '18px', 
+                        height: '18px', 
+                        borderRadius: '50%', 
+                        background: isActive ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.1)', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        fontSize: '0.65rem',
+                        flexShrink: 0
+                      }}>
+                        {step.num}
+                      </span>
+                      <span>
+                        {step.shortName}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Navigation Controls */}
+              <div className="process-controls">
+                <button 
+                  onClick={handlePrev}
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: 'rgba(255,255,255,0.03)',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    fontSize: '1rem',
+                    lineHeight: '1'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--yellow-500)'; e.currentTarget.style.color = 'var(--yellow-500)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
+                  aria-label="Previous Step"
+                >
+                  ←
+                </button>
+                
+                {/* Auto-Play Indicator bar */}
+                <div style={{ width: '40px', height: '2px', background: 'rgba(255,255,255,0.1)', position: 'relative', overflow: 'hidden', borderRadius: '1px' }}>
+                  <div key={activeStep} style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    height: '100%',
+                    background: 'var(--yellow-500)',
+                    width: '100%',
+                    transformOrigin: 'left',
+                    animation: 'fillProgress 5s linear forwards'
+                  }} />
+                </div>
+
+                <button 
+                  onClick={handleNext}
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '50%',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: 'rgba(255,255,255,0.03)',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    fontSize: '1rem',
+                    lineHeight: '1'
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--yellow-500)'; e.currentTarget.style.color = 'var(--yellow-500)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff'; }}
+                  aria-label="Next Step"
+                >
+                  →
+                </button>
+              </div>
+            </div>
+
+            {/* Slide Body Container */}
+            <div className="process-slide-body">
+              {/* Info Column */}
+              <div className="process-info-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{ color: 'var(--yellow-500)', background: 'rgba(255, 199, 44, 0.08)', padding: '0.75rem', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {PROCESS_STEPS[activeStep].icon}
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--yellow-500)', letterSpacing: '0.05em' }}>
+                      Step {PROCESS_STEPS[activeStep].num} — {PROCESS_STEPS[activeStep].subtitle}
+                    </span>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: '800', color: '#fff', margin: '0.125rem 0 0 0' }}>
+                      {PROCESS_STEPS[activeStep].name}
+                    </h3>
+                  </div>
+                </div>
+
+                <p style={{ color: 'var(--gray-300)', fontSize: '0.9rem', lineHeight: '1.7', margin: 0 }}>
+                  {PROCESS_STEPS[activeStep].desc}
+                </p>
+
+                <div style={{ background: 'rgba(0,210,255,0.03)', border: '1px solid rgba(0,210,255,0.08)', padding: '1.25rem', borderRadius: 'var(--radius-lg)' }}>
+                  <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.8rem', color: '#00d2ff', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    Technical Capacities & Options
+                  </h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    {PROCESS_STEPS[activeStep].specs.split('|').map((spec, i) => {
+                      const parts = spec.split(':');
+                      return (
+                        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8125rem', borderBottom: '1px dashed rgba(255,255,255,0.05)', paddingBottom: '0.25rem' }}>
+                          <span style={{ color: 'var(--gray-400)' }}>{parts[0].trim()}</span>
+                          <span style={{ color: '#fff', fontWeight: '600' }}>{parts[1]?.trim() || ''}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Photo Column with overlaid arrows on mobile */}
+              <div className="process-photo-col" style={{ minHeight: '300px', display: 'flex', alignItems: 'stretch', position: 'relative' }}>
+                <button className="mobile-nav-arrow prev" onClick={handlePrev} aria-label="Previous Step">
+                  ←
+                </button>
+                <ProcessVisual type={PROCESS_STEPS[activeStep].visual} />
+                <button className="mobile-nav-arrow next" onClick={handleNext} aria-label="Next Step">
+                  →
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -914,179 +1488,315 @@ export default function Projects() {
           </h2>
           
           <div className="machinery-grid">
-            {MACHINES.map((mach, i) => (
-              <motion.div key={mach.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}>
-                <MachineryCard mach={mach} onClick={() => setSelectedMachine(mach)} />
-              </motion.div>
-            ))}
+            {MACHINES.map((mach, i) => {
+              const isLeft = i % 2 === 0;
+              return (
+                <motion.div key={mach.id}
+                  initial={{ opacity: 0, x: isLeft ? -50 : 50, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={() => setSelectedMachine(mach)}
+                  style={{ cursor: 'pointer' }}>
+                  <MachineryCard mach={mach} onClick={() => setSelectedMachine(mach)} />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <AnimatePresence>
-        {selectedMachine && (
-          <motion.div 
-            className="machine-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedMachine(null)}
+      {selectedMachine && createPortal(
+    
+        <div 
+          className="machine-modal-wrapper"
+          onClick={() => { if (canCloseMachine) setSelectedMachine(null); }}
+        >
+          <div 
+            className="machine-modal-content"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div 
-              className="machine-modal-content"
-              initial={{ y: 55, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 55, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-              onClick={(e) => e.stopPropagation()}
+            <button 
+              className="machine-modal-close" 
+              onClick={() => { if (canCloseMachine) setSelectedMachine(null); }}
+              aria-label="Close modal"
             >
-              <button 
-                className="machine-modal-close" 
-                onClick={() => setSelectedMachine(null)}
-                aria-label="Close modal"
-              >
-                ✕
-              </button>
+              ✕
+            </button>
 
-              <div className="machine-modal-grid">
-                <div className="machine-modal-left">
-                  <div className="machine-modal-img-wrapper">
-                    <img 
-                      src={selectedMachine.image} 
-                      alt={selectedMachine.name}
-                      className="machine-modal-img"
-                    />
+            <div className="machine-modal-grid">
+              <div className="machine-modal-left">
+                <div className="machine-modal-img-wrapper">
+                  <img 
+                    src={selectedMachine.image} 
+                    alt={selectedMachine.name}
+                    className="machine-modal-img"
+                  />
+                </div>
+                
+                <div className="machine-modal-specs">
+                  <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Technical Specifications
+                  </h4>
+                  {getParsedSpecs(selectedMachine.specs).map((spec, i) => (
+                    <div key={i} className="machine-modal-spec-item">
+                      <span className="machine-modal-spec-label">{spec.label}</span>
+                      <span className="machine-modal-spec-value">{spec.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="machine-modal-right">
+                <span className="badge badge-yellow" style={{ marginBottom: '0.5rem' }}>{selectedMachine.type}</span>
+                <h2 className="heading-display" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', margin: '0 0 1rem 0', color: '#0f172a', lineHeight: '1.2' }}>
+                  {selectedMachine.name}
+                </h2>
+                
+                {selectedMachine.materials && selectedMachine.materials.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h4 className="machine-modal-list-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                      Compatible Materials
+                    </h4>
+                    <ul className="machine-modal-list">
+                      {selectedMachine.materials.map((mat, i) => (
+                        <li key={i} className="machine-modal-list-item">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                          {mat}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  
+                )}
+
+                {selectedMachine.features && selectedMachine.features.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h4 className="machine-modal-list-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                      Key Features & Capabilities
+                    </h4>
+                    <ul className="machine-modal-list" style={{ gridTemplateColumns: '1fr' }}>
+                      {selectedMachine.features.map((feat, i) => (
+                        <li key={i} className="machine-modal-list-item">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3" style={{ marginTop: '0.25rem' }}><polyline points="20 6 9 17 4 12"/></svg>
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {selectedMachine.applications && selectedMachine.applications.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h4 className="machine-modal-list-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                      Typical Applications
+                    </h4>
+                    <ul className="machine-modal-list">
+                      {selectedMachine.applications.map((app, i) => (
+                        <li key={i} className="machine-modal-list-item">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                          <span>{app}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {selectedMachine.advantages && selectedMachine.advantages.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h4 className="machine-modal-list-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                      Key Advantages
+                    </h4>
+                    <ul className="machine-modal-list">
+                      {selectedMachine.advantages.map((adv, i) => (
+                        <li key={i} className="machine-modal-list-item">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                          <span>{adv}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {selectedMachine.factorySpecsNote && selectedMachine.factorySpecsNote.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem', padding: '1.25rem', background: '#fffbeb', border: '1px solid #fef3c7', borderRadius: 'var(--radius-lg)' }}>
+                    <h5 style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', fontWeight: '700', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                      Information Needed for Factory Specifications
+                    </h5>
+                    <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.75rem', color: '#78350f', lineHeight: '1.5' }}>
+                      To request exact factory specifications (e.g., dimensions, acceleration details, chiller models), please share the following details:
+                    </p>
+                    <ul style={{ margin: '0', paddingLeft: '1.25rem', fontSize: '0.75rem', color: '#78350f', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                      {selectedMachine.factorySpecsNote.map((item, i) => (
+                         <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {selectedMachine.importantNotice && (
+                  <div style={{ marginBottom: '1.5rem', padding: '1.25rem', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 'var(--radius-lg)' }}>
+                    <h5 style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', fontWeight: '700', color: '#991b1b', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                      Important Notice
+                    </h5>
+                    <p style={{ margin: '0', fontSize: '0.75rem', color: '#7f1d1d', lineHeight: '1.5' }}>
+                      {selectedMachine.importantNotice}
+                    </p>
+                  </div>
+                )}
+                
+                <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '1rem' }}>
+                  <span style={{ fontSize: '0.85rem', color: '#475569' }}>
+                    In-House Availability: <strong style={{ color: '#d97706' }}>{selectedMachine.qty}</strong>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="machine-modal-actions">
+              <Link 
+                to={`/contact?type=quote&machine=${encodeURIComponent(selectedMachine.name)}`}
+                className="btn btn-primary"
+                onClick={() => setSelectedMachine(null)}
+              >
+                Inquire About Capabilities →
+              </Link>
+            </div>
+          </div>
+        </div>
+      ,
+    document.body
+  )}
+
+      {selectedProject && createPortal(
+    
+        <div 
+          className="machine-modal-wrapper"
+          onClick={() => { if (canCloseProject) setSelectedProject(null); }}
+        >
+          <div 
+            className="machine-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              className="machine-modal-close" 
+              onClick={() => { if (canCloseProject) setSelectedProject(null); }}
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+
+            <div className="machine-modal-grid">
+              <div className="machine-modal-left">
+                <div className="machine-modal-img-wrapper" style={{ aspectRatio: '16/10' }}>
+                  <img 
+                    src={selectedProject.image} 
+                    alt={selectedProject.title}
+                    className="machine-modal-img"
+                  />
+                </div>
+                
+                {getProjectDetails(selectedProject).specs && (
                   <div className="machine-modal-specs">
                     <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      Technical Specifications
+                      Technical Specifications & Parameters
                     </h4>
-                    {getParsedSpecs(selectedMachine.specs).map((spec, i) => (
+                    {getParsedSpecs(getProjectDetails(selectedProject).specs).map((spec, i) => (
                       <div key={i} className="machine-modal-spec-item">
                         <span className="machine-modal-spec-label">{spec.label}</span>
                         <span className="machine-modal-spec-value">{spec.value}</span>
                       </div>
                     ))}
                   </div>
+                )}
+              </div>
+
+              <div className="machine-modal-right">
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.5rem' }}>
+                  <span className="badge badge-yellow">{selectedProject.industry}</span>
+                  <span className="badge" style={{ background: '#f1f5f9', color: '#475569' }}>Client: {selectedProject.client}</span>
+                  <span className="badge" style={{ background: '#f1f5f9', color: '#475569' }}>Year: {selectedProject.year}</span>
                 </div>
+                <h2 className="heading-display" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', margin: '0 0 1rem 0', color: '#0f172a', lineHeight: '1.2' }}>
+                  {selectedProject.title}
+                </h2>
 
-                <div className="machine-modal-right">
-                  <span className="badge badge-yellow" style={{ marginBottom: '0.5rem' }}>{selectedMachine.type}</span>
-                  <h2 className="heading-display" style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2rem)', margin: '0 0 1rem 0', color: '#0f172a', lineHeight: '1.2' }}>
-                    {selectedMachine.name}
-                  </h2>
-                  
-                  {selectedMachine.materials && selectedMachine.materials.length > 0 && (
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <h4 className="machine-modal-list-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                        Compatible Materials
-                      </h4>
-                      <ul className="machine-modal-list">
-                        {selectedMachine.materials.map((mat, i) => (
-                          <li key={i} className="machine-modal-list-item">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            {mat}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {selectedMachine.features && selectedMachine.features.length > 0 && (
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <h4 className="machine-modal-list-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
-                        Key Features & Capabilities
-                      </h4>
-                      <ul className="machine-modal-list" style={{ gridTemplateColumns: '1fr' }}>
-                        {selectedMachine.features.map((feat, i) => (
-                          <li key={i} className="machine-modal-list-item">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3" style={{ marginTop: '0.25rem' }}><polyline points="20 6 9 17 4 12"/></svg>
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {selectedMachine.applications && selectedMachine.applications.length > 0 && (
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <h4 className="machine-modal-list-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                        Typical Applications
-                      </h4>
-                      <ul className="machine-modal-list">
-                        {selectedMachine.applications.map((app, i) => (
-                          <li key={i} className="machine-modal-list-item">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            <span>{app}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {selectedMachine.advantages && selectedMachine.advantages.length > 0 && (
-                    <div style={{ marginBottom: '1.5rem' }}>
-                      <h4 className="machine-modal-list-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        Key Advantages
-                      </h4>
-                      <ul className="machine-modal-list">
-                        {selectedMachine.advantages.map((adv, i) => (
-                          <li key={i} className="machine-modal-list-item">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            <span>{adv}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {selectedMachine.factorySpecsNote && selectedMachine.factorySpecsNote.length > 0 && (
-                    <div style={{ marginBottom: '1.5rem', padding: '1.25rem', background: '#fffbeb', border: '1px solid #fef3c7', borderRadius: 'var(--radius-lg)' }}>
-                      <h5 style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', fontWeight: '700', color: '#b45309', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                        Information Needed for Factory Specifications
-                      </h5>
-                      <p style={{ margin: '0 0 0.75rem 0', fontSize: '0.75rem', color: '#78350f', lineHeight: '1.5' }}>
-                        To request exact factory specifications (e.g., dimensions, acceleration details, chiller models), please share the following details:
-                      </p>
-                      <ul style={{ margin: '0', paddingLeft: '1.25rem', fontSize: '0.75rem', color: '#78350f', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                        {selectedMachine.factorySpecsNote.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  
-                  <div style={{ marginTop: '2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '1rem' }}>
-                    <span style={{ fontSize: '0.85rem', color: '#475569' }}>
-                      In-House Availability: <strong style={{ color: '#d97706' }}>{selectedMachine.qty}</strong>
-                    </span>
+                <div style={{ color: '#475569', fontSize: '0.875rem', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+                  <strong>Manufacturing Service:</strong> <span style={{ color: 'var(--yellow-600)', fontWeight: 600 }}>{selectedProject.service}</span>
+                  <p style={{ marginTop: '0.5rem', color: '#64748b' }}>{selectedProject.desc}</p>
+                </div>
+                
+                {getProjectDetails(selectedProject).materials && getProjectDetails(selectedProject).materials.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h4 className="machine-modal-list-title">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                      Materials Utilized
+                    </h4>
+                    <ul className="machine-modal-list" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}>
+                      {getProjectDetails(selectedProject).materials.map((mat, i) => (
+                        <li key={i} className="machine-modal-list-item">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--yellow-600)" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                          <span>{mat}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-              </div>
+                )}
 
-              <div className="machine-modal-actions">
-                <Link 
-                  to={`/contact?type=quote&machine=${encodeURIComponent(selectedMachine.name)}`}
-                  className="btn btn-primary"
-                  onClick={() => setSelectedMachine(null)}
-                >
-                  Inquire About Capabilities →
-                </Link>
+                {getProjectDetails(selectedProject).steps && getProjectDetails(selectedProject).steps.length > 0 && (
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h4 className="machine-modal-list-title" style={{ marginBottom: '1rem' }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '0.25rem' }}><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                      Manufacturing Process
+                    </h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', borderLeft: '2px solid rgba(255, 199, 44, 0.3)', paddingLeft: '1.25rem', position: 'relative', marginTop: '0.5rem' }}>
+                      {getProjectDetails(selectedProject).steps.map((step, idx) => (
+                        <div key={idx} style={{ position: 'relative' }}>
+                          <div style={{ 
+                            position: 'absolute', 
+                            left: 'calc(-1.25rem - 7px - 1px)', 
+                            top: '4px',
+                            width: '14px', 
+                            height: '14px', 
+                            borderRadius: '50%', 
+                            background: 'var(--yellow-500)', 
+                            border: '3px solid #fff',
+                            boxShadow: '0 0 0 2px rgba(255, 199, 44, 0.2)',
+                            zIndex: 2 
+                          }} />
+                          <h5 style={{ margin: '0 0 0.25rem 0', fontSize: '0.875rem', fontWeight: '700', color: '#1e293b' }}>
+                            {idx + 1}. {step.name}
+                          </h5>
+                          <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748b', lineHeight: '1.45' }}>
+                            {step.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+
+            <div className="machine-modal-actions">
+              <Link 
+                to={`/contact?type=quote&project=${encodeURIComponent(selectedProject.title)}`}
+                className="btn btn-primary"
+                onClick={() => setSelectedProject(null)}
+              >
+                Inquire About Project Solutions →
+              </Link>
+            </div>
+          </div>
+        </div>
+      ,
+    document.body
+  )}
 
       <section className="cta-strip">
         <div className="container cta-strip__inner">
@@ -1102,7 +1812,8 @@ export default function Projects() {
         .projects-grid > * { width: 100%; }
         @media (min-width: 640px) { .projects-grid > * { width: calc(50% - 0.625rem); } }
         @media (min-width: 1024px) { .projects-grid > * { width: calc(33.333% - 0.833rem); } }
-        .proj-card { padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .proj-card { padding: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); }
+        .proj-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08); cursor: pointer; }
         .proj-card__img-container { position: relative; width: 100%; height: 180px; overflow: hidden; background: rgba(0,0,0,0.02); border-bottom: 1px solid rgba(0,0,0,0.06); }
         .proj-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease-out); }
         .proj-card:hover .proj-card__img { transform: scale(1.05); }
@@ -1142,64 +1853,75 @@ export default function Projects() {
         .machinery-card__qty { font-size: 0.8125rem; font-weight: 700; color: var(--yellow-600); background: rgba(255, 184, 0, 0.08); padding: 0.25rem 0.625rem; border-radius: var(--radius-sm); align-self: flex-start; }
 
         /* Machinery Modal Styles */
-        .machine-modal-backdrop {
+        .machine-modal-wrapper {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: rgba(4, 7, 13, 0.85);
-          backdrop-filter: blur(10px);
-          z-index: 1000;
+          z-index: 2000;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: 1.5rem;
+          background: rgba(4, 7, 13, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          pointer-events: auto;
         }
+
+        .machine-modal-backdrop { display: none; }
 
         .machine-modal-content {
           background: #ffffff;
           border: 1px solid rgba(0, 0, 0, 0.08);
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-          border-radius: var(--radius-xl);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+          border-radius: var(--radius-lg);
           width: 100%;
-          max-width: 900px;
-          max-height: 90vh;
+          max-width: 820px;
+          max-height: calc(100vh - 4rem);
           overflow-y: auto;
+          margin: 0;
           position: relative;
           display: flex;
           flex-direction: column;
+          z-index: 2;
+          -webkit-overflow-scrolling: touch;
+          transform: translate3d(0, 0, 0);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
         }
 
-        .machine-modal-close {
+                .machine-modal-close {
           position: absolute;
-          top: 1.25rem;
-          right: 1.25rem;
-          background: rgba(0, 0, 0, 0.04);
+          top: 1rem;
+          right: 1rem;
+          background: #ffffff !important;
           border: 1px solid rgba(0, 0, 0, 0.08);
-          color: #475569;
-          width: 2.5rem;
-          height: 2.5rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          color: #0f172a !important;
+          width: 2.25rem;
+          height: 2.25rem;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          z-index: 10;
-          font-size: 1rem;
+          z-index: 100 !important;
+          font-size: 0.9rem;
         }
         .machine-modal-close:hover {
-          background: var(--yellow-500);
-          color: #000000;
+          background: var(--yellow-500) !important;
+          color: #000000 !important;
           transform: rotate(90deg);
         }
 
         .machine-modal-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 2.5rem;
-          padding: 2.5rem;
+          gap: 1.5rem;
+          padding: 1.5rem;
         }
         @media (min-width: 768px) {
           .machine-modal-grid {
@@ -1210,10 +1932,11 @@ export default function Projects() {
         .machine-modal-img-wrapper {
           position: relative;
           width: 100%;
-          aspect-ratio: 4/3;
+          max-height: 200px;
+          aspect-ratio: 16/10;
           background: rgba(0, 0, 0, 0.02);
           border: 1px solid rgba(0, 0, 0, 0.06);
-          border-radius: var(--radius-lg);
+          border-radius: var(--radius-md);
           overflow: hidden;
         }
         .machine-modal-img {
@@ -1225,19 +1948,19 @@ export default function Projects() {
         .machine-modal-specs {
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 0.5rem;
           background: #f8fafc;
           border: 1px solid rgba(0, 0, 0, 0.05);
-          padding: 1.25rem;
+          padding: 0.85rem;
           border-radius: var(--radius-md);
-          margin-top: 1.25rem;
+          margin-top: 1rem;
         }
         .machine-modal-spec-item {
           display: flex;
           justify-content: space-between;
           border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
-          padding-bottom: 0.5rem;
-          font-size: 0.8125rem;
+          padding-bottom: 0.35rem;
+          font-size: 0.78rem;
         }
         .machine-modal-spec-item:last-child {
           border-bottom: none;
@@ -1360,13 +2083,425 @@ export default function Projects() {
           gap: 0.25rem;
         }
         .machinery-card__more-link::after {
-          content: '→';
+          content: '';
           transition: transform 0.2s ease;
         }
         .clickable-card:hover .machinery-card__more-link::after {
           transform: translateX(3px);
         }
 
+        /* Manufacturing Process Section Animations */
+        @keyframes laser-head-move {
+          0%, 100% { transform: translate(50px, 0); }
+          50%      { transform: translate(150px, 0); }
+        }
+        @keyframes laser-beam-flicker {
+          0%, 100% { stroke-width: 3.5; opacity: 1; }
+          50%      { stroke-width: 1.5; opacity: 0.6; }
+        }
+        @keyframes spark-scatter {
+          0%, 100% { transform: translate(0, 0) scale(0.6); opacity: 0.5; }
+          50%      { transform: translate(0, 0) scale(1.1); opacity: 1; }
+        }
+        @keyframes punch-press-down {
+          0%, 100% { transform: translateY(0); }
+          50%      { transform: translateY(12px); }
+        }
+        @keyframes bend-sheet-metal {
+          0%, 100% { d: path("M 70,80 L 165,123 L 200,135 L 235,123 L 330,80"); }
+          50%      { d: path("M 70,60 L 180,105 L 200,132 L 220,105 L 330,60"); }
+        }
+        @keyframes spray-gun-wave {
+          0%, 100% { transform: translate(60px, 110px) rotate(-10deg); }
+          50%      { transform: translate(60px, 130px) rotate(15deg); }
+        }
+        @keyframes spray-mist-fade {
+          0%   { transform: translate(45px, 5px) scale(0.6); opacity: 0; }
+          50%  { opacity: 1; }
+          100% { transform: translate(110px, -10px) scale(1.3); opacity: 0; }
+        }
+        @keyframes coat-fill-up {
+          0%   { height: 0px; }
+          100% { height: 80px; }
+        }
+        @keyframes spin-gear {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse-soft {
+          0%, 100% { opacity: 0.8; transform: scale(1); }
+          50%      { opacity: 1; transform: scale(1.03); }
+        }
+        @keyframes bounce-soft {
+          0%, 100% { transform: translate(110px, 60px) translateY(0); }
+          50%      { transform: translate(110px, 60px) translateY(-5px); }
+        }
+
+        .anim-laser-head { animation: laser-head-move 6s ease-in-out infinite; }
+        .anim-laser-beam { animation: laser-beam-flicker 0.15s ease-in-out infinite; }
+        .anim-sparks { animation: spark-scatter 0.12s ease-in-out infinite; }
+        .anim-punch-press { animation: punch-press-down 3s ease-in-out infinite; }
+        .anim-bending-sheet { animation: bend-sheet-metal 3s ease-in-out infinite; }
+        .anim-spray-gun { animation: spray-gun-wave 4s ease-in-out infinite; transform-origin: 60px 110px; }
+        .anim-spray-mist circle { animation: spray-mist-fade 1.5s infinite linear; }
+        .anim-coat-fill { animation: coat-fill-up 4s ease-in-out infinite; }
+        .anim-spin { animation: spin-gear 12s linear infinite; }
+        @keyframes fillProgress {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+
+        /* Responsive Process Slider Styling */
+        .process-slider-card {
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: var(--radius-xl);
+          padding: 2rem;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+          position: relative;
+        }
+        
+        .process-nav-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          gap: 1rem;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          padding-bottom: 1.25rem;
+          margin-bottom: 2rem;
+        }
+
+        .process-stepper {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+          overflow-x: auto;
+          scrollbar-width: none;
+          -webkit-overflow-scrolling: touch;
+          max-width: 100%;
+        }
+        .process-stepper::-webkit-scrollbar {
+          display: none;
+        }
+
+        .process-step-btn {
+          padding: 0.5rem 0.875rem;
+          height: 36px;
+          border-radius: 18px;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: var(--gray-300);
+          font-size: 0.75rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          white-space: nowrap;
+        }
+        .process-step-btn.active {
+          background: var(--yellow-500);
+          border-color: var(--yellow-500);
+          color: #000;
+        }
+
+        .process-controls {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          justify-content: flex-end;
+          background: transparent;
+        }
+
+        .clickable-card {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+        }
+        .clickable-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(0, 210, 255, 0.3);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .machinery-card__img-container {
+          position: relative;
+        }
+
+        /* Machinery Modal Styles */
+.machine-modal-wrapper {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 2000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+          background: rgba(4, 7, 13, 0.85);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          pointer-events: auto;
+        }
+
+        .machine-modal-backdrop { display: none; }
+
+.machine-modal-content {
+          background: #ffffff;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+          border-radius: var(--radius-lg);
+          width: 100%;
+          max-width: 820px;
+          max-height: calc(100vh - 4rem);
+          overflow-y: auto;
+          margin: 0;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          z-index: 2;
+          -webkit-overflow-scrolling: touch;
+          transform: translate3d(0, 0, 0);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        .machinery-card__overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(12, 19, 34, 0.75);
+          backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+        .clickable-card:hover .machinery-card__overlay {
+          opacity: 1;
+        }
+        .machinery-card__overlay-btn {
+          background: var(--yellow-500);
+          color: var(--gray-900);
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: 0.625rem 1.25rem;
+          border-radius: var(--radius-md);
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+        }
+        .clickable-card:hover .machinery-card__overlay-btn {
+          transform: translateY(0);
+        }
+        .machinery-card__specs-preview {
+          font-size: 0.8125rem;
+          color: var(--gray-400);
+          line-height: 1.5;
+          margin: 0;
+          flex: 1;
+        }
+        .machinery-card__more-link {
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--yellow-500);
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+        }
+        .machinery-card__more-link::after {
+          content: '';
+          transition: transform 0.2s ease;
+        }
+        .clickable-card:hover .machinery-card__more-link::after {
+          transform: translateX(3px);
+        }
+
+        /* Manufacturing Process Section Animations */
+        @keyframes laser-head-move {
+          0%, 100% { transform: translate(50px, 0); }
+          50%      { transform: translate(150px, 0); }
+        }
+        @keyframes laser-beam-flicker {
+          0%, 100% { stroke-width: 3.5; opacity: 1; }
+          50%      { stroke-width: 1.5; opacity: 0.6; }
+        }
+        @keyframes spark-scatter {
+          0%, 100% { transform: translate(0, 0) scale(0.6); opacity: 0.5; }
+          50%      { transform: translate(0, 0) scale(1.1); opacity: 1; }
+        }
+        @keyframes punch-press-down {
+          0%, 100% { transform: translateY(0); }
+          50%      { transform: translateY(12px); }
+        }
+        @keyframes bend-sheet-metal {
+          0%, 100% { d: path("M 70,80 L 165,123 L 200,135 L 235,123 L 330,80"); }
+          50%      { d: path("M 70,60 L 180,105 L 200,132 L 220,105 L 330,60"); }
+        }
+        @keyframes spray-gun-wave {
+          0%, 100% { transform: translate(60px, 110px) rotate(-10deg); }
+          50%      { transform: translate(60px, 130px) rotate(15deg); }
+        }
+        @keyframes spray-mist-fade {
+          0%   { transform: translate(45px, 5px) scale(0.6); opacity: 0; }
+          50%  { opacity: 1; }
+          100% { transform: translate(110px, -10px) scale(1.3); opacity: 0; }
+        }
+        @keyframes coat-fill-up {
+          0%   { height: 0px; }
+          100% { height: 80px; }
+        }
+        @keyframes spin-gear {
+          to { transform: rotate(360deg); }
+        }
+        @keyframes pulse-soft {
+          0%, 100% { opacity: 0.8; transform: scale(1); }
+          50%      { opacity: 1; transform: scale(1.03); }
+        }
+        @keyframes bounce-soft {
+          0%, 100% { transform: translate(110px, 60px) translateY(0); }
+          50%      { transform: translate(110px, 60px) translateY(-5px); }
+        }
+
+        .anim-laser-head { animation: laser-head-move 6s ease-in-out infinite; }
+        .anim-laser-beam { animation: laser-beam-flicker 0.15s ease-in-out infinite; }
+        .anim-sparks { animation: spark-scatter 0.12s ease-in-out infinite; }
+        .anim-punch-press { animation: punch-press-down 3s ease-in-out infinite; }
+        .anim-bending-sheet { animation: bend-sheet-metal 3s ease-in-out infinite; }
+        .anim-spray-gun { animation: spray-gun-wave 4s ease-in-out infinite; transform-origin: 60px 110px; }
+        .anim-spray-mist circle { animation: spray-mist-fade 1.5s infinite linear; }
+        .anim-coat-fill { animation: coat-fill-up 4s ease-in-out infinite; }
+        .anim-spin { animation: spin-gear 12s linear infinite; }
+        @keyframes fillProgress {
+          from { transform: scaleX(0); }
+          to   { transform: scaleX(1); }
+        }
+
+        /* Responsive Process Slider Styling */
+        .process-slider-card {
+          background: rgba(255,255,255,0.02);
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: var(--radius-xl);
+          padding: 2rem;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+          position: relative;
+        }
+        
+        .process-nav-strip {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          gap: 1rem;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          padding-bottom: 1.25rem;
+          margin-bottom: 2rem;
+        }
+
+        .process-stepper {
+          display: flex;
+          gap: 0.5rem;
+          align-items: center;
+          overflow-x: auto;
+          scrollbar-width: none;
+          -webkit-overflow-scrolling: touch;
+          max-width: 100%;
+        }
+        .process-stepper::-webkit-scrollbar {
+          display: none;
+        }
+
+        .process-step-btn {
+          padding: 0.5rem 0.875rem;
+          height: 36px;
+          border-radius: 18px;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.1);
+          color: var(--gray-300);
+          font-size: 0.75rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          white-space: nowrap;
+        }
+        .process-step-btn.active {
+          background: var(--yellow-500);
+          border-color: var(--yellow-500);
+          color: #000;
+        }
+
+        .process-controls {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          flex-shrink: 0;
+        }
+
+        .process-slide-body {
+          display: grid;
+          grid-template-columns: 1.2fr 1fr;
+          gap: 2.5rem;
+        }
+
+        @media (max-width: 991px) {
+          .process-slide-body {
+            grid-template-columns: 1fr;
+          }
+          .process-photo-col {
+            order: -1;
+            min-height: 220px !important;
+          }
+          .process-slider-card {
+            padding: 1.25rem;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .process-nav-strip {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+          }
+          .process-controls {
+            justify-content: space-between;
+          }
+          .process-step-btn span:last-child {
+            display: none;
+          }
+          .process-step-btn {
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            justify-content: center;
+          }
+        }
+
+        /* Projects Page Hero Background */
+        section.page-hero.page-hero--projects {
+          background: linear-gradient(rgba(13, 13, 13, 0.72), rgba(13, 13, 13, 0.85)), url("/PROJECTS.png") no-repeat center center / cover !important;
+          padding: 100px 0 50px !important;
+        }
+        @media (min-width: 768px) {
+          section.page-hero.page-hero--projects {
+            padding: 160px 0 100px !important;
+          }
+        }
+        section.page-hero.page-hero--projects h1.heading-display {
+          color: #ffffff !important;
+        }
+        body.modal-open .navbar {
+          z-index: 99 !important;
+        }
       `}</style>
     </>
   );

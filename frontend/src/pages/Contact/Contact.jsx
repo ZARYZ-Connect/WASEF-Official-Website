@@ -142,8 +142,7 @@ export default function Contact() {
       </Helmet>
 
       {/* Header */}
-      <section className="page-hero">
-        <div className="page-hero__bg" />
+      <section className="page-hero page-hero--contact">
         <div className="container page-hero__inner">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="section-label">

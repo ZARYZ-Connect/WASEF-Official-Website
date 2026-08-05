@@ -44,28 +44,39 @@
 }
 
 .footer__logo-img {
-  width: 36px;
-  height: 36px;
-  border-radius: 5px;
-  object-fit: cover;
+  height: 42px;
+  width: auto;
+  object-fit: contain;
   flex-shrink: 0;
+  transition: transform var(--duration-fast);
+}
+
+.footer__logo:hover .footer__logo-img {
+  transform: scale(1.03);
+}
+
+.footer__logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
 }
 
 .footer__logo-brand {
   display: block;
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.9375rem;
-  letter-spacing: 0.08em;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
   color: #FFFFFF;
 }
 
 .footer__logo-sub {
   display: block;
-  font-size: 0.45rem;
-  letter-spacing: 0.2em;
-  color: #9CA3AF;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .footer__tagline {
@@ -239,4 +250,80 @@
   display: block;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--yellow-500), transparent);
+}
+
+/* Responsive visibility selectors for desktop/mobile footer columns */
+.footer__col--desktop-only {
+  display: block;
+}
+.footer__link--desktop-only {
+  display: block;
+}
+.footer__link--mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  .footer__col--desktop-only {
+    display: none !important;
+  }
+  .footer__link--desktop-only {
+    display: none !important;
+  }
+  .footer__link--mobile-only {
+    display: block !important;
+  }
+  .footer__services-toggle-row.footer__link--mobile-only {
+    display: flex !important;
+  }
+}
+
+/* Footer services dropdown styles (Mobile only) */
+.footer__services-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer__services-chevron-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.footer__services-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out;
+  opacity: 0;
+}
+
+.footer__services-submenu--open {
+  max-height: 250px;
+  opacity: 1;
+  margin-top: 0.5rem;
+}
+
+.footer__services-sublinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 1rem;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer__sublink {
+  font-size: 0.8125rem;
+  color: #9CA3AF;
+  text-decoration: none;
+  transition: color var(--duration-fast);
+}
+
+.footer__sublink:hover {
+  color: var(--yellow-500);
 }

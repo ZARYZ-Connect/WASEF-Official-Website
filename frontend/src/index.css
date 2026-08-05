@@ -164,7 +164,7 @@ input, textarea, select { font-family: inherit; }
   align-items: center;
   gap: var(--space-2);
   padding: 0.75rem 1.75rem;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--text-sm);
@@ -454,6 +454,20 @@ input, textarea, select { font-family: inherit; }
   padding-block: 2rem;
 }
 
+/* Projects page custom hero (image background) */
+section.page-hero.page-hero--projects {
+  background: linear-gradient(rgba(13, 13, 13, 0.72), rgba(13, 13, 13, 0.85)), url("/PROJECTS.png?v=3") no-repeat center center / cover !important;
+  padding: 100px 0 50px !important;
+}
+@media (min-width: 768px) {
+  section.page-hero.page-hero--projects {
+    padding: 160px 0 100px !important;
+  }
+}
+section.page-hero.page-hero--projects h1.heading-display {
+  color: #ffffff !important;
+}
+
 /* ── Light Theme Global Border / Contrast Overrides ── */
 .card,
 .stat-card,
@@ -567,5 +581,16 @@ input, textarea, select { font-family: inherit; }
   }
   .cta-strip__inner h2.heading-display {
     font-size: 1.625rem !important;
+  }
+}
+
+/* Ensure about profile sections left-align content nicely on mobile */
+@media (max-width: 768px) {
+  .about-preview__content {
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+  .about-preview__content .section-label {
+    justify-content: flex-start !important;
   }
 }
