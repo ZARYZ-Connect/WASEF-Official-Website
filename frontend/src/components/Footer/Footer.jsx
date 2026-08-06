@@ -140,18 +140,37 @@ export default function Footer() {
                   <a href="mailto:info@wasefmanufacturing.com" className="footer__link">info@wasefmanufacturing.com</a>
                 </div>
                 
-                <div className="footer__map" style={{ marginTop: '1.25rem', overflow: 'hidden', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <iframe
-                    title="Location Map"
-                    src="https://maps.google.com/maps?q=12.8094263,77.6570621&z=17&output=embed"
-                    width="100%"
-                    height="130"
-                    style={{ border: 0, display: 'block', filter: 'grayscale(1) invert(0.92) contrast(1.1) opacity(0.85)' }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </div>
+                <a 
+                  href="https://www.google.com/maps/@12.8094263,77.6570621,18.5z?entry=ttu&g_ep=EgoyMDI2MDgwMy4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer__map-container"
+                  style={{ 
+                    display: 'block', 
+                    marginTop: '1.25rem', 
+                    position: 'relative', 
+                    overflow: 'hidden', 
+                    borderRadius: '6px', 
+                    border: '1px solid rgba(255,255,255,0.08)' 
+                  }}
+                  aria-label="Open location in Google Maps"
+                >
+                  <div style={{ pointerEvents: 'none' }}>
+                    <iframe
+                      title="Location Map"
+                      src="https://maps.google.com/maps?q=12.8094263,77.6570621&z=17&output=embed"
+                      width="100%"
+                      height="130"
+                      style={{ border: 0, display: 'block', filter: 'grayscale(1) invert(0.92) contrast(1.1) opacity(0.85)' }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+                  <div className="footer__map-overlay">
+                    <span className="footer__map-overlay-text">Click to open Google Maps</span>
+                  </div>
+                </a>
               </address>
             </div>
 
