@@ -352,6 +352,7 @@
   z-index: 5;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+  pointer-events: none;
 }
 
 .footer__map-container:hover .footer__map-overlay {

@@ -464,3 +464,42 @@
   z-index: 2;
   width: 100%;
 }
+
+/* ── Service Detail Hero Mobile Spacing Optimizations ── */
+@media (max-width: 768px) {
+  .svc-detail-hero {
+    padding: 85px 0 45px !important;
+  }
+  .svc-detail-hero--video-bg {
+    padding: 95px 0 80px !important;
+    min-height: 100vh !important; /* Fills the viewport height completely */
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .svc-detail-hero__inner {
+    padding-block: 0.75rem !important;
+  }
+  .svc-breadcrumb {
+    margin-bottom: 0.75rem !important;
+  }
+  .svc-detail-hero__icon {
+    width: 56px !important;
+    height: 56px !important;
+    margin-bottom: 0.75rem !important;
+  }
+  .svc-detail-hero__icon svg {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .svc-detail-hero__desc {
+    margin-top: 0.5rem !important;
+    font-size: 0.9375rem !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .btn-group-responsive {
+    margin-top: 1rem !important;
+  }
+}

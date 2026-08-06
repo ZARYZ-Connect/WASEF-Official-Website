@@ -1839,9 +1839,9 @@ export default function Projects() {
         @media (min-width: 640px) { .machinery-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .machinery-grid { grid-template-columns: repeat(3, 1fr); } }
         .machinery-card { display: flex; flex-direction: column; height: 100%; }
-        .machinery-card__img-container { position: relative; width: 100%; height: 180px; background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden; }
-        .machinery-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease-out); }
-        .machinery-card:hover .machinery-card__img { transform: scale(1.05); }
+        .machinery-card__img-container { position: relative; width: 100%; height: 180px; background: #ffffff; padding: 0.75rem; box-sizing: border-box; border: 1px solid rgba(0,0,0,0.06); border-radius: var(--radius-lg) var(--radius-lg) 0 0; overflow: hidden; }
+        .machinery-card__img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s var(--ease-out); }
+        .machinery-card:hover .machinery-card__img { transform: scale(1.03); }
         .machinery-card__placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--gray-400); padding: 1.25rem; text-align: center; border: 2px dashed rgba(0, 0, 0, 0.08); border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin: 0; box-sizing: border-box; }
         .machinery-card__placeholder svg { color: var(--yellow-500); opacity: 0.8; }
         .machinery-card__placeholder-text { font-weight: 600; font-size: 0.875rem; color: var(--gray-200); }
