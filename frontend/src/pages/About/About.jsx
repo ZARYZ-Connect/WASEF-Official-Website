@@ -272,15 +272,15 @@ export default function About() {
             {/* Visual Highlight or Stats */}
             <div className="about-preview__stats">
               <FadeUp delay={0.1}>
-                <div className="stat-card" style={{ padding: '2.5rem', borderLeft: '4px solid var(--yellow-500)' }}>
-                  <span className="stat-card__number stat-number" style={{ fontSize: '3.5rem' }}>2007</span>
-                  <span className="stat-card__label" style={{ fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Year of Establishment</span>
+                <div className="stat-card">
+                  <span className="stat-card__number stat-number">2007</span>
+                  <span className="stat-card__label">Year of Establishment</span>
                 </div>
               </FadeUp>
               <FadeUp delay={0.2}>
-                <div className="stat-card" style={{ padding: '2.5rem', borderLeft: '4px solid var(--yellow-500)' }}>
-                  <span className="stat-card__number stat-number" style={{ fontSize: '3.5rem' }}>5+</span>
-                  <span className="stat-card__label" style={{ fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Years Professional Experience</span>
+                <div className="stat-card">
+                  <span className="stat-card__number stat-number">5+</span>
+                  <span className="stat-card__label">Years Professional Experience</span>
                 </div>
               </FadeUp>
             </div>

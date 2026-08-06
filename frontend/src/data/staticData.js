@@ -58,7 +58,7 @@ export const SERVICES_DATA = [
 ];
 
 export const STATS_DATA = [
-  { label: 'Promoter Experience', value: 5, suffix: ' Yrs+' },
+  { label: 'Promoter Experience', value: 5, suffix: '\u00A0Yrs+' },
   { label: 'Established', value: 2007, suffix: '' },
   { label: 'Manufacturing Units', value: 2, suffix: '' },
   { label: 'Client Satisfaction', value: 100, suffix: '%' },

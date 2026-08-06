@@ -162,6 +162,8 @@ input, textarea, select { font-family: inherit; }
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: var(--space-2);
   padding: 0.75rem 1.75rem;
   border-radius: var(--radius-full);
@@ -396,6 +398,7 @@ input, textarea, select { font-family: inherit; }
   color: var(--yellow-500);
   line-height: 1;
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 /* ── Page transition ───────────────────────────────────────── */
@@ -452,6 +455,9 @@ input, textarea, select { font-family: inherit; }
   position: relative;
   z-index: 1;
   padding-block: 2rem;
+}
+.page-hero p {
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 /* Projects page custom hero (image background) */

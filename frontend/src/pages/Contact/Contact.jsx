@@ -185,19 +185,19 @@ export default function Contact() {
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label" htmlFor="c-name">Full Name *</label>
-                    <input id="c-name" type="text" className="form-input" placeholder="John Smith" {...register('name')} />
+                    <input id="c-name" type="text" className="form-input" placeholder="Enter your full name" {...register('name')} />
                     {errors.name && <p className="form-error">{errors.name.message}</p>}
                   </div>
                   <div className="form-group">
                     <label className="form-label" htmlFor="c-company">Company</label>
-                    <input id="c-company" type="text" className="form-input" placeholder="Acme Corp" {...register('company')} />
+                    <input id="c-company" type="text" className="form-input" placeholder="Enter your company name" {...register('company')} />
                   </div>
                 </div>
 
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label" htmlFor="c-email">Email Address *</label>
-                    <input id="c-email" type="email" className="form-input" placeholder="you@company.com" {...register('email')} />
+                    <input id="c-email" type="email" className="form-input" placeholder="Enter your email ID" {...register('email')} />
                     {errors.email && <p className="form-error">{errors.email.message}</p>}
                   </div>
                   <div className="form-group">
@@ -206,7 +206,7 @@ export default function Contact() {
                       id="c-phone"
                       type="tel"
                       className="form-input"
-                      placeholder="9876543210"
+                      placeholder="Enter your phone number"
                       maxLength={10}
                       {...register('phone', {
                         onChange: (e) => {
@@ -247,7 +247,7 @@ export default function Contact() {
                     id="c-message"
                     className="form-input"
                     rows={6}
-                    placeholder="Describe your requirements — material, thickness, quantity, tolerance, timeline…"
+                    placeholder="Enter your requirements (material, thickness, quantity, tolerance, timeline...)"
                     {...register('message')}
                   />
                   {errors.message && <p className="form-error">{errors.message.message}</p>}

@@ -2499,6 +2499,77 @@ export default function Projects() {
         section.page-hero.page-hero--projects h1.heading-display {
           color: #ffffff !important;
         }
+        @media (max-width: 640px) {
+          .machine-modal-wrapper {
+            padding: 0.5rem !important;
+          }
+          .machine-modal-content {
+            max-height: calc(100vh - 1rem) !important;
+            border-radius: 12px !important;
+          }
+          .machine-modal-grid {
+            padding: 1rem !important;
+            gap: 1rem !important;
+          }
+          .machine-modal-img-wrapper {
+            max-height: 150px !important;
+          }
+          .machine-modal-specs {
+            margin-top: 0.5rem !important;
+            padding: 0.625rem 0.75rem !important;
+            gap: 0.25rem !important;
+          }
+          .machine-modal-specs h4 {
+            font-size: 0.72rem !important;
+            margin-bottom: 0.25rem !important;
+          }
+          .machine-modal-spec-item {
+            padding-bottom: 0.2rem !important;
+            font-size: 0.75rem !important;
+          }
+          .machine-modal-right h2.heading-display {
+            font-size: 1.25rem !important;
+            margin-bottom: 0.5rem !important;
+          }
+          .machine-modal-right .badge {
+            font-size: 0.68rem !important;
+            padding: 0.2rem 0.5rem !important;
+          }
+          .machine-modal-right div[style*="margin-bottom: 1.5rem"] {
+            margin-bottom: 0.75rem !important;
+          }
+          .machine-modal-right div[style*="margin-bottom: 1.5rem"] p {
+            margin-top: 0.25rem !important;
+            font-size: 0.8125rem !important;
+          }
+          .machine-modal-list-title {
+            margin: 0.75rem 0 0.5rem 0 !important;
+            font-size: 0.8rem !important;
+          }
+          .machine-modal-list-item {
+            font-size: 0.75rem !important;
+            gap: 0.35rem !important;
+          }
+          .machine-modal-close {
+            top: 0.5rem !important;
+            right: 0.5rem !important;
+            width: 2rem !important;
+            height: 2rem !important;
+            font-size: 0.8rem !important;
+          }
+          .machine-modal-actions {
+            padding: 1rem !important;
+            justify-content: center !important;
+          }
+          .machine-modal-actions .btn {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            font-size: 0.8rem !important;
+            padding: 0.75rem 1rem !important;
+          }
+        }
         body.modal-open .navbar {
           z-index: 99 !important;
         }

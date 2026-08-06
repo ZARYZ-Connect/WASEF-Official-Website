@@ -16,7 +16,7 @@
 }
 
 @media (min-width: 1024px) {
-  .footer__grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem; }
+  .footer__grid { grid-template-columns: 2fr 1fr 1.5fr; gap: 3rem; }
 }
 
 /* Brand */

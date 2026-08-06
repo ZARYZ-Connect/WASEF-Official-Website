@@ -89,7 +89,7 @@ def get_sender_confirmation_html(inquiry):
                                 <ul style="padding-left: 20px; margin: 0; color: #475569; font-size: 14px; line-height: 1.7;">
                                     <li><strong>Engineering Review:</strong> Our technical team will analyze your CAD/specs and materials requirements.</li>
                                     <li><strong>Prompt Response:</strong> A dedicated sales engineer will contact you within <strong>24 business hours</strong> with a formal quote or technical response.</li>
-                                    <li><strong>Need urgent assistance?</strong> Call our direct desk at <a href="tel:+918012345678" style="color: #d97706; text-decoration: none; font-weight: 600;">+91 80 1234 5678</a>.</li>
+                                    <li><strong>Need urgent assistance?</strong> Call our direct desk at <a href="tel:+919916353979" style="color: #d97706; text-decoration: none; font-weight: 600;">+91 99163 53979</a>.</li>
                                 </ul>
                             </div>
 

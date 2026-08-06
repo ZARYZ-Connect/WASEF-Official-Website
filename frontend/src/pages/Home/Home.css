@@ -288,13 +288,19 @@
   gap: 0.5rem;
   transition: all var(--duration-normal);
 }
+@media (max-width: 480px) {
+  .stat-card {
+    padding: 1rem;
+    gap: 0.25rem;
+  }
+}
 .stat-card:hover {
   border-color: rgba(255,199,44,0.3);
   box-shadow: 0 0 30px rgba(255,199,44,0.08);
 }
 
 .stat-card__number {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
 }
 .stat-card__label {
   font-size: 0.8125rem;
