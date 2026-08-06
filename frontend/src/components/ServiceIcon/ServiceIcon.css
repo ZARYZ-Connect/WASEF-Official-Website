@@ -13,15 +13,14 @@
 .icon-laser-head {
   transition: transform var(--duration-normal) var(--ease-out);
 }
-.icon-laser-beam {
+.icon-laser-beam-glow,
+.icon-laser-beam-core {
   opacity: 0;
-  stroke-dasharray: 4 2;
   transition: opacity var(--duration-fast);
 }
-.icon-laser-sparks {
-  opacity: 0;
+.spark {
   transform-origin: 12px 18px;
-  transition: opacity var(--duration-fast);
+  opacity: 0;
 }
 
 /* Hover effects */
@@ -29,27 +28,59 @@
 .svc-row:hover .icon-laser-head {
   animation: laserCutHead 2s infinite ease-in-out;
 }
-.service-card:hover .icon-laser-beam,
-.svc-row:hover .icon-laser-beam {
-  opacity: 1;
-  animation: laserBeamFlicker 0.15s infinite;
+.service-card:hover .icon-laser-beam-glow,
+.svc-row:hover .icon-laser-beam-glow {
+  opacity: 0.45;
+  animation: laserGlowFlicker 0.12s infinite;
 }
-.service-card:hover .icon-laser-sparks,
-.svc-row:hover .icon-laser-sparks {
-  animation: laserSparksFlash 0.3s infinite alternate;
+.service-card:hover .icon-laser-beam-core,
+.svc-row:hover .icon-laser-beam-core {
+  opacity: 1;
+  animation: laserCoreJitter 0.15s infinite;
 }
 
+.service-card:hover .spark,
+.svc-row:hover .spark {
+  opacity: 1;
+}
+
+.service-card:hover .spark--1, .svc-row:hover .spark--1 { animation: sparkFly1 0.55s infinite ease-out; }
+.service-card:hover .spark--2, .svc-row:hover .spark--2 { animation: sparkFly2 0.42s infinite ease-out 0.08s; }
+.service-card:hover .spark--3, .svc-row:hover .spark--3 { animation: sparkFly3 0.48s infinite ease-out 0.04s; }
+.service-card:hover .spark--4, .svc-row:hover .spark--4 { animation: sparkFly4 0.52s infinite ease-out 0.12s; }
+.service-card:hover .spark--5, .svc-row:hover .spark--5 { animation: sparkFly5 0.38s infinite ease-out 0.06s; }
+
 @keyframes laserCutHead {
-  0%, 100% { transform: translateX(-2px); }
-  50% { transform: translateX(2px); }
+  0%, 100% { transform: translateX(-5.5px); }
+  50% { transform: translateX(5.5px); }
 }
-@keyframes laserBeamFlicker {
-  0%, 100% { stroke-width: 2.5px; opacity: 0.85; }
-  50% { stroke-width: 3.5px; opacity: 1; }
+@keyframes laserGlowFlicker {
+  0%, 100% { stroke-width: 2.6px; opacity: 0.35; }
+  50% { stroke-width: 4.8px; opacity: 0.65; }
 }
-@keyframes laserSparksFlash {
-  0% { opacity: 0.3; transform: scale(0.8) rotate(-5deg); }
-  100% { opacity: 1; transform: scale(1.25) rotate(5deg); }
+@keyframes laserCoreJitter {
+  0%, 100% { stroke-width: 1px; }
+  50% { stroke-width: 1.4px; }
+}
+@keyframes sparkFly1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-9px, -6px) scale(0); opacity: 0; }
+}
+@keyframes sparkFly2 {
+  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  100% { transform: translate(10px, -5px) scale(0); opacity: 0; }
+}
+@keyframes sparkFly3 {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 1; }
+  100% { transform: translate(-6px, 7px) scale(0); opacity: 0; }
+}
+@keyframes sparkFly4 {
+  0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  100% { transform: translate(8px, 6px) scale(0); opacity: 0; }
+}
+@keyframes sparkFly5 {
+  0% { transform: translate(0, 0) scale(1.3); opacity: 1; }
+  100% { transform: translate(-1px, 9px) scale(0); opacity: 0; }
 }
 
 
@@ -61,6 +92,10 @@
 .icon-bend-sheet {
   transition: d var(--duration-normal) var(--ease-out);
 }
+.bend-force-ring {
+  transform-origin: 12px 17.5px;
+  opacity: 0;
+}
 
 /* Hover effects */
 .service-card:hover .icon-bend-punch,
@@ -71,6 +106,20 @@
 .svc-row:hover .icon-bend-sheet {
   d: path("M 2,11 L 12,17.5 L 22,11");
 }
+.service-card:hover .bend-force-ring--1,
+.svc-row:hover .bend-force-ring--1 {
+  animation: forceRingPulse 1.2s infinite ease-out 0.2s;
+}
+.service-card:hover .bend-force-ring--2,
+.svc-row:hover .bend-force-ring--2 {
+  animation: forceRingPulse 1.2s infinite ease-out 0.4s;
+}
+
+@keyframes forceRingPulse {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
 
 
 /* ── 3. Fabrication & Assembly Animation ── */
@@ -78,10 +127,16 @@
   transition: transform var(--duration-normal) var(--ease-out);
   transform-origin: 20px 4px;
 }
-.icon-weld-sparks {
+.weld-arc-glow {
+  transform-origin: 10.8px 13.8px;
   opacity: 0;
-  transform-origin: 12px 12px;
-  transition: opacity var(--duration-fast);
+}
+.weld-arc-core {
+  opacity: 0;
+}
+.weld-spark {
+  transform-origin: 12px 14px;
+  opacity: 0;
 }
 
 /* Hover effects */
@@ -89,18 +144,53 @@
 .svc-row:hover .icon-weld-torch {
   animation: weldVibrate 0.1s infinite alternate;
 }
-.service-card:hover .icon-weld-sparks,
-.svc-row:hover .icon-weld-sparks {
-  animation: weldSparksFlash 0.2s infinite;
+.service-card:hover .weld-arc-glow,
+.svc-row:hover .weld-arc-glow {
+  opacity: 0.55;
+  animation: arcGlowPulse 0.15s infinite alternate;
 }
+.service-card:hover .weld-arc-core,
+.svc-row:hover .weld-arc-core {
+  opacity: 1;
+  animation: arcCoreJitter 0.08s infinite alternate;
+}
+
+.service-card:hover .weld-spark,
+.svc-row:hover .weld-spark {
+  opacity: 1;
+}
+.service-card:hover .weld-spark--1, .svc-row:hover .weld-spark--1 { animation: weldSparkFly1 0.45s infinite ease-out; }
+.service-card:hover .weld-spark--2, .svc-row:hover .weld-spark--2 { animation: weldSparkFly2 0.38s infinite ease-out 0.08s; }
+.service-card:hover .weld-spark--3, .svc-row:hover .weld-spark--3 { animation: weldSparkFly3 0.42s infinite ease-out 0.04s; }
+.service-card:hover .weld-spark--4, .svc-row:hover .weld-spark--4 { animation: weldSparkFly4 0.48s infinite ease-out 0.12s; }
 
 @keyframes weldVibrate {
   0% { transform: translate(0, 0) scale(1.02); }
   100% { transform: translate(-0.75px, 0.75px) scale(0.98); }
 }
-@keyframes weldSparksFlash {
-  0%, 100% { opacity: 0; transform: scale(0.6); }
-  50% { opacity: 1; transform: scale(1.3); }
+@keyframes arcGlowPulse {
+  0% { transform: scale(0.85); opacity: 0.4; }
+  100% { transform: scale(1.2); opacity: 0.7; }
+}
+@keyframes arcCoreJitter {
+  0% { transform: scale(0.7) translate(-0.2px, -0.2px); }
+  100% { transform: scale(1.3) translate(0.2px, 0.2px); }
+}
+@keyframes weldSparkFly1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-7px, -5px) scale(0); opacity: 0; }
+}
+@keyframes weldSparkFly2 {
+  0% { transform: translate(0, 0) scale(1.2); opacity: 1; }
+  100% { transform: translate(8px, -6px) scale(0); opacity: 0; }
+}
+@keyframes weldSparkFly3 {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 1; }
+  100% { transform: translate(-4px, -8px) scale(0); opacity: 0; }
+}
+@keyframes weldSparkFly4 {
+  0% { transform: translate(0, 0) scale(1.1); opacity: 1; }
+  100% { transform: translate(6px, -4px) scale(0); opacity: 0; }
 }
 
 
@@ -108,11 +198,28 @@
 .icon-caliper-jaw {
   transition: transform var(--duration-normal) var(--ease-out);
 }
+.caliper-dimension-line {
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
 
 /* Hover effects */
 .service-card:hover .icon-caliper-jaw,
 .svc-row:hover .icon-caliper-jaw {
-  transform: translateX(-4px);
+  animation: caliperSlide 2.5s infinite ease-in-out;
+}
+.service-card:hover .caliper-dimension-line,
+.svc-row:hover .caliper-dimension-line {
+  animation: dimensionLinePulse 2.5s infinite ease-in-out;
+}
+
+@keyframes caliperSlide {
+  0%, 100% { transform: translateX(0); }
+  40%, 75% { transform: translateX(-4.5px); }
+}
+@keyframes dimensionLinePulse {
+  0%, 100% { opacity: 0; }
+  40%, 75% { opacity: 0.85; }
 }
 
 
@@ -120,14 +227,112 @@
 .icon-crane-lift {
   transition: transform var(--duration-slow) var(--ease-out);
 }
+.crane-tension-wave {
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
 
 /* Hover effects */
 .service-card:hover .icon-crane-lift,
 .svc-row:hover .icon-crane-lift {
   animation: craneHoisting 2.5s infinite ease-in-out;
 }
+.service-card:hover .crane-tension-wave,
+.svc-row:hover .crane-tension-wave {
+  animation: craneTensionPulse 2.5s infinite ease-in-out;
+}
 
 @keyframes craneHoisting {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
+}
+@keyframes craneTensionPulse {
+  0%, 100% { opacity: 0; }
+  30%, 70% { opacity: 0.8; }
+}
+
+
+/* ── Permanent Animations for Service Details Page Hero Icon ── */
+.svc-detail-hero__icon .icon-laser-head {
+  animation: laserCutHead 2s infinite ease-in-out;
+}
+.svc-detail-hero__icon .icon-laser-beam-glow {
+  opacity: 0.45 !important;
+  animation: laserGlowFlicker 0.12s infinite;
+}
+.svc-detail-hero__icon .icon-laser-beam-core {
+  opacity: 1 !important;
+  animation: laserCoreJitter 0.15s infinite;
+}
+.svc-detail-hero__icon .spark {
+  opacity: 1 !important;
+}
+.svc-detail-hero__icon .spark--1 { animation: sparkFly1 0.55s infinite ease-out; }
+.svc-detail-hero__icon .spark--2 { animation: sparkFly2 0.42s infinite ease-out 0.08s; }
+.svc-detail-hero__icon .spark--3 { animation: sparkFly3 0.48s infinite ease-out 0.04s; }
+.svc-detail-hero__icon .spark--4 { animation: sparkFly4 0.52s infinite ease-out 0.12s; }
+.svc-detail-hero__icon .spark--5 { animation: sparkFly5 0.38s infinite ease-out 0.06s; }
+
+/* CNC Bending */
+.svc-detail-hero__icon .icon-bend-punch {
+  animation: bendPunchCycle 2.5s infinite ease-in-out;
+}
+.svc-detail-hero__icon .icon-bend-sheet {
+  animation: bendSheetCycle 2.5s infinite ease-in-out;
+}
+.svc-detail-hero__icon .bend-force-ring--1 {
+  animation: forceRingPulse 2.5s infinite ease-out 0.9s;
+}
+.svc-detail-hero__icon .bend-force-ring--2 {
+  animation: forceRingPulse 2.5s infinite ease-out 1.1s;
+}
+
+@keyframes bendPunchCycle {
+  0%, 100% { transform: translateY(0); }
+  40%, 65% { transform: translateY(4.5px); }
+}
+@keyframes bendSheetCycle {
+  0%, 100% { d: path("M 2,13 L 12,13 L 22,13"); }
+  40%, 65% { d: path("M 2,11 L 12,17.5 L 22,11"); }
+}
+
+/* Fabrication & Assembly */
+.svc-detail-hero__icon .icon-weld-torch {
+  animation: weldVibrate 0.1s infinite alternate;
+}
+.svc-detail-hero__icon .weld-arc-glow {
+  opacity: 0.55 !important;
+  animation: arcGlowPulse 0.15s infinite alternate;
+}
+.svc-detail-hero__icon .weld-arc-core {
+  opacity: 1 !important;
+  animation: arcCoreJitter 0.08s infinite alternate;
+}
+.svc-detail-hero__icon .weld-spark {
+  opacity: 1 !important;
+}
+.svc-detail-hero__icon .weld-spark--1 { animation: weldSparkFly1 0.45s infinite ease-out; }
+.svc-detail-hero__icon .weld-spark--2 { animation: weldSparkFly2 0.38s infinite ease-out 0.08s; }
+.svc-detail-hero__icon .weld-spark--3 { animation: weldSparkFly3 0.42s infinite ease-out 0.04s; }
+.svc-detail-hero__icon .weld-spark--4 { animation: weldSparkFly4 0.48s infinite ease-out 0.12s; }
+
+/* Precision Sheet Metal */
+.svc-detail-hero__icon .icon-caliper-jaw {
+  animation: caliperMeasureCycle 3s infinite ease-in-out;
+}
+.svc-detail-hero__icon .caliper-dimension-line {
+  animation: dimensionLinePulse 3s infinite ease-in-out;
+}
+
+@keyframes caliperMeasureCycle {
+  0%, 100% { transform: translateX(0); }
+  40%, 75% { transform: translateX(-4.5px); }
+}
+
+/* Custom Metal Fabrication */
+.svc-detail-hero__icon .icon-crane-lift {
+  animation: craneHoisting 2.5s infinite ease-in-out;
+}
+.svc-detail-hero__icon .crane-tension-wave {
+  animation: craneTensionPulse 2.5s infinite ease-in-out;
 }

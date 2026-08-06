@@ -28,6 +28,18 @@ export default function Navbar() {
   const location = useLocation();
   const megaRef  = useRef(null);
 
+  const getCurrentPageLabel = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Home';
+    if (path === '/about') return 'About';
+    if (path.startsWith('/services')) return 'Services';
+    if (path === '/projects') return 'Projects';
+    if (path === '/contact') return 'Contact';
+    if (path === '/privacy') return 'Privacy';
+    if (path === '/terms') return 'Terms';
+    return 'Menu';
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -177,7 +189,7 @@ export default function Navbar() {
         <div className="navbar-mobile-header" onClick={() => setMenuOpen(!menuOpen)}>
           <div className="navbar-mobile-brand">
             <img src="/wasef-logo.png" alt="WASEF Logo" className="navbar-mobile-logo" />
-            <span className="navbar-mobile-title">WASEF Menu</span>
+            <span className="navbar-mobile-title">WASEF • {getCurrentPageLabel()}</span>
           </div>
           <div className={`navbar-mobile-chevron ${menuOpen ? 'navbar-mobile-chevron--open' : ''}`}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

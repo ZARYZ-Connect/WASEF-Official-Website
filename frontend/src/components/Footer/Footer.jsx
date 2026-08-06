@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Footer.css';
 
 const SERVICES_LINKS = [
@@ -21,6 +21,7 @@ const COMPANY_LINKS = [
 export default function Footer() {
   const year = new Date().getFullYear();
   const [servicesExpanded, setServicesExpanded] = useState(false);
+  const location = useLocation();
 
   return (
     <footer className="footer" role="contentinfo">
@@ -52,7 +53,12 @@ export default function Footer() {
                     return (
                       <li key={l.href} className="footer__link-item--services">
                         <div className="footer__services-toggle-row">
-                          <Link to={l.href} className="footer__link">Services</Link>
+                          <Link 
+                            to={l.href} 
+                            className={`footer__link ${location.pathname.startsWith('/services') ? 'footer__link--active' : ''}`}
+                          >
+                            Services
+                          </Link>
                           <button 
                             type="button" 
                             className="footer__services-chevron-btn"
@@ -82,7 +88,12 @@ export default function Footer() {
                           <ul className="footer__services-sublinks">
                             {SERVICES_LINKS.map(sub => (
                               <li key={sub.href}>
-                                <Link to={sub.href} className="footer__sublink">{sub.label}</Link>
+                                <Link 
+                                  to={sub.href} 
+                                  className={`footer__sublink ${location.pathname === sub.href ? 'footer__sublink--active' : ''}`}
+                                >
+                                  {sub.label}
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -92,7 +103,12 @@ export default function Footer() {
                   }
                   return (
                     <li key={l.href}>
-                      <Link to={l.href} className="footer__link">{l.label}</Link>
+                      <Link 
+                        to={l.href} 
+                        className={`footer__link ${location.pathname === l.href ? 'footer__link--active' : ''}`}
+                      >
+                        {l.label}
+                      </Link>
                     </li>
                   );
                 })}

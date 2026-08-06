@@ -5,6 +5,7 @@ export default function LoadingScreen({ onFinish }) {
   const videoRef = useRef(null);
   const [visible, setVisible] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
 
   const dismiss = () => {
     if (fadeOut) return;
@@ -50,7 +51,17 @@ export default function LoadingScreen({ onFinish }) {
         playsInline
         autoPlay
         preload="auto"
+        onPlaying={() => setVideoStarted(true)}
       />
+      
+      {/* Premium circular loading spinner */}
+      <div className={`loading-screen__spinner-container${videoStarted ? ' loading-screen__spinner-container--hidden' : ''}`}>
+        <div className="loading-screen__spinner-ring"></div>
+        <div className="loading-screen__spinner-ring-inner"></div>
+        <div className="loading-screen__spinner-dot"></div>
+        <div className="loading-screen__spinner-text">Loading Experience...</div>
+      </div>
+
       {/* Skip button – appears after 1 s */}
       <button
         className="loading-screen__skip"

@@ -327,3 +327,9 @@
 .footer__sublink:hover {
   color: var(--yellow-500);
 }
+
+.footer__link--active,
+.footer__sublink--active {
+  color: var(--yellow-500) !important;
+  font-weight: 700 !important;
+}

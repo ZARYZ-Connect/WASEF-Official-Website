@@ -308,6 +308,23 @@
   font-weight: 500;
 }
 
+@media (max-width: 640px) {
+  .about-preview__stats {
+    gap: 0.75rem !important;
+  }
+  .stat-card {
+    padding: 1.25rem 1rem !important;
+    gap: 0.5rem !important;
+  }
+  .stat-card__number {
+    font-size: 2rem !important;
+  }
+  .stat-card__label {
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+  }
+}
+
 /* ── Certifications ─────────────────────────────────────────────── */
 .cert-badge {
   background: var(--charcoal-700);
@@ -584,11 +601,29 @@
   -webkit-backface-visibility: hidden;
 }
 
+@media (max-width: 639px) {
+  .industry-card:last-child {
+    grid-column: span 2;
+    justify-self: center;
+    width: calc(50% - 0.5rem);
+  }
+}
+
 @media (min-width: 640px) {
   .industries-grid { grid-template-columns: repeat(3, 1fr); }
+  .industry-card:last-child {
+    grid-column: span 3;
+    justify-self: center;
+    width: calc(33.333% - 0.67rem);
+  }
 }
 @media (min-width: 1024px) {
   .industries-grid { grid-template-columns: repeat(7, 1fr); max-width: none; }
+  .industry-card:last-child {
+    grid-column: auto;
+    justify-self: stretch;
+    width: auto;
+  }
 }
 
 .industry-card {

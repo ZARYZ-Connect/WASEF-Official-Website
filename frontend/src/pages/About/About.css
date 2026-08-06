@@ -585,13 +585,21 @@
 }
 
 @media (max-width: 640px) {
+  .about-preview__stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
   .about-preview__stats .stat-card {
-    padding: 1.5rem;
+    padding: 1.25rem 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
   }
   .about-preview__stats .stat-card__number {
-    font-size: 2.5rem;
+    font-size: 2rem !important;
   }
   .about-preview__stats .stat-card__label {
-    font-size: 0.875rem;
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
   }
 }
